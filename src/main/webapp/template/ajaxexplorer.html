@@ -1,0 +1,1265 @@
+<head>
+<style type="text/css"></style>
+<title>AjaXplorer - /</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+<link rel="stylesheet" type="text/css"
+	href="plugins/gui.ajax/res/themes/umbra/css/allz.css?v=4.2.3">
+<script language="javascript" type="text/javascript"
+	src="plugins/gui.ajax/res/js/ajaxplorer_boot.js?v=4.2.3"></script>
+<script type="text/javascript">
+	eval(window.my_code)
+</script>
+<style id="resizer_css-table_rows_container-1" type="text/css"></style>
+<script type="text/javascript">
+	eval(window.my_code)
+</script>
+<script type="text/javascript">
+	eval(window.my_code)
+</script>
+<script type="text/javascript">
+	eval(window.my_code)
+</script>
+<script type="text/javascript">
+	eval(window.my_code)
+</script>
+<script type="text/javascript">
+	eval(window.my_code)
+</script>
+<script type="text/javascript">
+	eval(window.my_code)
+</script>
+<link
+	href="http://localhost/ajaxexplorer/plugins/gui.ajax/res/themes/umbra/images/html-folder.png"
+	type="image/x-png" rel="icon">
+</head>
+<body leftmargin="0" topmargin="0" style="overflow: hidden;"
+	bgcolor="#FFFFFF" marginheight="0" marginwidth="0" text="#000000">
+	<script type="text/javascript">
+		// Initialize booter. Do not remove the commented line AJXP_JSON_START_PARAMETERS, as it is 
+		// dynamically replaced by the application!
+		var ajaxplorer, startParameters = {}, MessageHash = {};
+		startParameters = {
+			"BOOTER_URL": "index.php?get_action=get_boot_conf",
+			"MAIN_ELEMENT": "ajxp_desktop",
+			"EXT_REP": "\/"
+		};
+		window.ajxpBootstrap = new AjxpBootstrap(startParameters);
+	</script>
+	<div style="height: 766px;" id="ajxp_desktop" ajxpclass="AjxpPane"
+		ajxpoptions="{&quot;fit&quot;:&quot;height&quot;,&quot;fitParent&quot;:&quot;window&quot;,&quot;fitMarginBottom&quot;:&quot;$(\&quot;optional_bottom_div\&quot;).getHeight()&quot;}">
+		<div id="toolbars">
+			<div>
+				<a style="height: 51px; display: none;" rel="prev"
+					class="carousel-control"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/arrow_left.png"></a><a
+					style="float: right; height: 51px; display: none;" rel="next"
+					class="carousel-control"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/arrow_right.png"></a>
+				<div style="width: 1353px;" id="buttons_bar"
+					class="action_bar protomenu_selector icon_text"
+					ajxpclass="ActionsToolbar"
+					ajxpoptions="{&quot;skipBubbling&quot;:true,&quot;defaultIconSize&quot;:16,&quot;defaultStyle&quot;:&quot;icon_text&quot;,&quot;styles&quot;:{&quot;icons_only&quot;:&quot;Icons Only&quot;,&quot;icon_text&quot;:&quot;Icons and Text&quot;,&quot;text_only&quot;:&quot;Text only&quot;},&quot;stylesImgSizes&quot;:{&quot;icons_only&quot;:22,&quot;icon_text&quot;:16,&quot;text_only&quot;:16},&quot;stylesBarSizes&quot;:{&quot;icons_only&quot;:40,&quot;icon_text&quot;:51,&quot;text_only&quot;:30}}">
+					<div style="width: 1000px;" id="buttons_inner">
+						<div style="display: inline;" id="default_toolbar">
+							<div style="height: 51px;" class="separator"></div>
+							<a class="no_select_bg" style="-moz-user-select: none;"
+								id="folding_action_button" href="folding_action"><img
+								data-action-src="view_left_close.png"
+								title="Toggle left pane visibility"
+								alt="Toggle left pane visibility"
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/22/view_left_close.png"
+								class="actionbar_button_icon" id="folding_action_button_icon"
+								border="0" height="16" width="16"><span
+								class="actionbar_button_label" id="folding_action_button_label">Left
+									Pane</span></a><a style="position: relative; -moz-user-select: none;"
+								class="protomenu_selector no_select_bg"
+								id="multi_display_button" href="multi_display"><img
+								data-action-src="view_text.png" title="Switch display mode..."
+								alt="Switch display mode..."
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/16/view_icon.png"
+								class="actionbar_button_icon" id="multi_display_button_icon"
+								border="0" height="16" width="16"><span
+								class="actionbar_button_label" id="multi_display_button_label">Display</span>
+							<div class="actionbar_arrow_div">
+									<img
+										src="plugins/gui.ajax/res/themes/umbra/images/arrow_down.png"
+										border="0" height="6" width="10">
+								</div></a>
+						</div>
+						<div style="display: inline;" id="put_toolbar">
+							<div style="height: 51px;" class="separator"></div>
+							<a style="position: relative; -moz-user-select: none;"
+								class="protomenu_selector no_select_bg" id="upload_button"
+								href="upload"><img data-action-src="yast_backup.png"
+								title="Upload" alt="Upload"
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/16/yast_backup.png"
+								class="actionbar_button_icon" id="upload_button_icon" border="0"
+								height="16" width="16"><span
+								class="actionbar_button_label" id="upload_button_label"><u>U</u>pload</span>
+							<div class="actionbar_arrow_div">
+									<img
+										src="plugins/gui.ajax/res/themes/umbra/images/arrow_down.png"
+										border="0" height="6" width="10">
+								</div></a><a class="no_select_bg" style="-moz-user-select: none;"
+								id="download_button" href="download"><img
+								data-action-src="download_manager.png" title="Download"
+								alt="Download"
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/22/download_manager.png"
+								class="actionbar_button_icon" id="download_button_icon"
+								border="0" height="16" width="16"><span
+								class="actionbar_button_label" id="download_button_label">Do<u>w</u>nload
+							</span></a><a style="position: relative; -moz-user-select: none;"
+								class="protomenu_selector no_select_bg" id="open_with_button"
+								href="open_with"><img data-action-src="fileopen.png"
+								title="Open in..." alt="Open in..."
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/16/fileopen.png"
+								class="actionbar_button_icon" id="open_with_button_icon"
+								border="0" height="16" width="16"><span
+								class="actionbar_button_label" id="open_with_button_label">Op<u>e</u>n
+									in...
+							</span>
+							<div class="actionbar_arrow_div">
+									<img
+										src="plugins/gui.ajax/res/themes/umbra/images/arrow_down.png"
+										border="0" height="6" width="10">
+								</div></a><a class="no_select_bg" style="-moz-user-select: none;"
+								id="share_button" href="share"><img
+								data-action-src="share.png" title="Share..." alt="Share..."
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/16/share.png"
+								class="actionbar_button_icon" id="share_button_icon" border="0"
+								height="16" width="16"><span
+								class="actionbar_button_label" id="share_button_label">Share...</span></a>
+						</div>
+						<div style="display: inline;" id="get_toolbar">
+							<div style="height: 51px; display: none;" class="separator"></div>
+							<a class="no_select_bg disabled"
+								style="-moz-user-select: none; display: none;"
+								id="external_download_file_button" href="external_download_file"><img
+								data-action-src="httpdownloader_images/ICON_SIZE/kget_list.png"
+								title="Download file(s) from remote server"
+								alt="Download file(s) from remote server"
+								src="plugins/downloader.http/resources/images/16/kget_list.png"
+								class="actionbar_button_icon"
+								id="external_download_file_button_icon" border="0" height="16"
+								width="16"><span class="actionbar_button_label"
+								id="external_download_file_button_label">Remote DL</span></a>
+						</div>
+						<div style="display: inline;" id="change_toolbar">
+							<div style="height: 51px;" class="separator"></div>
+							<a class="no_select_bg"
+								style="display: none; -moz-user-select: none;"
+								id="empty_recycle_button" href="empty_recycle"><img
+								data-action-src="trashcan_empty.png" title="Empty Recycle Bin"
+								alt="Empty Recycle Bin"
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/16/trashcan_empty.png"
+								class="actionbar_button_icon" id="empty_recycle_button_icon"
+								border="0" height="16" width="16"><span
+								class="actionbar_button_label" id="empty_recycle_button_label">Empt<u>y</u></span></a><a
+								class="no_select_bg"
+								style="display: none; -moz-user-select: none;"
+								id="restore_button" href="restore"><img
+								data-action-src="folder1_important.png"
+								title="Restore file to its original location"
+								alt="Restore file to its original location"
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/16/folder1_important.png"
+								class="actionbar_button_icon" id="restore_button_icon"
+								border="0" height="16" width="16"><span
+								class="actionbar_button_label" id="restore_button_label">Rest<u>o</u>re
+							</span></a><a class="no_select_bg" style="-moz-user-select: none;"
+								id="mkdir_button" href="mkdir"><img
+								data-action-src="folder_new.png" title="Create new directory"
+								alt="Create new directory"
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/16/folder_new.png"
+								class="actionbar_button_icon" id="mkdir_button_icon" border="0"
+								height="16" width="16"><span
+								class="actionbar_button_label" id="mkdir_button_label"><u>N</u>ew
+									Dir</span></a><a class="no_select_bg" style="-moz-user-select: none;"
+								id="rename_button" href="rename"><img
+								data-action-src="applix.png"
+								title="Rename selected file or folder"
+								alt="Rename selected file or folder"
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/16/applix.png"
+								class="actionbar_button_icon" id="rename_button_icon" border="0"
+								height="16" width="16"><span
+								class="actionbar_button_label" id="rename_button_label"><u>R</u>ename</span></a><a
+								class="no_select_bg" style="-moz-user-select: none;"
+								id="copy_button" href="copy"><img
+								data-action-src="editcopy.png" title="Copy selection to..."
+								alt="Copy selection to..."
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/16/editcopy.png"
+								class="actionbar_button_icon" id="copy_button_icon" border="0"
+								height="16" width="16"><span
+								class="actionbar_button_label" id="copy_button_label"><u>C</u>opy</span></a><a
+								class="no_select_bg" style="-moz-user-select: none;"
+								id="move_button" href="move"><img
+								data-action-src="editpaste.png"
+								title="Move selected files to ..."
+								alt="Move selected files to ..."
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/16/editpaste.png"
+								class="actionbar_button_icon" id="move_button_icon" border="0"
+								height="16" width="16"><span
+								class="actionbar_button_label" id="move_button_label"><u>M</u>ove</span></a><a
+								class="no_select_bg" style="-moz-user-select: none;"
+								id="delete_button" href="delete"><img
+								data-action-src="editdelete.png" title="Delete selected files."
+								alt="Delete selected files."
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/16/editdelete.png"
+								class="actionbar_button_icon" id="delete_button_icon" border="0"
+								height="16" width="16"><span
+								class="actionbar_button_label" id="delete_button_label"><u>D</u>elete</span></a>
+						</div>
+						<div style="display: inline;" id="user_toolbar">
+							<div style="height: 51px;" class="separator"></div>
+							<a class="no_select_bg"
+								style="display: none; -moz-user-select: none;" id="login_button"
+								href="login"><img data-action-src="encrypted.png"
+								title="Connect to AjaXplorer" alt="Connect to AjaXplorer"
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/16/encrypted.png"
+								class="actionbar_button_icon" id="login_button_icon" border="0"
+								height="16" width="16"><span
+								class="actionbar_button_label" id="login_button_label">Log
+									in</span></a><a class="no_select_bg" style="-moz-user-select: none;"
+								id="splash_button" href="splash"><img
+								data-action-src="info.png" title="About AjaXplorer"
+								alt="About AjaXplorer"
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/16/info.png"
+								class="actionbar_button_icon" id="splash_button_icon" border="0"
+								height="16" width="16"><span
+								class="actionbar_button_label" id="splash_button_label"><u>A</u>bout</span></a>
+						</div>
+					</div>
+				</div>
+				<div id="locationbar_cont" class="css_gradient">
+					<div style="height: 100%;" class="separator"></div>
+					<div style="padding-top: 5px;">
+						<div id="repo_chooser" ajxpclass="RepositorySelect">
+							<div id="repository_form">
+								<img src="plugins/access.fs/icon.png" id="repo_icon"
+									align="absmiddle" height="16" width="16"><input
+									id="repo_path" value="No Repository" name="repo_path"
+									type="text">
+							</div>
+							<div style="margin-right: 7px;"
+								class="inlineBarButton protomenu_selector" id="repository_goto">
+								<img
+									style="height: 6px; width: 10px; margin-left: 1px; margin-right: 1px; margin-top: 8px;"
+									ajxp_message_title="Switch Repository to..."
+									title="Switch Repository to..."
+									src="plugins/gui.ajax/res/themes/umbra/images/arrow_down.png"
+									height="16" width="16">
+							</div>
+						</div>
+						<div id="locationBar" ajxpclass="LocationBar"
+							ajxpoptions="{&quot;flexTo&quot;:&quot;locationbar_cont&quot;,&quot;searchButton&quot;:&quot;searchbar_splitter&quot;,&quot;searchIcon&quot;:&quot;xmag.png&quot;, &quot;searchFocus&quot;:&quot;search_txt&quot;}">
+							<div class="inlineBarButtonRight" id="goto_parent">
+								<img ajxp_message_title="Parent directory"
+									title="Parent directory"
+									src="plugins/gui.ajax/res/themes/umbra/images/actions/16/goto_parent.png"
+									height="16" width="16">
+							</div>
+							<div id="location_form">
+								<input style="display: none; width: 320px;" autocomplete="off"
+									value="/" id="current_path" type="text">
+								<div
+									style="font-size: 11px; height: 15px; font-family: Trebuchet MS, sans-serif, Nimbus Sans L; z-index: 10000; background-color: white; white-space: nowrap; overflow: hidden; width: 320px;"
+									class="location_bar_label">/Default Files</div>
+							</div>
+							<div class="inlineBarButton" id="location_goto">
+								<img ajxp_message_title="Go to the given location"
+									title="Go to the given location"
+									src="plugins/gui.ajax/res/themes/umbra/images/actions/16/reload.png"
+									height="16" width="16">
+							</div>
+							<div style="position: relative;" class="inlineBarButtonLeft"
+								id="search_panel_button">
+								<img
+									ajxp_message_title="Search in current folder and sub-folders"
+									title="Search in current folder and sub-folders"
+									src="plugins/gui.ajax/res/themes/umbra/images/actions/16/xmag.png"
+									height="16" width="16"><img class="simple_button_arrow"
+									src="plugins/gui.ajax/res/themes/umbra/images/arrow_down.png"
+									height="6" width="10">
+							</div>
+							<div style="position: relative;"
+								class="inlineBarButtonLeft protomenu_selector"
+								id="bookmarks_goto">
+								<img ajxp_message_title="My Bookmarks" title="My Bookmarks"
+									src="plugins/gui.ajax/res/themes/umbra/images/actions/16/bookmark.png"
+									height="16" width="16"><img class="simple_button_arrow"
+									src="plugins/gui.ajax/res/themes/umbra/images/arrow_down.png"
+									height="6" width="10">
+							</div>
+						</div>
+						<div class="protomenu_selector" id="logging_string"
+							ajxpclass="UserWidget">
+							<div class="user_widget_label">
+								<ajxp:message ajxp_message_id="142">Logged as </ajxp:message>
+								<i ajxp_message_title_id="189" title="Edit My Preferences">admin
+								</i>
+							</div>
+							<div class="inlineBarButtonLeft"
+								style="-moz-border-radius: 0pt 5px 5px 0pt; border-radius: 0pt 5px 5px 0pt; border-left-style: none; border-width: 1px;">
+								<img
+									style="height: 6px; width: 10px; margin-top: 9px; margin-left: 3px; margin-right: 3px;"
+									ajxp_message_title="189" title="Edit My Preferences"
+									src="plugins/gui.ajax/res/themes/umbra/images/arrow_down.png"
+									height="16" width="16">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="height: 681px;" id="browser" ajxpclass="AjxpPane"
+			ajxpoptions="{&quot;fit&quot;:&quot;height&quot;,&quot;fitParent&quot;:&quot;ajxp_desktop&quot;}">
+			<div class="no_select_bg"
+				style="position: relative; -moz-user-select: none; height: 681px;"
+				id="vertical_splitter" ajxpclass="Splitter"
+				ajxpoptions="{&quot;direction&quot;: &quot;vertical&quot;, &quot;initA&quot;: 350, &quot;maxA&quot;:600, &quot;minA&quot;:0,&quot;fit&quot;:&quot;height&quot;,&quot;fitParent&quot;:&quot;browser&quot;, &quot;minSize&quot;:0, &quot;foldingButton&quot;:true}">
+				<div class="no_select_bg" id="sidebar_splitter"
+					style="float: left; overflow: hidden; position: absolute; -moz-user-select: none; height: 681px; width: 437px; left: 0px;"
+					ajxpclass="Splitter"
+					ajxpoptions="{&quot;direction&quot;:&quot;horizontal&quot;,&quot;initB&quot;:300,&quot;minB&quot;:57}">
+					<div id="topPane" ajxpclass="FoldersTree"
+						ajxpoptions="{&quot;display&quot;:&quot;dz&quot;,&quot;replaceScroller&quot;:true}"
+						ajxppaneheader="130" ajxppaneicon="view_tree.png"
+						style="margin: 20px 20px 10px; padding-right: 10px; position: absolute; width: 397px; height: 202px;">
+						<div style="-moz-user-select: none;" ajxp_message_id="130"
+							class="panelHeader panelHeaderWithIcon no_select_bg">
+							<img class="panelHeaderIcon"
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/16/view_tree.png">Folders
+						</div>
+						<div style="right: 10px; display: none; height: 174px;"
+							class="scroller_track" id="tree_scroller">
+							<div style="top: 0px; position: relative;" id="scrollbar_handle"
+								class="scroller_handle selected"></div>
+						</div>
+						<div class="no_select_bg"
+							style="overflow: hidden; height: 174px; width: 100%; -moz-user-select: none;"
+							id="tree_container">
+							<div style="position: relative;" id="webfx-tree-object-4"
+								ondblclick="webFXTreeHandler.toggle(this);"
+								class="webfx-tree-item selected-webfx-tree-item-inactive"
+								onkeydown="return webFXTreeHandler.keydown(this, event)">
+								<a href="/" id="webfx-tree-object-4-anchor"
+									onkeydown="return webFXTreeHandler.linkKeyPress(this, event);"
+									onfocus="webFXTreeHandler.focus(this);"
+									onblur="webFXTreeHandler.blur(this);"><span
+									id="webfx-tree-object-4-label"
+									style="background-image: url(&quot;plugins/access.fs/icon.png&quot;); background-position: 4px 1px;">Default
+										Files</span></a>
+							</div>
+							<div id="webfx-tree-object-4-cont"
+								class="webfx-tree-container first_container"
+								style="display: block;">
+								<div style="position: relative;" id="webfx-tree-object-6"
+									class="webfx-tree-item protomenu_selector"
+									onkeydown="return webFXTreeHandler.keydown(this, event)">
+									<img id="webfx-tree-object-6-plus"
+										src="plugins/gui.ajax/res/themes/umbra/images/Lplus.png"
+										height="25" width="19"><a href="/"
+										id="webfx-tree-object-6-anchor"
+										onkeydown="return webFXTreeHandler.linkKeyPress(this, event);"
+										onfocus="webFXTreeHandler.focus(this);"
+										onblur="webFXTreeHandler.blur(this);"><span
+										id="webfx-tree-object-6-label"
+										style="background-position: 4px 1px; background-image: url('plugins/gui.ajax/res/themes/umbra/images/mimes/16/trashcan.png');">Recycle
+											Bin</span></a>
+								</div>
+								<div id="webfx-tree-object-6-cont" class="webfx-tree-container"
+									style="display: none;">
+									<div style="position: relative;" id="webfx-tree-object-7"
+										class="webfx-tree-item protomenu_selector"
+										onkeydown="return webFXTreeHandler.keydown(this, event)">
+										<img id="webfx-tree-object-7-indent-0"
+											src="plugins/gui.ajax/res/themes/umbra/images/blank.png"
+											height="25" width="19"><img
+											id="webfx-tree-object-7-plus"
+											src="plugins/gui.ajax/res/themes/umbra/images/L.png"
+											height="25" width="19"><a href="/"
+											id="webfx-tree-object-7-anchor"
+											onkeydown="return webFXTreeHandler.linkKeyPress(this, event);"
+											onfocus="webFXTreeHandler.focus(this);"
+											onblur="webFXTreeHandler.blur(this);"><span
+											id="webfx-tree-object-7-label"
+											style="background-position: 4px 1px; background-image: url('plugins/gui.ajax/res/themes/umbra/images/foldericon.png');">Loading...</span></a>
+									</div>
+									<div id="webfx-tree-object-7-cont" class="webfx-tree-container"
+										style="display: none;"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div draggable="false"
+						style="position: absolute; cursor: n-resize; font-size: 1px; width: 437px; top: 232px;"
+						class="hsplitbar" unselectable="on"></div>
+					<div class="no_select_bg" id="info_panel" ajxpclass="InfoPanel"
+						ajxppaneheader="131" ajxppaneicon="file_info.png"
+						ajxpoptions="{&quot;replaceScroller&quot;:&quot;true&quot;}"
+						style="margin: 10px 20px 20px; padding-right: 10px; -moz-user-select: none; position: absolute; width: 397px; top: 236px; height: 415px;">
+						<div style="-moz-user-select: none;" ajxp_message_id="131"
+							class="panelHeader panelHeaderWithIcon no_select_bg">
+							<img class="panelHeaderIcon"
+								src="plugins/gui.ajax/res/themes/umbra/images/actions/16/file_info.png">Details
+						</div>
+						<div style="height: 387px;" class="scroller_track"
+							id="ip_scroller_info_panel">
+							<div style="top: 0px; position: relative; height: 349.928px;"
+								class="scroller_handle selected"
+								id="ip_scrollbar_handle_info_panel"></div>
+						</div>
+						<div style="overflow: hidden; height: 387px;"
+							id="ip_content_info_panel" class="panelContent scrolling">
+							<div>
+								<div class="infoPanelImagePreview">
+									<img
+										src="plugins/gui.ajax/res/themes/umbra/images/mimes/64/txt2.png"
+										height="64" width="64">
+								</div>
+								<div class="panelHeader infoPanelGroup">File Info</div>
+								<table class="infoPanelTable" border="0" cellpadding="0"
+									cellspacing="0">
+									<tbody>
+										<tr>
+											<td class="infoPanelLabel">Name</td>
+											<td class="infoPanelValue">AjaXplorer-QuickStart.txt</td>
+										</tr>
+										<tr class="even">
+											<td class="infoPanelLabel">Size</td>
+											<td class="infoPanelValue">5.93 Kb</td>
+										</tr>
+										<tr>
+											<td class="infoPanelLabel">Last Modif.</td>
+											<td class="infoPanelValue">2011/12/29 11:16</td>
+										</tr>
+										<tr class="even">
+											<td class="infoPanelLabel">Type</td>
+											<td class="infoPanelValue">Text file</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div>
+								<div class="panelHeader infoPanelGroup" colspan="2">File
+									Meta Data</div>
+								<table class="infoPanelTable" border="0" cellpadding="0"
+									cellspacing="0">
+									<tbody>
+										<tr>
+											<td class="infoPanelLabel">Comment</td>
+											<td class="infoPanelValue" data-metatype="text"
+												id="ip_comment"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="panelHeader infoPanelGroup">Actions</div>
+							<div class="infoPanelActions">
+								<a href="" id="action_instance_download"
+									onclick="ajaxplorer.actionBar.fireAction('download');return false;"><img
+									src="plugins/gui.ajax/res/themes/umbra/images/actions/16/download_manager.png"
+									align="absmiddle" border="0" height="16" width="16">
+									Download</a><a href="" id="action_instance_compress"
+									onclick="ajaxplorer.actionBar.fireAction('compress');return false;"><img
+									src="plugins/gui.ajax/res/themes/umbra/images/actions/16/archive_insert.png"
+									align="absmiddle" border="0" height="16" width="16">
+									Compress selection to zip...</a><a href=""
+									id="action_instance_download_chunk"
+									onclick="ajaxplorer.actionBar.fireAction('download_chunk');return false;"><img
+									src="plugins/gui.ajax/res/themes/umbra/images/actions/16/download_manager.png"
+									align="absmiddle" border="0" height="16" width="16">
+									Download selected file by pieces</a><a href=""
+									id="action_instance_chmod"
+									onclick="ajaxplorer.actionBar.fireAction('chmod');return false;"><img
+									src="plugins/gui.ajax/res/themes/umbra/images/actions/16/ksysv.png"
+									align="absmiddle" border="0" height="16" width="16"> File
+									Permissions</a><a href="" id="action_instance_share"
+									onclick="ajaxplorer.actionBar.fireAction('share');return false;"><img
+									src="plugins/gui.ajax/res/themes/umbra/images/actions/16/share.png"
+									align="absmiddle" border="0" height="16" width="16">
+									Share...</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div draggable="false"
+					style="position: absolute; cursor: e-resize; font-size: 1px; height: 681px; left: 437px;"
+					class="vsplitbar" unselectable="on"></div>
+				<div class="no_select_bg" id="searchbar_splitter"
+					style="overflow: hidden; position: absolute; -moz-user-select: none; height: 681px; left: 441px; width: 912px;"
+					ajxpclass="Splitter"
+					ajxpoptions="{&quot;direction&quot;:&quot;horizontal&quot;,&quot;initA&quot;:0, &quot;minSize&quot;:0, &quot;startFolded&quot;: true}">
+					<div id="search_container" ajxpclass="SearchEngine"
+						ajxppaneheader="87" ajxppaneicon="xmag.png"
+						data-globaloptions="{&quot;headerClose&quot;:{&quot;icon&quot;:&quot;panel_vertical_hide.png&quot;,&quot;splitter&quot;:&quot;searchbar_splitter&quot;,&quot;title&quot;:86}}"
+						style="height: 0px; overflow: hidden; position: absolute; top: 0px; width: 912px;">
+						<div id="search_panel">
+							<div style="-moz-user-select: none;" ajxp_message_id="87"
+								class="panelHeader panelHeaderWithIcon no_select_bg">
+								<img title="Close" class="panelHeaderCloseIcon"
+									src="plugins/gui.ajax/res/themes/umbra/images/actions/16/panel_vertical_hide.png"><img
+									class="panelHeaderIcon"
+									src="plugins/gui.ajax/res/themes/umbra/images/actions/16/xmag.png">Search
+							</div>
+							<div id="search_form">
+								<input style="float: left;" id="search_txt" name="search_txt"
+									onfocus="blockEvents=true;" onblur="blockEvents=false;"
+									type="text"><a class="no_select_bg"
+									style="-moz-user-select: none;" href="" id="search_button"
+									ajxp_message_title_id="184"
+									title="Search in current folder and sub-folders"><img
+									src="plugins/gui.ajax/res/themes/umbra/images/actions/16/search.png"
+									align="absmiddle" border="0" height="16" width="16"></a><a
+									style="-moz-user-select: none;" class="disabled no_select_bg"
+									href="" id="stop_search_button" ajxp_message_title_id="185"
+									title="Stop searching"><img
+									src="plugins/gui.ajax/res/themes/umbra/images/actions/16/fileclose.png"
+									align="absmiddle" border="0" height="16" width="16"></a>
+								<div id="search_meta">
+									Search on : <span id="search_meta_options"><meta_opt
+											class="checked" value="filename">Filename</meta_opt>, <meta_opt
+											value="comment">Comment</meta_opt></span>
+								</div>
+							</div>
+							<div class="no_select_bg"
+								style="-moz-user-select: none; height: 0px;" id="search_results"></div>
+						</div>
+					</div>
+					<div draggable="false"
+						style="position: absolute; cursor: n-resize; font-size: 1px; top: 0px; width: 912px;"
+						class="hsplitbar folded" unselectable="on"></div>
+					<div class="droparea" id="content_pane" ajxpclass="FilesList"
+						ajxpoptions="{&quot;displayMode&quot;:&quot;list&quot;,&quot;replaceScroller&quot;:true}"
+						style="border: 1px solid rgb(187, 187, 187); position: absolute; top: 4px; height: 638px; width: 873px;">
+						<div class="panelHeader">
+							<div
+								style="float: right; padding-right: 5px; font-size: 1px; height: 16px;">
+								<input class=""
+									src="plugins/gui.ajax/res/themes/umbra/images/actions/16/zoom-in.png"
+									id="slider-input-1"
+									style="border: 0px; width: 16px; height: 16px; margin-top: 0px; padding: 0px;"
+									value="30" height="16" type="image" width="16">
+							</div>
+							Thumbnails
+						</div>
+						<div style="right: 0px; display: none; height: 614px;"
+							class="scroller_track" id="filelist_scroller1">
+							<div style="top: 0px; position: relative;"
+								id="filelist_scrollbar_handle1" class="scroller_handle selected"></div>
+						</div>
+						<div id="selectable_div-1"
+							class="selectable_div no_select_bg protomenu_selector"
+							style="overflow: hidden; padding: 2px 5px; -moz-user-select: none; height: 610px; cursor: default;">
+							<div
+								style="width: 55px; height: 60px; -moz-user-select: none; position: relative;"
+								data-sorter_value="6070"
+								class="thumbnail_selectable_cell ajxpNodeProvider no_select_bg selected selected-focus ajxp_draggable">
+								<span class="no_select_bg"
+									style="cursor: default; -moz-user-select: none;"><img
+									class="no_select_bg"
+									style="width: 30px; height: 30px; margin-top: 5px; margin-bottom: 5px; -moz-user-select: none;"
+									src="plugins/gui.ajax/res/themes/umbra/images/mimes/64/txt2.png"
+									align="absmiddle" border="0" height="64" width="64">
+								<div style="-moz-user-select: none;"
+										title="AjaXplorer-QuickStart.txt"
+										class="thumbLabel no_select_bg">AjaXpl...</div></span>
+							</div>
+							<div
+								style="position: relative; width: 55px; height: 60px; -moz-user-select: none;"
+								data-sorter_value="0"
+								class="thumbnail_selectable_cell ajxpNodeProvider no_select_bg">
+								<span class="no_select_bg"
+									style="cursor: default; -moz-user-select: none;"><img
+									class="no_select_bg"
+									style="width: 30px; height: 30px; margin-top: 5px; margin-bottom: 5px; -moz-user-select: none;"
+									src="plugins/gui.ajax/res/themes/umbra/images/mimes/64/trashcan.png"
+									align="absmiddle" border="0" height="64" width="64">
+								<div style="-moz-user-select: none;" title="Recycle Bin"
+										class="thumbLabel no_select_bg">Recycl...</div></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="no_select_bg"
+		style="position: absolute; z-index: 10000; bottom: 0px; right: 0px; color: rgb(102, 102, 102); font-family: Arial; font-size: 11px; text-align: right; padding: 3px 10px 3px 3px; -moz-user-select: none;">
+		AjaXplorer Community - Free non supported version 穢 C. du Jeu
+		2008-2012 - <a target="_blank" href="http://ajaxplorer.info/">http://ajaxplorer.info/</a>
+	</div>
+	<div id="all_forms">
+		<div
+			style="width: 230px; height: auto; top: 194px; left: 556px; display: none; position: fixed;"
+			id="generic_dialog_box" class="dialogBox css_boxshadow">
+			<div class="dialogTitle">
+				<img id="modalCloseBtn"
+					style="cursor: pointer; float: right; margin-top: 2px;"
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/window_close.png"><span
+					class="titleString"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/encrypted.png"
+					align="top" height="16" width="16">&nbsp;Connect to
+					AjaXplorer</span>
+			</div>
+			<div style="padding: 10px;" class="dialogContent">
+				<form id="login_form" action="login" style="" box_width="230">
+					<input name="get_action" value="login" type="hidden"> <input
+						name="login_seed" id="login_seed"
+						value="8d59afe9568513a74bb2c65396c852f4" type="hidden"> <a
+						style="float: right;"
+						href="javascript:ajaxplorer.actionBar.fireAction('switch_language');"
+						title="Language" alt="Language"><img
+						src="plugins/gui.ajax/res/themes/umbra/images/actions/16/flag.png"
+						border="0" height="16" width="16"></a>
+					<div class="dialogLegend"
+						style="margin-bottom: 3px; margin-top: 4px;" ajxp_message_id="180">Enter
+						login/password</div>
+					<div style="width: 100%;">
+						<div class="SF_element">
+							<div class="SF_label">
+								<ajxp:message ajxp_message_id="181">Login</ajxp:message>
+							</div>
+							<div class="SF_input">
+								<input name="userid" style="width: 100px; padding: 0px;"
+									class="dialogFocus" type="text">
+							</div>
+						</div>
+						<div class="SF_element">
+							<div class="SF_label">
+								<ajxp:message ajxp_message_id="182">Password</ajxp:message>
+							</div>
+							<div class="SF_input">
+								<input name="password" style="width: 100px; padding: 0px;"
+									type="password">
+							</div>
+						</div>
+						<div class="SF_element">
+							<input class="radio" name="remember_me"
+								style="border: none; width: 20px !important;" type="checkbox">
+							<ajxp:message ajxp_message_id="261">Remember Me</ajxp:message>
+						</div>
+					</div>
+					<div class="dialogButtons">
+						<input class="dialogButton dialogFocus" title="OK"
+							src="plugins/gui.ajax/res/themes/umbra/images/actions/22/dialog_ok_apply.png"
+							name="ok" height="22" type="image" width="22"><input
+							class="dialogButton" title="CANCEL"
+							src="plugins/gui.ajax/res/themes/umbra/images/actions/22/dialog_close.png"
+							name="can" height="22" type="image" width="22">
+					</div>
+				</form>
+			</div>
+		</div>
+		<div id="hidden_frames" style="display: none;"></div>
+		<div id="hidden_forms" style="position: absolute; left: -1000px;"></div>
+
+		<!-- LOGIN SCREEN MUST BE ALREADY IN PAGE TO ENABLE PASSWORD REMEMBERING -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<!-- UPLOAD FORM -->
+		<form action="index.php" target="hidden_iframe"
+			enctype="multipart/form-data" method="POST" id="originalUploadForm"
+			style="text-align: left; display: none;" box_width="420">
+			<table>
+				<tbody>
+					<tr>
+						<td id="fileInputContainer" valign="top"><div
+								id="fileInputContainerDiv">
+								<div id="fileInputPos">
+									<input name="userfile_1" class="dialogFocus" type="file">
+								</div>
+								<div id="uploadBrowseButton" class="fakeUploadButton">
+									<img
+										src="plugins/gui.ajax/res/themes/umbra/images/actions/22/view_list_details.png"><br>Browse
+								</div>
+								<div id="uploadSendButton" class="fakeUploadButton">
+									<img
+										src="plugins/gui.ajax/res/themes/umbra/images/actions/22/yast_backup.png"><br>Send
+								</div>
+							</div></td>
+						<td rowspan="2" id="uploadFilesListContainer">
+							<div id="upload_files_list" class="uploadFilesList"></div>
+						</td>
+					</tr>
+					<tr>
+						<td id="optClosButtonsContainer">
+							<div class="fakeUploadButton fakeOptionButton"
+								id="uploadOptionsButton">
+								Options <span style="display: none;">[x]</span>
+							</div>
+							<div class="fakeUploadButton fakeOptionButton"
+								id="uploadCloseButton">Close</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<input name="get_action" value="upload" type="hidden"> <input
+				name="simple_uploader" value="true" type="hidden">
+		</form>
+
+
+		<div id="switch_language_form" action="switch_language_form"
+			box_width="202">
+			<select id="language_selector"></select>
+		</div>
+
+		<div id="login_form_dynamic" action="login" box_width="230">
+			<input name="get_action" value="login" type="hidden"> <input
+				name="login_seed" id="login_seed" value="" type="hidden"> <a
+				style="float: right;"
+				href="javascript:ajaxplorer.actionBar.fireAction('switch_language');"
+				title="Language" alt="Language"><img
+				src="plugins/gui.ajax/res/themes/umbra/images/actions/16/flag.png"
+				border="0" height="16" width="16"></a>
+			<div class="dialogLegend"
+				style="margin-bottom: 3px; margin-top: 4px;" ajxp_message_id="180">Enter
+				login/password</div>
+			<div style="width: 100%;">
+				<div class="SF_element">
+					<div class="SF_label">
+						<ajxp:message ajxp_message_id="181">Login</ajxp:message>
+					</div>
+					<div class="SF_input">
+						<input name="userid" style="width: 100px; padding: 0px;"
+							class="dialogFocus" type="text">
+					</div>
+				</div>
+				<div class="SF_element">
+					<div class="SF_label">
+						<ajxp:message ajxp_message_id="182">Password</ajxp:message>
+					</div>
+					<div class="SF_input">
+						<input name="password" style="width: 100px; padding: 0px;"
+							type="password">
+					</div>
+				</div>
+				<div class="SF_element">
+					<input class="radio" name="remember_me"
+						style="border: none; width: 20px !important;" type="checkbox">
+					<ajxp:message ajxp_message_id="261">Remember Me</ajxp:message>
+				</div>
+			</div>
+		</div>
+
+		<div id="pass_change_form" action="pass_change_form" box_width="210">
+			<input name="pass_seed" id="pass_seed" value="" type="hidden">
+			<div class="SF_element">
+				<div class="SF_label" ajxp_message_id="237">Old password :</div>
+				<input id="user_change_ownpass_old" class="dialogFocus SF_input"
+					type="password">
+			</div>
+			<div class="SF_element">
+				<div class="SF_label" ajxp_message_id="198">New :</div>
+				<input id="user_change_ownpass1" value="" class="SF_input"
+					type="password">
+			</div>
+			<div class="SF_element">
+				<div class="SF_label" ajxp_message_id="199">Confirm :</div>
+				<input id="user_change_ownpass2" value="" class="SF_input"
+					type="password">
+			</div>
+			<div class="SF_element" id="pwd_strength_container"></div>
+		</div>
+
+		<div id="multi_download_form" title="Download Multiple File"
+			box_width="345">
+			<div class="dialogLegend">Click on each file to download it.</div>
+			<br>
+			<div id="multiple_download_container"></div>
+			<form style="display: inline;" action="index.php" method="GET"
+				id="download_form" target="download_iframe">
+				<input name="get_action" value="download" type="hidden"> <input
+					name="secure_token" value="" type="hidden">
+			</form>
+			<iframe id="download_iframe" name="download_iframe"
+				style="display: none"></iframe>
+		</div>
+		<div id="compress_form" action="compress" box_width="200">
+			Compress selection to<br> <input name="archive_name" value=""
+				id="archive_name" class="dialogFocus initFicName" type="text">
+		</div>
+
+		<div id="ajxp_link_form" title="AjaXplorer Link" box_width="280"
+			action="ajxp_link">
+			<fieldset>
+				<legend ajxp_message_id="296">Copy the URL below:</legend>
+				<input style="width: 200px; margin-right: 5px;"
+					id="ajxp_link_container" class="dialogFocus" type="text"> <a
+					id="email" title="E-mail this URL"><img style="border: none;"
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/22/mail_generic.png"
+					align="absmiddle" height="22" width="22"></a>
+			</fieldset>
+		</div>
+
+		<div id="mkdir_form" action="mkdir" box_width="200">
+			New folder name<br> <input name="dirname" size="30"
+				class="dialogFocus" type="text">
+		</div>
+
+		<div id="mkfile_form" action="mkfile" box_width="200">
+			New file name<br> <input name="filename" size="30"
+				class="dialogFocus" type="text">
+		</div>
+
+		<div id="copymove_form" action="copy" box_width="272">
+			<input name="dest_node" value="" type="hidden">
+			<div class="dialogLegend">Select destination folder</div>
+			<select id="external_repository" name="dest_repository_id"
+				style="width: 248px; font-size: 12px; height: 21px; margin-top: 5px; margin-bottom: 7px; border: 1px solid #ccc;"></select>
+			<div
+				style="height: 200px; width: 246px; padding: 0px 0px; border: 1px solid #ccc;">
+				<div id="treeCopy"
+					style="height: 194px; padding: 3px 2px; overflow: auto; text-align: left;"
+					class="treeCopyContainer"></div>
+			</div>
+			<input name="dest" value="/" readonly=""
+				style="width: 248px; border: 1px solid #ccc; margin-top: 7px; margin-bottom: 2px; background-image: none;"
+				type="text">
+		</div>
+
+		<div id="delete_form" action="delete" box_width="200">
+			<span id="delete_message"></span>
+		</div>
+		<div id="properties_box" action="chmod" box_width="180"></div>
+
+		<div id="user_meta_form" action="edit_user_meta" box_width="250"></div>
+
+		<div id="rename_bookmark" action="get_bookmarks" box_width="200">
+			<input name="bm_title" value="" id="bm_title" class="dialogFocus"
+				type="text"> <input name="bm_path" value="" type="hidden">
+		</div>
+
+		<div id="splash_form" box_width="455" box_padding="0">
+			<div id="docDiv" style="padding: 5px; overflow: auto; height: 300px;">
+				<div class="dialogButtons"
+					style="text-align: right; padding-right: 6px;">
+					<input
+						src="plugins/gui.ajax/res/themes/umbra/images/actions/22/dialog_close.png"
+						class="dialogButton" height="16" type="image" width="16">
+				</div>
+			</div>
+		</div>
+
+		<div id="share_form" title="Create a public link to this file"
+			box_width="280" action="share">
+			<fieldset style="display: none;" id="share_unshare">
+				<legend ajxp_message_id="share_center.8">File is shared</legend>
+				<div id="unshare_button" class="largeButton"
+					title="Stopping the share will not remove the file. If you want to change the parameters, re-share the file.">
+					<img
+						src="plugins/gui.ajax/res/themes/umbra/images/actions/16/editdelete.png"
+						id="stop_sharing_indicator" valign="middle" height="16" width="16">
+					Stop Sharing
+				</div>
+			</fieldset>
+			<fieldset id="share_optional_fields">
+				<legend ajxp_message_id="307">Fill optional fields</legend>
+				<div class="dialogLegend" ajxp_message_id="share_center.24">Set
+					expiration limits and define a password to access the file, then
+					click on "Generate".</div>
+				<div class="SF_element SF_largeLabel">
+					<div class="SF_label" ajxp_message_id="share_center.21">Expire
+						after (days):</div>
+					<input name="expiration" value="0" class="SF_input SF_number"
+						type="text">
+				</div>
+				<div class="SF_element SF_largeLabel">
+					<div class="SF_label" ajxp_message_id="share_center.22">Allowed
+						Downloads:</div>
+					<input name="downloadlimit" value="0" class="SF_input SF_number"
+						type="text">
+				</div>
+				<div class="SF_element SF_largeLabel">
+					<div class="SF_label" ajxp_message_id="share_center.23">Optional
+						password:</div>
+					<input name="password" value="" autocomplete="off" class="SF_input"
+						type="password">
+				</div>
+				<div class="SF_element" id="public_pass_container"></div>
+			</fieldset>
+			<fieldset id="share_generate">
+				<legend ajxp_message_id="308">Generate Link</legend>
+				<div align="center">
+					<div id="generate_publiclet" class="largeButton" align="center">
+						<img id="generate_image"
+							src="plugins/gui.ajax/res/themes/umbra/images/actions/16/share.png"
+							height="16" width="16">Generate
+					</div>
+				</div>
+			</fieldset>
+			<fieldset style="display: none; position: relative;"
+				id="share_result">
+				<legend ajxp_message_id="296">Copy the URL below:</legend>
+				<input style="width: 200px; margin-right: 1px;" id="share_container"
+					type="text">
+				<div id="generate_indicator"
+					style="position: absolute; top: 24px; right: 41px; display: none;">
+					<img
+						src="plugins/gui.ajax/res/themes/umbra/images/autocompleter-loader.gif">
+				</div>
+				<a id="email" title="E-mail this URL"><img style="border: none;"
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/22/mail_generic.png"
+					align="absmiddle" height="22" width="22"></a>
+			</fieldset>
+		</div>
+		<div id="share_folder_form" title="Share Folder" box_width="280"
+			action="share">
+			<fieldset style="display: none;" id="share_unshare">
+				<legend ajxp_message_id="share_center.10">Folder is shared</legend>
+				<div id="unshare_button" class="largeButton"
+					title="Stopping the share will not remove the file. If you want to change the parameters, re-share the file.">
+					<img
+						src="plugins/gui.ajax/res/themes/umbra/images/actions/16/editdelete.png"
+						id="stop_sharing_indicator" valign="middle" height="16" width="16">
+					Stop Sharing
+				</div>
+			</fieldset>
+			<fieldset id="target_repository">
+				<legend ajxp_message_id="357">Target Repository</legend>
+				<div class="dialogLegend" ajxp_message_id="358">Choose a name
+					for the shared element and assign access rights for your user.</div>
+				<div class="SF_element">
+					<div class="SF_label" ajxp_message_id="359">Label :</div>
+					<input value="" id="repo_label" name="repo_label" class="SF_input"
+						type="text">
+				</div>
+				<div class="SF_element">
+					<div class="SF_label" ajxp_message_id="360">Rights :</div>
+					<div class="SF_input">
+						<select name="repo_rights" style="width: 135px;">
+							<option value="r">Read</option>
+							<option value="rw">Read &amp; Write</option>
+							<option value="w">Upload only</option>
+						</select>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset id="target_user">
+				<legend ajxp_message_id="353">Target User</legend>
+				<div class="dialogLegend" ajxp_message_id="354">Choose one or
+					more users with who you want to share this repository.</div>
+				<div class="SF_element" id="textarea_sf_element"
+					style="position: relative; height: 75px;">
+					<div ajxp_message_id="355" class="SF_label">Share with:</div>
+					<textarea type="text" style="height: 70px;"
+						class="SF_input dialogFocus" value="" name="shared_user"
+						id="shared_user"></textarea>
+					<div id="complete_indicator"
+						style="position: absolute; top: 8px; right: 8px; display: none;">
+						<img
+							src="plugins/gui.ajax/res/themes/umbra/images/autocompleter-loader.gif">
+					</div>
+					<div id="shared_users_autocomplete_choices" class="autocomplete"
+						style="margin-top: 0px !important; z-index: 20000 !important;"></div>
+				</div>
+				<div style="display: none;" id="create_shared_user">
+					<div class="SF_element">
+						<div ajxp_message_id="355" class="SF_label">New user name :
+						</div>
+						<input class="SF_input" value="" name="new_shared_user"
+							id="new_shared_user" type="text">
+					</div>
+					<div class="SF_element" id="shared_pass_div">
+						<div class="SF_label" ajxp_message_id="356">New user pass :
+						</div>
+						<input autocomplete="off" value="" name="shared_pass"
+							id="shared_pass" class="SF_input" type="password">
+					</div>
+					<div class="SF_element" id="pass_strength_container"></div>
+				</div>
+				<div class="SF_element" style="padding-top: 0;"
+					id="create_shared_user_anchor_div">
+					<div class="SF_label"></div>
+					<div class="SF_input">
+						<span id="create_shared_user_anchor"
+							style="color: black; text-decoration: underline; cursor: pointer;">Create
+							a temporary user</span>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+
+		<div id="external_download" action="external_download" box_width="320">
+			<span class="dialoglegend">Enter at least one URL pointing to
+				a file that you want to download directly from an external HTTP
+				server to the current folder. This action will be sent to the
+				background and you will be able to continue using AjaXplorer during
+				the download.</span>
+			<div style="padding: 10px;">
+				URL 1 : <input name="url" style="width: 227px;" class="dialogFocus"
+					type="text"><br> URL 2 : <input name="url2"
+					style="width: 227px; margin-top: 5px;" type="text"><br>
+				URL 3 : <input name="url3" style="width: 227px; margin-top: 5px;"
+					type="text"><br> URL 4 : <input name="url4"
+					style="width: 227px; margin-top: 5px;" type="text"><br>
+				URL 5 : <input name="url5" style="width: 227px; margin-top: 5px;"
+					type="text">
+			</div>
+		</div>
+
+		<div id="dynamic_bookmarklet" box_width="400">
+			<div>Drag one of the following link to your bookmark bar :</div>
+			<div id="bookmarklet_links_container" style="width: 400px;">
+				<a href="" id="bookmarklet_link" title="Download to AjaXplorer"
+					alt="Download to AjaXplorer">Download to AjaXplorer</a> <a href=""
+					id="bookmarklet_link_a" title="Download to AjaXplorer"
+					alt="Download to AjaXplorer"></a> <a href=""
+					id="bookmarklet_link_b" title="Download to AjaXplorer"
+					alt="Download to AjaXplorer"></a> <a href=""
+					id="bookmarklet_link_c" title="Download to AjaXplorer"
+					alt="Download to AjaXplorer"></a> <a href=""
+					id="bookmarklet_link_d" title="Download to AjaXplorer"
+					alt="Download to AjaXplorer"></a>
+			</div>
+			<div style="clear: left;">Or create a bookmark manually and use
+				the code below as the link url :</div>
+			<textarea id="bookmarklet_textarea"
+				style="width: 100%; margin-top: 4px; height: 140px;"></textarea>
+		</div>
+	</div>
+
+	<img
+		style="position: absolute; top: 2px; right: 2px; z-index: 40000; display: none;"
+		id="AjxpConnexion-loader"
+		src="plugins/gui.ajax/res/themes/umbra/images/ajxp-connexion-loader.gif">
+	<div
+		style="left: 636px; top: 240px; z-index: 2000; height: auto; overflow-y: hidden; display: none;"
+		class="menu desktop">
+		<ul>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="action_instance_mkdir" title="Create new directory" href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/folder_new.png"
+					align="absmiddle" border="0" height="16" width="16"><u>N</u>ew
+					Dir</a></li>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="action_instance_mkfile" title="Create new empty file" href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/filenew.png"
+					align="absmiddle" border="0" height="16" width="16">New <u>F</u>ile</a></li>
+			<li class="separator"></li>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="action_instance_refresh" title="Refresh" href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/reload.png"
+					align="absmiddle" border="0" height="16" width="16">Refres<u>h</u></a></li>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="action_instance_bookmark"
+				title="Add current location to MyBookmarks" href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/bookmark.png"
+					align="absmiddle" border="0" height="16" width="16"><u>B</u>ookmark</a></li>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="action_instance_folding_action"
+				title="Toggle left pane visibility" href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/view_left_close.png"
+					align="absmiddle" border="0" height="16" width="16">Left Pane</a></li>
+			<li style="position: relative;" class="protomenu_selector"><div
+					style="padding-right: 7px;" class="menuActions">
+					<img src="plugins/gui.ajax/res/themes/umbra/images/arrow_right.png"
+						height="10" width="6">
+				</div>
+				<a onclick="return false;" style="" class="enabled"
+				id="action_instance_multi_display" title="Switch display mode..."
+				href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/view_icon.png"
+					align="absmiddle" border="0" height="16" width="16">Display</a></li>
+			<li class="separator"></li>
+			<li style="position: relative;" class="protomenu_selector"><div
+					style="padding-right: 7px;" class="menuActions">
+					<img src="plugins/gui.ajax/res/themes/umbra/images/arrow_right.png"
+						height="10" width="6">
+				</div>
+				<a onclick="return false;" style="" class="enabled"
+				id="action_instance_upload" title="Upload" href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/yast_backup.png"
+					align="absmiddle" border="0" height="16" width="16"><u>U</u>pload</a></li>
+			<li class="separator"></li>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="action_instance_switch_language" title="Language" href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/flag.png"
+					align="absmiddle" border="0" height="16" width="16">Language</a></li>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="action_instance_index" title="Index folder content" href="#"><img
+					src="plugins/index.lucene/resources/images/16/ark_view.png"
+					align="absmiddle" border="0" height="16" width="16">Index
+					Content</a></li>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="action_instance_generate_dl_bookmarklet"
+				title="Generate Bookmarklet" href="#"><img
+					src="plugins/downloader.http/resources/images/16/add_bookmarklet.png"
+					align="absmiddle" border="0" height="16" width="16">Generate
+					Bookmarklet</a></li>
+		</ul>
+	</div>
+	<div style="display: none;" class="backgroundPanel"></div>
+	<div style="position: absolute; display: none;" class="autocomplete"
+		id="autocomplete_choices"></div>
+	<div style="display: none" class="menu bookmarksMenu css_boxshadow">
+		<ul>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="" title="Add current location to MyBookmarks" href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/bookmark_add.png"
+					align="absmiddle" border="0" height="16" width="16"><u>B</u>ookmark</a></li>
+			<li class="separator"></li>
+		</ul>
+	</div>
+	<div
+		style="left: 734px; top: 12px; z-index: 2000; height: auto; overflow-y: hidden; display: none;"
+		class="menu desktop textual">
+		<ul>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="" title="icons_only" href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/transp.png"
+					align="absmiddle" border="0" height="16" width="16">Icons
+					Only</a></li>
+			<li class=""><a onclick="return false;"
+				style="font-weight: bold" class="enabled" id="" title="icon_text"
+				href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/button_ok.png"
+					align="absmiddle" border="0" height="16" width="16">Icons and
+					Text</a></li>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="" title="text_only" href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/transp.png"
+					align="absmiddle" border="0" height="16" width="16">Text only</a></li>
+		</ul>
+	</div>
+	<div style="display: none" class="menu rootDirChooser css_boxshadow">
+		<ul>
+			<li class="menuTitle" text="Switch Repository to...">Switch
+				Repository to...</li>
+			<li class=""><a onclick="return false;" style=""
+				class="edit disabled" id="" title="Default Files" href="#"><img
+					src="plugins/access.fs/icon.png" align="absmiddle" border="0"
+					height="16" width="16">Default Files</a></li>
+			<li class=""><a onclick="return false;" style=""
+				class="edit enabled" id="" title="My Files" href="#"><img
+					src="plugins/access.fs/icon.png" align="absmiddle" border="0"
+					height="16" width="16">My Files</a></li>
+			<li class="separator"></li>
+			<li class=""><a onclick="return false;" style=""
+				class="edit enabled" id="" title="Settings" href="#"><img
+					src="plugins/access.ajxp_conf/admin.png" align="absmiddle"
+					border="0" height="16" width="16">Settings</a></li>
+			<li class=""><a onclick="return false;" style=""
+				class="edit enabled" id="" title="Shared Elements" href="#"><img
+					src="plugins/access.ajxp_shared/share.png" align="absmiddle"
+					border="0" height="16" width="16">Shared Elements</a></li>
+		</ul>
+	</div>
+	<div style="display: none"
+		class="menu rootDirChooser rightAlignMenu css_boxshadow">
+		<ul>
+			<li class="menuTitle" text="Switch Repository to...">Switch
+				Repository to...</li>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="action_instance_switch_language" title="Language" href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/flag.png"
+					align="absmiddle" border="0" height="16" width="16">Language</a></li>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="action_instance_pass_change" title="Change Password" href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/yast_security.png"
+					align="absmiddle" border="0" height="16" width="16">Change
+					Password</a></li>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="action_instance_logout" title="Disconnect from AjaXplorer"
+				href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/16/decrypted.png"
+					align="absmiddle" border="0" height="16" width="16">Log out</a></li>
+		</ul>
+	</div>
+	<div style="display: none;" id="overlay"></div>
+	<div id="overlay"></div>
+	<div id="overlay"></div>
+	<div class="high_performance movieContainer swf_timedout"
+		id="sm2-container">
+		<embed haspriority="true" wmode="transparent"
+			type="application/x-shockwave-flash"
+			title="JS/Flash audio component (SoundManager 2)"
+			pluginspage="www.macromedia.com/go/getflashplayer" bgcolor="#ffffff"
+			allowscriptaccess="always" quality="high"
+			src="plugins/editor.soundmanager/sm/swf/soundmanager2_flash9.swf"
+			id="sm2movie" name="sm2movie" height="auto" width="auto">
+	</div>
+	<div style="display: none;" class="slider-pane">
+		<div style="width: 10px; height: 2px; font-size: 1px;"
+			class="slider-tracker-top"></div>
+		<div style="width: 10px; height: 90px;" class="slider-tracker">
+			<div style="top: 0px; position: relative;"
+				class="slider-handle selected"></div>
+		</div>
+	</div>
+	<div
+		style="height: auto; overflow-y: hidden; top: 47px; left: 60px; z-index: 2000; display: none;"
+		class="menu desktop toolbarmenu">
+		<ul>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="" title="Switch to thumbnails view" href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/22/view_icon.png"
+					align="absmiddle" border="0" height="16" width="16"><u>T</u>humbs</a></li>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="" title="Switch to details list view" href="#"><img
+					src="plugins/gui.ajax/res/themes/umbra/images/actions/22/view_text.png"
+					align="absmiddle" border="0" height="16" width="16"><u>L</u>ist</a></li>
+		</ul>
+	</div>
+	<div
+		style="top: 47px; left: 114px; z-index: 2000; height: auto; overflow-y: hidden; display: none;"
+		class="menu desktop toolbarmenu">
+		<ul>
+			<li class=""><a onclick="return false;"
+				style="font-weight: bold" class="enabled" id=""
+				title="From computer" href="#"><img
+					src="plugins/downloader.http/resources/images/22/computer_upload.png"
+					align="absmiddle" border="0" height="16" width="16">From
+					computer</a></li>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="" title="Download file(s) from remote server" href="#"><img
+					src="plugins/downloader.http/resources/images/22/external_download.png"
+					align="absmiddle" border="0" height="16" width="16">From
+					remote server</a></li>
+		</ul>
+	</div>
+	<div
+		style="height: auto; overflow-y: hidden; top: 47px; left: 215px; z-index: 2000; display: none;"
+		class="menu desktop toolbarmenu">
+		<ul>
+			<li class=""><a onclick="return false;"
+				style="font-weight: bold" class="enabled" id=""
+				title="CodeMirror Syntax Highlighter" href="#"><img
+					src="plugins/editor.codemirror/source_edit.png" align="absmiddle"
+					border="0" height="16" width="16">Source Editor</a></li>
+			<li class="separator"></li>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="" title="External browser window" href="#"><img
+					src="plugins/editor.browser/resources/images/actions/22/project-open.png"
+					align="absmiddle" border="0" height="16" width="16">External
+					window</a></li>
+			<li class=""><a onclick="return false;" style="" class="enabled"
+				id="" title="Choose another editor" href="#"><img
+					src="plugins/editor.other/resources/images/actions/22/unknown.png"
+					align="absmiddle" border="0" height="16" width="16">Choose
+					other...</a></li>
+		</ul>
+	</div>
+</body>

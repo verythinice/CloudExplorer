@@ -1,0 +1,5 @@
+<ul>
+  <% _.each(storages, function(storage){ %>
+   <li><span id="<%= storage.get('name') %>"><%= storage.get('name') %></span></li> 
+  <% }); %>
+</ul>
