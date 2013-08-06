@@ -16,17 +16,22 @@ define(['jquery', 'underscore', 'backbone', 'model/storageModel', 'collection/st
 					var compiledTemplate = _.template(leftPaneTemplate, data);
 
 					that.$el.html(compiledTemplate); 
-					  
-					var rightPaneView = new RightPaneView({el: $('#rightPane'), storageId: 0});
-					rightPaneView.render();
+					
+					var model = that.collection.at(0);
+					var name = model.get('name');
+					var rightPaneView = new RightPaneView({el: $('#rightPane')});
+					rightPaneView.render(name);
 			    }
 				
 				var fetchError = function() {
 					console.log('Error!')
 				}
 				
-				this.collection = new StorageCollection([]);  
-		        this.collection.fetch({success: fetchSuccess, error: fetchError});
+				this.collection = new StorageCollection([]); 
+				var params = {
+						type: 'aws'
+					};
+		        this.collection.fetch({success: fetchSuccess, error: fetchError, data: $.param(params)});
 			},
 			
 		    events: {
@@ -34,10 +39,8 @@ define(['jquery', 'underscore', 'backbone', 'model/storageModel', 'collection/st
 		    },
 
 		    selectStorage: function(event) {
-		    	console.log("click li: ", event.target);
-		    	
-				var rightPaneView = new RightPaneView({el: $('#rightPane'), storageId: event.target.id});
-				rightPaneView.render();
+				var rightPaneView = new RightPaneView({el: $('#rightPane')});
+				rightPaneView.render(event.target.id);
 		    }
 		});
 
