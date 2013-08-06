@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.cloudexplorer.model.CloudService;
 import com.cloudexplorer.model.StorageTypeChecker;
+import com.cloudexplorer.util.Status;
 
 @Path("/object")
 @Produces(MediaType.APPLICATION_JSON)
@@ -17,6 +18,10 @@ public class ListFiles {
 	public String listObjects(@QueryParam("type") String storageService, @QueryParam("name") String storageName) {
 		CloudService service;
 		service = StorageTypeChecker.returnCorrectStorageType(storageService);
+		if (service==null){
+			Status status = new Status();
+			return status.storageTypeError();
+		}
 		String output = service.listFiles(storageName);
 		return output;
 	}//this is a comment

@@ -8,7 +8,6 @@ public final class StorageTypeChecker {
 			return (new AWSService());
 		}
 		else{
-			System.out.println("Invalid storage type");
 			return null;
 		}
 	}

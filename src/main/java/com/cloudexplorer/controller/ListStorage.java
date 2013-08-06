@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.cloudexplorer.model.CloudService;
 import com.cloudexplorer.model.StorageTypeChecker;
+import com.cloudexplorer.util.Status;
 
 @Path("/storage")
 public class ListStorage{
@@ -18,6 +19,10 @@ public class ListStorage{
 	public String listBuckets(@QueryParam("type") String storageService) {
 		CloudService service;
 		service = StorageTypeChecker.returnCorrectStorageType(storageService);
+		if (service==null){
+			Status status = new Status();
+			return status.storageTypeError();
+		}
 		String output = service.listStorage();
 		return output;
 	}
