@@ -47,28 +47,3 @@ define(['jquery', 'underscore', 'backbone', 'model/storageModel', 'collection/st
 		return leftPaneView;
 	}
 );
-
-/*
-			initialize: function() {
-				var storage0 = new StorageModel({name: 'bstestbucket', id: '0'});
-				var storage1 = new StorageModel({name: 'test 1', id: '1'});
-				var storage2 = new StorageModel({name: 'test 2', id: '2'});
-
-				var storages = [storage0, storage1, storage2];
-				this.collection = new StorageCollection(storages);  
-			},
-			
-			render: function() {
-				var data = {
-						storages: this.collection.models,
-						_: _
-				};
-
-				var compiledTemplate = _.template(leftPaneTemplate, data);
-				this.$el.html(compiledTemplate); 
-				  
-				var rightPaneView = new RightPaneView({el: $('#rightPane'), storageId: 0});
-				rightPaneView.render();
-			},
-
- */

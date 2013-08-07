@@ -15,7 +15,7 @@ define(['jquery', 'underscore', 'backbone', 'view/modalDialog', 'text!template/u
 			},
 			
 			uploadFile: function(event) {
-				event && event.preventDefault();
+				event.preventDefault();
 				
 				var form = document.getElementById('uploadForm');
 			    var action = form.getAttribute('action');

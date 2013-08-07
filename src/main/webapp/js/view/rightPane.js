@@ -28,7 +28,6 @@ define(['jquery', 'underscore', 'backbone', 'model/objectModel', 'collection/obj
 					name: name
 				};
 		        this.collection.fetch({success: fetchSuccess, error: fetchError, data: $.param(params)});
-		        //this.collection.fetch({success: fetchSuccess, error: fetchError});
 			}
 		});
 
