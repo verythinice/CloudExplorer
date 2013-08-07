@@ -11,7 +11,11 @@ public class Status {
 	private String message;
 	
 	public Status(){
-		
+	}
+	
+	public Status(int s, String m){
+		status = s;
+		message = m;
 	}
 	
 	public String storageTypeError(){
