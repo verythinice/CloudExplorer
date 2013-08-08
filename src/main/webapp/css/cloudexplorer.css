@@ -12,6 +12,7 @@ body {
 	margin: 0;
 	padding: 0;
 }
+
 #menu {
 	margin: 4px 4px 2px 4px;
 	padding: 0;
@@ -35,6 +36,7 @@ body {
 	margin: auto;
 	padding: 2px;
 }
+
 #leftPane {
 	float: left;
 	width: 20%;
@@ -89,8 +91,22 @@ input[type=text] {
 form table {
 	margin-top:10px;
 }
-td {padding: 4px 12px; vertical-align:middle;}
-	
+td {
+	padding: 4px 12px; vertical-align:middle;
+}
+
+#selectedFiles {
+	width: 400px;
+	min-height: 200px;
+	max-height: 400px;
+	border: solid 1px;
+	overflow: auto;
+}
+
+
+
+
+
 .error-message {
 	color:red; font-size:75%; font-weight:bold; margin:0 0 .5em;
 }

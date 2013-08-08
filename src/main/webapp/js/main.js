@@ -1,12 +1,14 @@
 require.config({
 	// Require.js allows us to configure shortcut alias.
 	paths: {
-		// Major libraries.
+		// Libraries.
 		//jquery: 'lib/jquery-1.9.1.min',
 		jquery: 'lib/jquery-1.9.1',
 		underscore: 'lib/underscore-min',
 		//backbone: 'lib/backbone-min',
 		backbone: 'lib/backbone',
+		
+		mediator: 'lib/backbone-mediator',
 
 		// Require.js plugin.
 		text: 'lib/text',
@@ -24,7 +26,7 @@ require.config({
 		}
 	},
 
-	urlArgs: "bust=" + (new Date()).getTime()
+	//urlArgs: "bust=" + (new Date()).getTime()
 });
 
 // Start the application.

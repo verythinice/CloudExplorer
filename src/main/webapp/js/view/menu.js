@@ -52,6 +52,7 @@ define(['jquery', 'underscore', 'backbone', 'view/uploadDialog', 'text!template/
 			},
 			
 			menuOptions: function(event) {
+				// TODO Better looking menu, hide menu on click else where, right mouse click.
 				event.stopPropagation();
 				$('.submenu').hide();
 				switch (event.target.id) {

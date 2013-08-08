@@ -1,8 +1,9 @@
-define(['jquery', 'underscore', 'backbone', 'model/objectModel', 'collection/objectCollection', 'text!template/rightPane.html'],
-	function($, _, Backbone, ObjModel, ObjectCollection, rightPaneTemplate) {
+define(['jquery', 'underscore', 'backbone', 'mediator', 'model/objectModel', 'collection/objectCollection', 'text!template/rightPane.html'],
+	function($, _, Backbone, Mediator, ObjModel, ObjectCollection, rightPaneTemplate) {
 
 		var rightPaneView = Backbone.View.extend({
 			initialize: function() {
+				Backbone.Mediator.subscribe('selected', this.render('bstestbucket'));
 			},
 
 			render: function(name) {
