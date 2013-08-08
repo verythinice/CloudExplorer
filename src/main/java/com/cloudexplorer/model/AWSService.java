@@ -15,8 +15,10 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CopyObjectRequest;
+import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.cloudexplorer.util.Status;
 
 public class AWSService implements CloudService {
@@ -33,7 +35,6 @@ public class AWSService implements CloudService {
 		try{
 			ObjectMapper mapper = new ObjectMapper();
 			output = mapper.writeValueAsString(s3.listBuckets());
-			//return output; testing for redundancy
 		} catch (AmazonServiceException ase) {
             ase.printStackTrace();
             output = ase.toString();
@@ -59,7 +60,6 @@ public class AWSService implements CloudService {
 		try{
 			ObjectMapper mapper = new ObjectMapper();
 			output = mapper.writeValueAsString(s3.listObjects(storageName));
-			return output;
 		} catch (AmazonServiceException ase) {
             ase.printStackTrace();
             output = ase.toString();
@@ -111,10 +111,13 @@ public class AWSService implements CloudService {
 		return null;
 	}
 	
-	public String copyFile(String source, String destination, String key){
+	public String copyFile(String source, String destination, String sourceKey, String destinationKey){
 		String output;
 		try{
-			s3.copyObject(new CopyObjectRequest(source, key, destination, key));
+			if (checkKeyInBucket(destination, destinationKey)){
+				destinationKey = destinationKey+System.currentTimeMillis();
+			}
+			s3.copyObject(new CopyObjectRequest(source, sourceKey, destination, destinationKey));
 			ObjectMapper mapper = new ObjectMapper();
 			output = mapper.writeValueAsString(new Status(1,"File copied successfully"));
 		} catch (AmazonServiceException ase) {
@@ -135,5 +138,50 @@ public class AWSService implements CloudService {
 		}
 		return output;
 	}
+	
+	public String deleteFile(String storageName, String fileName){
+		String output;
+		try{
+			s3.deleteObject(storageName, fileName);
+			ObjectMapper mapper = new ObjectMapper();
+			output = mapper.writeValueAsString(new Status(1,"File deleted successfully"));
+		} catch (AmazonServiceException ase) {
+            ase.printStackTrace();
+            output = ase.toString();
+        } catch (AmazonClientException ace) {
+            ace.printStackTrace();
+            output = ace.toString();
+        } catch (JsonGenerationException e) {
+			e.printStackTrace();
+			output = e.toString();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+			output = e.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+			output = e.toString();
+		}
+		return output;
+	}
+	
+	private boolean checkKeyInBucket(String bucketName, String key){
+		ObjectListing objects = null;
+		boolean keyContained=false;
+		do{
+			if (objects==null){
+				objects = s3.listObjects(bucketName);
+			}
+			else{
+				objects = s3.listNextBatchOfObjects(objects);
+			}
+			for (S3ObjectSummary o : objects.getObjectSummaries()){
+				if (o.getKey()==key){
+					keyContained = true;
+				}
+			}
+		}while (objects.isTruncated());
+		return keyContained;
+	}
+
 
 }
