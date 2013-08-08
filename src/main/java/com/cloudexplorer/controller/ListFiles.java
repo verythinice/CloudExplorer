@@ -40,7 +40,21 @@ public class ListFiles {
 		CloudService service = StorageTypeChecker.returnCorrectStorageType(storageService);
 		String output = checkService(service);
 		if(output==null){
-			output = service.copyFile(source, destination, fileName);
+			output = service.copyFile(source, destination, fileName, fileName);
+		}
+		return output;
+	}
+	
+	@GET
+	@Path("/delete")
+	public String deleteObject(
+			@QueryParam("type") String storageService,
+			@QueryParam("storageName") String storageName,
+			@QueryParam("name") String fileName){
+		CloudService service = StorageTypeChecker.returnCorrectStorageType(storageService);
+		String output = checkService(service);
+		if(output==null){
+			output = service.deleteFile(storageName, fileName);
 		}
 		return output;
 	}
@@ -55,11 +69,10 @@ public class ListFiles {
 			@FormDataParam("file") FormDataContentDisposition fileDetail) {
 		String key = fileDetail.getFileName();
 		CloudService service = StorageTypeChecker.returnCorrectStorageType(storageService);
-		if (service==null){
-			Status status = new Status();
-			return status.storageTypeError();
+		String output = checkService(service);
+		if(output==null){
+			output = service.uploadFile(storageName, key, uploadedInputStream);
 		}
-		String output = service.uploadFile(storageName, key, uploadedInputStream);
 		return output;
 	}
 	
