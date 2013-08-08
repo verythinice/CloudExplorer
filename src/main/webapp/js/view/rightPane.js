@@ -1,13 +1,22 @@
-define(['jquery', 'underscore', 'backbone', 'mediator', 'model/objectModel', 'collection/objectCollection', 'text!template/rightPane.html'],
-	function($, _, Backbone, Mediator, ObjModel, ObjectCollection, rightPaneTemplate) {
+define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'model/objectModel', 'collection/objectCollection', 'text!template/rightPane.html'],
+	function($, _, Backbone, PubSubEvents, ObjModel, ObjectCollection, rightPaneTemplate) {
 
 		var rightPaneView = Backbone.View.extend({
 			initialize: function() {
-				Backbone.Mediator.subscribe('selected', this.render('bstestbucket'));
+				this.pubSubEvents = PubSubEvents;
+				this.pubSubEvents.bind('updateRender', this.render);
 			},
 
 			render: function(name) {
+				console.log ('rightPane render: ' + name);
 				var that = this;
+				
+				if (name) {
+					sessionStorage.storageName = name;
+				}
+				else {
+					name = sessionStorage.storageName;
+				}
 				
 				var fetchSuccess = function(collection) {
 					var data = {
@@ -16,7 +25,7 @@ define(['jquery', 'underscore', 'backbone', 'mediator', 'model/objectModel', 'co
 					};
 					var compiledTemplate = _.template(rightPaneTemplate, data);
 
-					that.$el.html(compiledTemplate); 
+					$('#rightPane').html(compiledTemplate); 
 			    }
 				
 				var fetchError = function() {
@@ -29,7 +38,15 @@ define(['jquery', 'underscore', 'backbone', 'mediator', 'model/objectModel', 'co
 					name: name
 				};
 		        this.collection.fetch({success: fetchSuccess, error: fetchError, data: $.param(params)});
-			}
+			},
+			
+			events: {
+				'click': 'selectObject',
+			},
+			
+			selectObject: function(event) {
+				$('#' + event.target.id).toggleClass('objectSelected');
+			},
 		});
 
 		return rightPaneView;

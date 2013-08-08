@@ -1,5 +1,5 @@
 <ul>
-  <% _.each(objs, function(obj){ %>
-   <li><span id="<%= obj.get('key') %>"><%= obj.get('key') %>&nbsp;&nbsp;&nbsp;&nbsp;<%= obj.get('lastModified') %></span></li> 
+  <% _.each(objs, function(obj, index){ %>
+   <li><span id="object_<%= index %>"><%= obj.get('key') %></span><span>&nbsp;&nbsp;&nbsp;&nbsp;<%= obj.get('lastModified') %></span></li> 
   <% }); %>
 </ul>

@@ -1,16 +1,22 @@
-define(['jquery', 'underscore', 'backbone', 'mediator', 'view/modalDialog', 'text!template/uploadDialog.html'],
-	function($, _, Backbone, Mediator, ModalDialogView, uploadDialogTemplate) {
+define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 'text!template/uploadDialog.html'],
+	function($, _, Backbone, PubSubEvents, ModalDialogView, uploadDialogTemplate) {
 
 		// TODO Better dialog, hadnle multiple files, drag and drop.
 		var uploadDialogView = ModalDialogView.extend({
 			initialize: function() {
 				_.bindAll(this, 'render');
+				this.pubSubEvents = PubSubEvents;
 				this.template = _.template(uploadDialogTemplate);
 				this.fileList = [];
 				// TODO No validation yet
 				// Backbone.Validation.bind( this, {valid:this.hideError,
 				// invalid:this.showError});
 				// TODO Check for duplicate files.
+			},
+			
+			render: function() {
+				$(this.el).html(this.template());
+				return this;
 			},
 			
 			events: {
@@ -27,63 +33,57 @@ define(['jquery', 'underscore', 'backbone', 'mediator', 'view/modalDialog', 'tex
 			},
 			
 			uploadFile: function(event) {
+				var that = this;
 				event.preventDefault();
+
+	            // TODO Close dialog, show progress bar.
 				
-				var formData = new FormData();
-				formData.append('storageService', 'aws');
-				formData.append('storageName', 'bstestbucket');
+		        var uploadProgress = function(event) {
+		        	// TODO Need progress bar.
+		            if (event.lengthComputable) {
+		                var percentComplete = Math.round(event.loaded * 100 / event.total);
+		                //document.getElementById('progressNumber').innerHTML = percentComplete.toString() + '%';
+		                //document.getElementById('prog').value = percentComplete;
+		            	console.log(percentComplete.toString() + '%');
+		            }
+		            else {
+		                //document.getElementById('progressNumber').innerHTML = 'unable to compute';
+		            	console.log('unable to compute');
+		            }
+		        }
+
+		        var uploadComplete = function(event) {
+					that.hideModal();
+		        	that.pubSubEvents.trigger('updateRender');
+		            /* This event is raised when the server send back a response */
+		            console.log('uploadComplete: ' + event.target.responseText);
+		        }
+
+		        var uploadFailed = function(event) {
+		        	// TODO Error handling.
+		            alert("There was an error attempting to upload the file.");
+		        }
+
+		        var uploadCanceled = function(event) {
+		        	// TODO Cancel handling.
+		            alert("The upload has been canceled by the user or the browser dropped the connection.");
+		        }
 				
 				for (var i = 0; i < this.fileList.length; i ++) {
+					var formData = new FormData();
+					formData.append('storageService', 'aws');
+					formData.append('storageName', 'bstestbucket');
 					formData.append('file', this.fileList[i]);
 				    
 		            var xhr = new XMLHttpRequest();
-		            xhr.upload.addEventListener("progress", this.uploadProgress, false);
-		            xhr.upload.addEventListener("load", this.uploadComplete, false);
-		            xhr.addEventListener("error", this.uploadFailed, false);
-		            xhr.addEventListener("abort", this.uploadCanceled, false);
+		            xhr.upload.addEventListener("progress", uploadProgress, false);
+		            xhr.upload.addEventListener("load", uploadComplete, false);
+		            xhr.addEventListener("error", uploadFailed, false);
+		            xhr.addEventListener("abort", uploadCanceled, false);
 		            xhr.open("POST", "cloud/object/upload", true);
 		            xhr.send(formData);
 				}
-	            
-	            // TODO Close dialog, show progress bar.
-				this.hideModal();
-				
-				Backbone.Mediator.publish('update');
 	        },
-
-	        uploadProgress: function(evt) {
-	        	// TODO Need progress bar.
-	            if (evt.lengthComputable) {
-	                var percentComplete = Math.round(evt.loaded * 100 / evt.total);
-	                //document.getElementById('progressNumber').innerHTML = percentComplete.toString() + '%';
-	                //document.getElementById('prog').value = percentComplete;
-	            	console.log(percentComplete.toString() + '%');
-	            }
-	            else {
-	                //document.getElementById('progressNumber').innerHTML = 'unable to compute';
-	            	console.log('unable to compute');
-	            }
-	        },
-
-	        uploadComplete: function(evt) {
-	            /* This event is raised when the server send back a response */
-	            alert('uploadComplete: ' + evt.target.responseText);
-	        },
-
-	        uploadFailed: function(evt) {
-	        	// TODO Error handling.
-	            alert("There was an error attempting to upload the file.");
-	        },
-
-	        uploadCanceled: function(evt) {
-	        	// TODO Cancel handling.
-	            alert("The upload has been canceled by the user or the browser dropped the connection.");
-	        },
-	
-			render: function() {
-				$(this.el).html(this.template());
-				return this;
-			}
 		});
 	
 		return uploadDialogView;

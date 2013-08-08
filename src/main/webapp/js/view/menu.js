@@ -1,8 +1,13 @@
-define(['jquery', 'underscore', 'backbone', 'view/uploadDialog', 'text!template/menu.html'],
-	function($, _, Backbone, UploadDialogView, menuTemplate) {
+define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog', 'text!template/menu.html'],
+	function($, _, Backbone, PubSubEvents, UploadDialogView, menuTemplate) {
 
 		var menuView = Backbone.View.extend({
 			el: $('#menu'),
+			
+			initialize: function() {
+				this.pubSubEvents = PubSubEvents;
+			},
+			
 
 			render: function() {
 				this.$el.html(menuTemplate);
@@ -46,8 +51,26 @@ define(['jquery', 'underscore', 'backbone', 'view/uploadDialog', 'text!template/
 			},
 			
 			menuDelete: function(event) {
+				var that = this;
+				
 				event.stopPropagation();
 				$('.submenu').hide();
+				
+				var value = $('.objectSelected').text();
+				var urlStr = 'cloud/object/delete?type=aws&storageName=bstestbucket&name=' + value;
+
+				$.ajax({
+                	url: urlStr,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data, textStatus, xhr) {
+						that.pubSubEvents.trigger('updateRender');
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+						console.log(textStatus);
+                    }
+                });
+				
 				console.log('menuView click delete');
 			},
 			

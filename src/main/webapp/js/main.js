@@ -7,8 +7,6 @@ require.config({
 		underscore: 'lib/underscore-min',
 		//backbone: 'lib/backbone-min',
 		backbone: 'lib/backbone',
-		
-		mediator: 'lib/backbone-mediator',
 
 		// Require.js plugin.
 		text: 'lib/text',
