@@ -164,6 +164,33 @@ public class AWSService implements CloudService {
 		return output;
 	}
 	
+	public String moveFile(String source, String destination, String sourceKey, String destinationKey){
+		String copyOutput = copyFile(source, destination, sourceKey, destinationKey);
+		String deleteOutput = deleteFile(source, sourceKey);
+		String output;
+		try{
+			ObjectMapper mapper = new ObjectMapper();
+			Status copyStatus = mapper.readValue(copyOutput, Status.class);
+			Status deleteStatus = mapper.readValue(deleteOutput, Status.class);
+			if (copyStatus.getStatus()==1&&deleteStatus.getStatus()==1){
+				output = mapper.writeValueAsString(new Status(1, "File moved successfuly"));
+			}
+			else{
+				output = mapper.writeValueAsString(new Status(0, "Error moving file"));
+			}
+		} catch (JsonGenerationException e) {
+			e.printStackTrace();
+			output = e.toString();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+			output = e.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+			output = e.toString();
+		}
+		return output;
+	}
+	
 	private boolean checkKeyInBucket(String bucketName, String key){
 		ObjectListing objects = null;
 		boolean keyContained=false;
@@ -175,7 +202,7 @@ public class AWSService implements CloudService {
 				objects = s3.listNextBatchOfObjects(objects);
 			}
 			for (S3ObjectSummary o : objects.getObjectSummaries()){
-				if (o.getKey()==key){
+				if (o.getKey().equals(key)){
 					keyContained = true;
 				}
 			}

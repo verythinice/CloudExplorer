@@ -9,4 +9,5 @@ public interface CloudService {
 	public String downloadFile(String storageName, String fileName);
 	public String copyFile(String source, String destination, String sourceKey, String destinationKey);
 	public String deleteFile(String storageName, String fileName);
+	public String moveFile(String source, String destination, String sourceKey, String destinationKey);
 }

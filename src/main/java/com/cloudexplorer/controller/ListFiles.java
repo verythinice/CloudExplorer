@@ -36,11 +36,12 @@ public class ListFiles {
 			@QueryParam("type") String storageService, 
 			@QueryParam("source") String source,
 			@QueryParam("destination") String destination,
-			@QueryParam("name") String fileName){
+			@QueryParam("name") String fileName,
+			@QueryParam("newName") String newName){
 		CloudService service = StorageTypeChecker.returnCorrectStorageType(storageService);
 		String output = checkService(service);
 		if(output==null){
-			output = service.copyFile(source, destination, fileName, fileName);
+			output = service.copyFile(source, destination, fileName, newName);
 		}
 		return output;
 	}
@@ -72,6 +73,21 @@ public class ListFiles {
 		String output = checkService(service);
 		if(output==null){
 			output = service.uploadFile(storageName, key, uploadedInputStream);
+		}
+		return output;
+	}
+	
+	@GET
+	@Path("/move")
+	public String moveObject(
+			@QueryParam("type") String storageService, 
+			@QueryParam("source") String source,
+			@QueryParam("destination") String destination,
+			@QueryParam("name") String fileName){
+		CloudService service = StorageTypeChecker.returnCorrectStorageType(storageService);
+		String output = checkService(service);
+		if(output==null){
+			output = service.moveFile(source, destination, fileName, fileName);
 		}
 		return output;
 	}
