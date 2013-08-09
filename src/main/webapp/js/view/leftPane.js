@@ -1,5 +1,5 @@
-define(['jquery', 'underscore', 'backbone', 'model/storageModel', 'collection/storageCollection', 'view/rightPane', 'text!template/leftPane.html'],
-	function($, _, Backbone, StorageModel, StorageCollection, RightPaneView, leftPaneTemplate) {
+define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftPane.html'],
+	function($, _, Backbone, PubSubEvents, leftPaneTemplate) {
 
 		var leftPaneView = Backbone.View.extend({
 			initialize: function() {
@@ -15,21 +15,22 @@ define(['jquery', 'underscore', 'backbone', 'model/storageModel', 'collection/st
 					};
 					var compiledTemplate = _.template(leftPaneTemplate, data);
 
-					that.$el.html(compiledTemplate); 
+					that.$el.html(compiledTemplate);
 					
+					// Don't render the right pane until the left pane is done.
 					var model = that.collection.at(0);
-					var name = model.get('name');
-					var rightPaneView = new RightPaneView({el: $('#rightPane')});
-					rightPaneView.render(name);
+					if (model) {
+						sessionStorage.storageName = model.get('name');;
+					}
+					PubSubEvents.trigger('refreshRightPane');
 			    }
 				
 				var fetchError = function() {
-					console.log('Error!')
+					console.log('leftPaneView fetchError');
 				}
 				
-				this.collection = new StorageCollection([]); 
 				var params = {
-						type: 'aws'
+						type: localStorage.getItem('storageType')
 					};
 		        this.collection.fetch({success: fetchSuccess, error: fetchError, data: $.param(params)});
 			},
@@ -39,8 +40,9 @@ define(['jquery', 'underscore', 'backbone', 'model/storageModel', 'collection/st
 		    },
 
 		    selectStorage: function(event) {
-				var rightPaneView = new RightPaneView({el: $('#rightPane')});
-				rightPaneView.render(event.target.id);
+		    	// TODO Highlight current storage.
+		    	sessionStorage.storageName = event.target.id;
+		    	PubSubEvents.trigger('refreshRightPane');
 		    }
 		});
 

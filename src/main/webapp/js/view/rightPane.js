@@ -1,22 +1,16 @@
-define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'model/objectModel', 'collection/objectCollection', 'text!template/rightPane.html'],
-	function($, _, Backbone, PubSubEvents, ObjModel, ObjectCollection, rightPaneTemplate) {
+define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/rightPane.html'],
+	function($, _, Backbone, PubSubEvents, rightPaneTemplate) {
 
 		var rightPaneView = Backbone.View.extend({
 			initialize: function() {
-				this.pubSubEvents = PubSubEvents;
-				this.pubSubEvents.bind('updateRender', this.render);
+				PubSubEvents.bind('refreshRightPane', this.render, this);
 			},
 
-			render: function(name) {
-				console.log ('rightPane render: ' + name);
-				var that = this;
+			render: function() {
+				// TODO Loading message.
+				console.log('rightPaneView: ' + sessionStorage.storageName);
 				
-				if (name) {
-					sessionStorage.storageName = name;
-				}
-				else {
-					name = sessionStorage.storageName;
-				}
+				var that = this;
 				
 				var fetchSuccess = function(collection) {
 					var data = {
@@ -25,17 +19,17 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'model/objectModel',
 					};
 					var compiledTemplate = _.template(rightPaneTemplate, data);
 
-					$('#rightPane').html(compiledTemplate); 
+					that.$el.html(compiledTemplate); 
 			    }
 				
 				var fetchError = function() {
-					console.log('Error!')
+					console.log('rightPaneView fetchError');
 				}
 				
-				this.collection = new ObjectCollection([]);
+				// TODO Error check name, i.e. no name.
 				var params = {
-					type: 'aws',
-					name: name
+					type: localStorage.getItem('storageType'),
+					name: sessionStorage.storageName
 				};
 		        this.collection.fetch({success: fetchSuccess, error: fetchError, data: $.param(params)});
 			},
@@ -45,6 +39,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'model/objectModel',
 			},
 			
 			selectObject: function(event) {
+				// TODO Multiple select.
 				$('#' + event.target.id).toggleClass('objectSelected');
 			},
 		});

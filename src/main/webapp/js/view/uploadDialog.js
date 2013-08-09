@@ -8,6 +8,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 
 				this.pubSubEvents = PubSubEvents;
 				this.template = _.template(uploadDialogTemplate);
 				this.fileList = [];
+
 				// TODO No validation yet
 				// Backbone.Validation.bind( this, {valid:this.hideError,
 				// invalid:this.showError});
@@ -44,17 +45,24 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 
 		                var percentComplete = Math.round(event.loaded * 100 / event.total);
 		                //document.getElementById('progressNumber').innerHTML = percentComplete.toString() + '%';
 		                //document.getElementById('prog').value = percentComplete;
-		            	console.log(percentComplete.toString() + '%');
+		            	console.log('uploadProgress: ' + percentComplete.toString() + '%');
 		            }
 		            else {
 		                //document.getElementById('progressNumber').innerHTML = 'unable to compute';
-		            	console.log('unable to compute');
+		            	console.log('uploadProgress unable to compute');
 		            }
 		        }
 
 		        var uploadComplete = function(event) {
+		        	// TODO Need to track all files uploaded.
 					that.hideModal();
-		        	that.pubSubEvents.trigger('updateRender');
+					// TODO Need to wait a little before refreshing screen.
+					/*
+					for (var i = 1; i < 10000; i++) {
+						var j = i;
+					}
+					*/
+		        	that.pubSubEvents.trigger('refreshRightPane');
 		            /* This event is raised when the server send back a response */
 		            console.log('uploadComplete: ' + event.target.responseText);
 		        }

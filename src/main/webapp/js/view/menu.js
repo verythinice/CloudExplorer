@@ -5,9 +5,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 			el: $('#menu'),
 			
 			initialize: function() {
-				this.pubSubEvents = PubSubEvents;
 			},
-			
 
 			render: function() {
 				this.$el.html(menuTemplate);
@@ -51,11 +49,10 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 			},
 			
 			menuDelete: function(event) {
-				var that = this;
-				
 				event.stopPropagation();
 				$('.submenu').hide();
 				
+				// TODO Delete multiple object.
 				var value = $('.objectSelected').text();
 				var urlStr = 'cloud/object/delete?type=aws&storageName=bstestbucket&name=' + value;
 
@@ -64,7 +61,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
                     type: 'GET',
                     dataType: 'json',
                     success: function(data, textStatus, xhr) {
-						that.pubSubEvents.trigger('updateRender');
+						PubSubEvents.trigger('refreshRightPane');
                     },
                     error: function(xhr, textStatus, errorThrown) {
 						console.log(textStatus);
