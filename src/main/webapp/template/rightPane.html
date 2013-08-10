@@ -1,5 +1,6 @@
+<!-- TODO Make this a table. -->
 <ul>
   <% _.each(objs, function(obj, index){ %>
-   <li><span id="object_<%= index %>"><%= obj.get('key') %></span><span>&nbsp;&nbsp;&nbsp;&nbsp;<%= obj.get('lastModified') %></span></li> 
+   <li><span id="object_<%= index %>" class="draggableObject" draggable="true" ><%= obj.get('key') %></span></li> 
   <% }); %>
 </ul>

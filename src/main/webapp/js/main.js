@@ -2,14 +2,14 @@ require.config({
 	// Require.js allows us to configure shortcut alias.
 	paths: {
 		// Libraries.
-		//jquery: 'lib/jquery-1.9.1.min',
-		jquery: 'lib/jquery-1.9.1',
-		underscore: 'lib/underscore-min',
-		//backbone: 'lib/backbone-min',
-		backbone: 'lib/backbone',
+		//jquery: '../lib/jquery-1.9.1.min',
+		jquery: '../lib/jquery-1.9.1',
+		underscore: '../lib/underscore-min',
+		//backbone: '../lib/backbone-min',
+		backbone: '../lib/backbone',
 
 		// Require.js plugin.
-		text: 'lib/text',
+		text: '../lib/text',
 
 		// A short cut to put html outside the js dir. This might make it easier for HTML/CSS designers.
 		template: '../template'

@@ -8,7 +8,6 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/right
 
 			render: function() {
 				// TODO Loading message.
-				console.log('rightPaneView: ' + sessionStorage.storageName);
 				
 				var that = this;
 				
@@ -36,11 +35,17 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/right
 			
 			events: {
 				'click': 'selectObject',
+				'dragstart .draggableObject': 'dragStart',
 			},
 			
 			selectObject: function(event) {
 				// TODO Multiple select.
 				$('#' + event.target.id).toggleClass('objectSelected');
+			},
+			
+			dragStart: function(event) {
+				console.log('dragStart: ' + event.target.id)
+				event.originalEvent.dataTransfer.setData('dragObject', event.target.id);
 			},
 		});
 

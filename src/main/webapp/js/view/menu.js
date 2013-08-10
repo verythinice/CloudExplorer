@@ -54,7 +54,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 				
 				// TODO Delete multiple object.
 				var value = $('.objectSelected').text();
-				var urlStr = 'cloud/object/delete?type=aws&storageName=bstestbucket&name=' + value;
+				var urlStr = 'cloud/object/delete?type=' + localStorage.getItem('storageType') + '&storageName=' + sessionStorage.storageName + '&name=' + value;
 
 				$.ajax({
                 	url: urlStr,

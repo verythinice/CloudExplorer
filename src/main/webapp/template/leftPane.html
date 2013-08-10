@@ -1,5 +1,5 @@
 <ul>
   <% _.each(storages, function(storage){ %>
-   <li><span id="<%= storage.get('name') %>"><%= storage.get('name') %></span></li> 
+   <li><span id="<%= storage.get('name') %>" class="droppableStorage" ><%= storage.get('name') %></span></li> 
   <% }); %>
 </ul>
