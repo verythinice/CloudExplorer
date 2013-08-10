@@ -18,7 +18,7 @@ import com.sun.jersey.multipart.FormDataParam;
 
 @Path("/object")
 @Produces(MediaType.APPLICATION_JSON)
-public class ListFiles {
+public class FileManipulator {
 	@GET
 	@Path("/list")
 	public String listObjects(@QueryParam("type") String storageService, @QueryParam("name") String storageName) {
@@ -63,7 +63,7 @@ public class ListFiles {
 	@POST
 	@Path("/upload")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public String uploadFile(
+	public String uploadObject(
 			@FormDataParam("storageService") String storageService,
 			@FormDataParam("storageName") String storageName,
 			@FormDataParam("file") InputStream uploadedInputStream,
@@ -88,6 +88,21 @@ public class ListFiles {
 		String output = checkService(service);
 		if(output==null){
 			output = service.moveFile(source, destination, fileName, fileName);
+		}
+		return output;
+	}
+	
+	@GET
+	@Path("/rename")
+	public String renameObject(
+			@QueryParam("type") String storageService,
+			@QueryParam("storage") String storageName,
+			@QueryParam("name") String name,
+			@QueryParam("newName") String newName){
+		CloudService service = StorageTypeChecker.returnCorrectStorageType(storageService);
+		String output = checkService(service);
+		if(output==null){
+			output = service.renameFile(storageName, name, newName);
 		}
 		return output;
 	}

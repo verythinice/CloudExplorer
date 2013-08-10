@@ -10,4 +10,5 @@ public interface CloudService {
 	public String copyFile(String source, String destination, String sourceKey, String destinationKey);
 	public String deleteFile(String storageName, String fileName);
 	public String moveFile(String source, String destination, String sourceKey, String destinationKey);
+	public String renameFile(String storageName, String name, String newName);
 }

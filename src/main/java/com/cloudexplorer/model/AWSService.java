@@ -2,6 +2,8 @@ package com.cloudexplorer.model;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -15,6 +17,7 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CopyObjectRequest;
+import com.amazonaws.services.s3.model.DeleteObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -179,6 +182,64 @@ public class AWSService implements CloudService {
 				output = mapper.writeValueAsString(new Status(0, "Error moving file"));
 			}
 		} catch (JsonGenerationException e) {
+			e.printStackTrace();
+			output = e.toString();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+			output = e.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+			output = e.toString();
+		}
+		return output;
+	}
+	
+	public String renameFile(String storageName, String name, String newName){
+		String copyOutput = copyFile(storageName, storageName, name, newName);
+		String deleteOutput = deleteFile(storageName, name);
+		String output;
+		try{
+			ObjectMapper mapper = new ObjectMapper();
+			Status copyStatus = mapper.readValue(copyOutput, Status.class);
+			Status deleteStatus = mapper.readValue(deleteOutput, Status.class);
+			if (copyStatus.getStatus()==1&&deleteStatus.getStatus()==1){
+				output = mapper.writeValueAsString(new Status(1, "File renamed successfuly"));
+			}
+			else{
+				output = mapper.writeValueAsString(new Status(0, "Error renaming file"));
+			}
+		} catch (JsonGenerationException e) {
+			e.printStackTrace();
+			output = e.toString();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+			output = e.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+			output = e.toString();
+		}
+		return output;
+	}
+	
+	public String deleteMultipleFiles(String storageName, List<String> fileNames){
+		String output;
+		ArrayList<DeleteObjectsRequest.KeyVersion> keyList = new ArrayList<DeleteObjectsRequest.KeyVersion>();
+		for (String name : fileNames){
+			keyList.add(new DeleteObjectsRequest.KeyVersion(name));
+		}
+		try{
+			DeleteObjectsRequest request = new DeleteObjectsRequest(storageName);
+			request.setKeys(keyList);
+			s3.deleteObjects(request);
+			ObjectMapper mapper = new ObjectMapper();
+			output = mapper.writeValueAsString(new Status(1,"Files deleted successfully"));
+		} catch (AmazonServiceException ase) {
+            ase.printStackTrace();
+            output = ase.toString();
+        } catch (AmazonClientException ace) {
+            ace.printStackTrace();
+            output = ace.toString();
+        } catch (JsonGenerationException e) {
 			e.printStackTrace();
 			output = e.toString();
 		} catch (JsonMappingException e) {
