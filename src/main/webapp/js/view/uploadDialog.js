@@ -15,14 +15,14 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 
 				// TODO Check for duplicate files.
 			},
 			
-			render: function() {
-				$(this.el).html(this.template());
-				return this;
-			},
-			
 			events: {
 				'submit form': 'uploadFile',
 				'change #fileList': 'selectFile'
+			},
+			
+			render: function() {
+				$(this.el).html(this.template());
+				return this;
 			},
 			
 			selectFile: function(event) {

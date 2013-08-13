@@ -5,6 +5,12 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftP
 			initialize: function() {
 			},
 			
+		    events: {
+		    	'click li': 'selectStorage',
+		    	'dragover .droppableStorage': 'dragOver',
+		    	'drop .droppableStorage': 'drop',
+		    },
+			
 			render: function() {
 				var that = this;
 				
@@ -35,12 +41,6 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftP
 					};
 		        this.collection.fetch({success: fetchSuccess, error: fetchError, data: $.param(params)});
 			},
-			
-		    events: {
-		    	'click li': 'selectStorage',
-		    	'dragover .droppableStorage': 'dragOver',
-		    	'drop .droppableStorage': 'drop',
-		    },
 
 		    selectStorage: function(event) {
 		    	// TODO Highlight current storage.

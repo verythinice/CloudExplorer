@@ -7,10 +7,6 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 			initialize: function() {
 			},
 
-			render: function() {
-				this.$el.html(menuTemplate);
-			},
-
 			events: {
 				'click #menuUpload': 'menuUpload',
 				'click #menuDownload': 'menuDownload',
@@ -20,6 +16,10 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 				'click #menuDelete': 'menuDelete',
 				'click #menuOptions': 'menuOptions',
 				'click': 'displayMenuOptions'
+			},
+
+			render: function() {
+				this.$el.html(menuTemplate);
 			},
 
 			menuUpload: function(event) {
@@ -45,6 +45,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 			
 			menuRename: function(event) {
 				event.stopPropagation();
+				PubSubEvents.trigger('renameObject');
 				console.log('menuView click rename');
 			},
 			

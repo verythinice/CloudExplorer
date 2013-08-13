@@ -8,6 +8,9 @@ define(['jquery', 'underscore', 'backbone', 'collection/storageCollection', 'col
 		    	// TODO UI for user to choose.
 		    	localStorage.setItem('storageType', 'aws');
 		    },
+		    
+		    events: {
+		    },
 
 			render: function() {
 				this.$el.html(contentTemplate);
@@ -19,7 +22,7 @@ define(['jquery', 'underscore', 'backbone', 'collection/storageCollection', 'col
 				
 				this.objectCollection = new ObjectCollection([]);
 				this.rightPaneView = new RightPaneView({el: $('#rightPane'), collection: this.objectCollection});
-			}
+			},
 		});
 
 		return contentView;

@@ -4,6 +4,13 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/right
 		var rightPaneView = Backbone.View.extend({
 			initialize: function() {
 				PubSubEvents.bind('refreshRightPane', this.render, this);
+				PubSubEvents.bind('renameObject', this.renameObjectStart, this);
+			},
+			
+			events: {
+				'click': 'selectObject',
+				'dragstart .draggableObject': 'dragStart',
+				'keypress input[type=text]': 'renameObject',
 			},
 
 			render: function() {
@@ -33,19 +40,45 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/right
 		        this.collection.fetch({success: fetchSuccess, error: fetchError, data: $.param(params)});
 			},
 			
-			events: {
-				'click': 'selectObject',
-				'dragstart .draggableObject': 'dragStart',
-			},
-			
 			selectObject: function(event) {
 				// TODO Multiple select.
 				$('#' + event.target.id).toggleClass('objectSelected');
 			},
 			
 			dragStart: function(event) {
-				console.log('dragStart: ' + event.target.id)
+				console.log('dragStart: ' + event.target.id);
 				event.originalEvent.dataTransfer.setData('dragObject', event.target.id);
+			},
+			
+			renameObjectStart: function() {
+				console.log('renameObjectStart');
+				this.originalName = $('.objectSelected').text();
+				$('.objectSelected').html('<input type="text" id="renameObj" name="renameObj" class="renameObj" value="' + this.originalName + '" />').toggleClass('objectSelected');
+			},
+			
+			renameObject: function(event) {
+				console.log('renameObject: ' + event.target.id);
+				if (event.keyCode != 13) return;
+		    	event.preventDefault();
+				var value = $('#' + event.target.id).val();
+				var urlStr = 'cloud/object/rename?type=' + localStorage.getItem('storageType') + '&storage=' + sessionStorage.storageName + '&name=' + this.originalName + '&newName=' + value;
+		    	
+		    	console.log('renameObject: ' + urlStr);
+
+				$.ajax({
+                	url: urlStr,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data, textStatus, xhr) {
+						console.log(textStatus);
+						$('#' + event.target.id).parent().html(value);
+						//PubSubEvents.trigger('refreshRightPane');
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+						console.log(textStatus);
+                    }
+                });
+				
 			},
 		});
 

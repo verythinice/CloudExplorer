@@ -1,5 +1,5 @@
-define(['jquery', 'underscore', 'backbone', 'model/storageModel'],
-	function($, _, Backbone, StorageModel) {
+define(['underscore', 'backbone', 'model/storageModel'],
+	function(_, Backbone, StorageModel) {
 	
 		var storageCollection = Backbone.Collection.extend({
 			model: StorageModel,
