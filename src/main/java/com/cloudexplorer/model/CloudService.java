@@ -1,6 +1,7 @@
 package com.cloudexplorer.model;
 
 import java.io.InputStream;
+import java.util.List;
 
 public interface CloudService {
 	public String listStorage();
@@ -11,4 +12,5 @@ public interface CloudService {
 	public String deleteFile(String storageName, String fileName);
 	public String moveFile(String source, String destination, String sourceKey, String destinationKey);
 	public String renameFile(String storageName, String name, String newName);
+	public String deleteMultipleFiles(String storageName, List<String> fileNames);
 }

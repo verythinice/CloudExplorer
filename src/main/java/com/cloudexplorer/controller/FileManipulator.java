@@ -1,8 +1,10 @@
 package com.cloudexplorer.controller;
 
 import java.io.InputStream;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -56,6 +58,21 @@ public class FileManipulator {
 		String output = checkService(service);
 		if(output==null){
 			output = service.deleteFile(storageName, fileName);
+		}
+		return output;
+	}
+	
+	@POST
+	@Path("/deleteMultiple")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String deleteMultipleObjects(
+			@FormParam("type") String storageService,
+			@FormParam("name") String storageName,
+			@FormParam("fileNames") List<String> fileNames){
+		CloudService service = StorageTypeChecker.returnCorrectStorageType(storageService);
+		String output = checkService(service);
+		if(output==null){
+			output = service.deleteMultipleFiles(storageName, fileNames);
 		}
 		return output;
 	}
