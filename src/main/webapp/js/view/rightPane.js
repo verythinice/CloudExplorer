@@ -4,7 +4,10 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/right
 		var rightPaneView = Backbone.View.extend({
 			initialize: function() {
 				PubSubEvents.bind('refreshRightPane', this.render, this);
+				PubSubEvents.bind('copyObject', this.copyObject, this);
+				PubSubEvents.bind('pasteObject', this.pasteObject, this);
 				PubSubEvents.bind('renameObject', this.renameObjectStart, this);
+				PubSubEvents.bind('deleteObject', this.deleteObject, this);
 			},
 			
 			events: {
@@ -45,25 +48,50 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/right
 				$('#' + event.target.id).toggleClass('objectSelected');
 			},
 			
+			copyObject: function() {
+				// TODO Multiple select.
+				$('.objectSelected').addClass('objectCopied');
+				// TODO: Need to remember the source of storage and object.
+				sessionStorage.source = sessionStorage.storageName;
+			},
+			
+			pasteObject: function() {
+				var name = $('.objectCopied').text();
+				var urlStr = 'cloud/object/copy?type=' + localStorage.getItem('storageType') + '&source=' + sessionStorage.source + '&destination=' + sessionStorage.storageName + '&name=' + name + '&newName=' + name;
+		    	
+		    	console.log('pasteObject: ' + urlStr);
+		    	var that = this;
+
+				$.ajax({
+                	url: urlStr,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data, textStatus, xhr) {
+						console.log(textStatus);
+						that.render();
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+						console.log(textStatus);
+                    }
+                });
+				
+			},
+			
 			dragStart: function(event) {
-				console.log('dragStart: ' + event.target.id);
 				event.originalEvent.dataTransfer.setData('dragObject', event.target.id);
 			},
 			
 			renameObjectStart: function() {
-				console.log('renameObjectStart');
+				// TODO Multiple select.
 				this.originalName = $('.objectSelected').text();
 				$('.objectSelected').html('<input type="text" id="renameObj" name="renameObj" class="renameObj" value="' + this.originalName + '" />').toggleClass('objectSelected');
 			},
 			
 			renameObject: function(event) {
-				console.log('renameObject: ' + event.target.id);
 				if (event.keyCode != 13) return;
 		    	event.preventDefault();
 				var value = $('#' + event.target.id).val();
 				var urlStr = 'cloud/object/rename?type=' + localStorage.getItem('storageType') + '&storage=' + sessionStorage.storageName + '&name=' + this.originalName + '&newName=' + value;
-		    	
-		    	console.log('renameObject: ' + urlStr);
 
 				$.ajax({
                 	url: urlStr,
@@ -80,6 +108,57 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/right
                 });
 				
 			},
+			
+			deleteObject: function() {
+				var numObj = $('.objectSelected').length;
+				
+				if (numObj == 1) {
+					var name = $('.objectSelected').text();
+					var urlStr = 'cloud/object/delete?type=' + localStorage.getItem('storageType') + '&storageName=' + sessionStorage.storageName + '&name=' + name;
+
+					$.ajax({
+	                	url: urlStr,
+	                    type: 'GET',
+	                    dataType: 'json',
+	                    success: function(data, textStatus, xhr) {
+							PubSubEvents.trigger('refreshRightPane');
+	                    },
+	                    error: function(xhr, textStatus, errorThrown) {
+							console.log(textStatus);
+	                    }
+	                });
+				}
+				else if (numObj > 1) {
+					var names = [];
+					var name;
+					$('.objectSelected').each(function() {
+						name = $(this).text();
+						names.push(name);
+					});
+					
+					var jsonObj = {};
+					jsonObj.type = localStorage.getItem('storageType');
+					jsonObj.storageName = sessionStorage.storageName;
+					jsonObj.names = names;
+
+					$.ajax({
+	                	url: urlStr,
+	                    type: 'POST',
+	                    dataType: 'json',
+						data: JSON.stringify(jsonObj),
+	                    success: function(data, textStatus, xhr) {
+							PubSubEvents.trigger('refreshRightPane');
+	                    },
+	                    error: function(xhr, textStatus, errorThrown) {
+							console.log(textStatus);
+	                    }
+	                });
+				}
+				else {
+					// TODO Handle error.
+				}
+			},
+
 		});
 
 		return rightPaneView;

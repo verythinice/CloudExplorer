@@ -11,6 +11,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 				'click #menuUpload': 'menuUpload',
 				'click #menuDownload': 'menuDownload',
 				'click #menuCopy': 'menuCopy',
+				'click #menuPaste': 'menuPaste',
 				'click #menuMove': 'menuMove',
 				'click #menuRename': 'menuRename',
 				'click #menuDelete': 'menuDelete',
@@ -24,52 +25,44 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 
 			menuUpload: function(event) {
 				event.stopPropagation();
+				$('.submenu').hide();
 				var uploadDialogView = new UploadDialogView();
 				uploadDialogView.render().showModal();
 			},
 			
 			menuDownload: function(event) {
 				event.stopPropagation();
-				console.log('menuView click download');
+				$('.submenu').hide();
+				PubSubEvents.trigger('downloadObject');
 			},
 			
 			menuCopy: function(event) {
 				event.stopPropagation();
-				console.log('menuView click copy');
+				$('.submenu').hide();
+				PubSubEvents.trigger('copyObject');
+			},
+			
+			menuPaste: function(event) {
+				event.stopPropagation();
+				$('.submenu').hide();
+				PubSubEvents.trigger('pasteObject');
 			},
 			
 			menuMove: function(event) {
 				event.stopPropagation();
-				console.log('menuView click move');
+				$('.submenu').hide();
 			},
 			
 			menuRename: function(event) {
 				event.stopPropagation();
+				$('.submenu').hide();
 				PubSubEvents.trigger('renameObject');
-				console.log('menuView click rename');
 			},
 			
 			menuDelete: function(event) {
 				event.stopPropagation();
 				$('.submenu').hide();
-				
-				// TODO Delete multiple object.
-				var value = $('.objectSelected').text();
-				var urlStr = 'cloud/object/delete?type=' + localStorage.getItem('storageType') + '&storageName=' + sessionStorage.storageName + '&name=' + value;
-
-				$.ajax({
-                	url: urlStr,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data, textStatus, xhr) {
-						PubSubEvents.trigger('refreshRightPane');
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-						console.log(textStatus);
-                    }
-                });
-				
-				console.log('menuView click delete');
+				PubSubEvents.trigger('deleteObject');
 			},
 			
 			menuOptions: function(event) {

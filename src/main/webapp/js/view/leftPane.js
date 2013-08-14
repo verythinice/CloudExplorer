@@ -55,11 +55,10 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftP
 		    
 		    drop: function(event) {
 		    	event.preventDefault();
+				// TODO Multiple select.
 		    	var data = event.originalEvent.dataTransfer.getData('dragObject');
 				var value = $('#' + data).text();
 				var urlStr = 'cloud/object/move?type=' + localStorage.getItem('storageType') + '&source=' + sessionStorage.storageName + '&destination=' + event.target.id + '&name=' + value;
-		    	
-		    	console.log('drop: ' + urlStr);
 
 				$.ajax({
                 	url: urlStr,
