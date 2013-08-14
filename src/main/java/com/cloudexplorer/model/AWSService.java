@@ -1,5 +1,7 @@
 package com.cloudexplorer.model;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -18,9 +20,12 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CopyObjectRequest;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest;
+import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.cloudexplorer.util.Status;
 
@@ -109,8 +114,52 @@ public class AWSService implements CloudService {
 	}
 
 	@Override
-	public String downloadFile(String storageName, String fileName) {
-		// TODO Auto-generated method stub
+	public File downloadFile(String storageName, String fileName) {
+		S3Object object = null;
+		S3ObjectInputStream in = null;
+		FileOutputStream out = null;
+		try{
+			object = s3.getObject(new GetObjectRequest(storageName, fileName));
+			in = object.getObjectContent();
+			File file = File.createTempFile("temp", ".tmp");
+			out = new FileOutputStream(file);
+			
+			int read = 0;
+			byte[] bytes = new byte[1024];
+			while ((read = in.read(bytes)) != -1) {
+				out.write(bytes, 0, read);
+			}
+			return file;
+		} catch (AmazonServiceException ase) {
+            ase.printStackTrace();
+        } catch (AmazonClientException ace) {
+            ace.printStackTrace();
+        } catch (IOException e) {
+			e.printStackTrace();
+		} finally{
+			if (object != null){
+				try{
+					object.close();
+				} catch (IOException e){
+					e.printStackTrace();
+				}
+			}
+			if (in != null) {
+				try {
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (out != null) {
+				try {
+					// outputStream.flush();
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}	
+			}
+		}
 		return null;
 	}
 	

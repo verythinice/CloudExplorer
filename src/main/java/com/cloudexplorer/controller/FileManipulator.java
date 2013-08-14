@@ -1,5 +1,6 @@
 package com.cloudexplorer.controller;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import com.cloudexplorer.model.CloudService;
 import com.cloudexplorer.model.StorageTypeChecker;
@@ -92,6 +95,27 @@ public class FileManipulator {
 			output = service.uploadFile(storageName, key, uploadedInputStream);
 		}
 		return output;
+	}
+	
+	@GET
+	@Path("/download")
+	public Response downloadObject(
+			@QueryParam("type") String storageService,
+			@QueryParam("storageName") String storageName,
+			@QueryParam("name") String fileName){
+		CloudService service = StorageTypeChecker.returnCorrectStorageType(storageService);
+		String output = checkService(service);
+		File file;
+		if(output==null){
+			file = service.downloadFile(storageName, fileName);
+		}
+		else{
+			return null;
+		}
+		ResponseBuilder response = Response.ok((Object) file);
+		response.header("Content-Disposition",
+				"attachment; filename="+fileName);
+			return response.build();
 	}
 	
 	@GET
