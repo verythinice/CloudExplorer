@@ -33,6 +33,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftP
 			    }
 				
 				var fetchError = function() {
+					// TODO Handle error.
 					console.log('leftPaneView fetchError');
 				}
 				
@@ -55,7 +56,8 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftP
 		    
 		    drop: function(event) {
 		    	event.preventDefault();
-				// TODO Multiple select.
+
+		    	// TODO Multiple select.
 		    	var data = event.originalEvent.dataTransfer.getData('dragObject');
 				var value = $('#' + data).text();
 				var urlStr = 'cloud/object/move?type=' + localStorage.getItem('storageType') + '&source=' + sessionStorage.storageName + '&destination=' + event.target.id + '&name=' + value;
@@ -68,6 +70,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftP
 						PubSubEvents.trigger('refreshRightPane');
                     },
                     error: function(xhr, textStatus, errorThrown) {
+						// TODO Handle error.
 						console.log(textStatus);
                     }
                 });

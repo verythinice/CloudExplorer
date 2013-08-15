@@ -1,7 +1,7 @@
 define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 'text!template/uploadDialog.html'],
 	function($, _, Backbone, PubSubEvents, ModalDialogView, uploadDialogTemplate) {
 
-		// TODO Better dialog, hadnle multiple files, drag and drop.
+		// TODO Better dialog, handle multiple files, drag and drop, hover close icon.
 		var uploadDialogView = ModalDialogView.extend({
 			initialize: function() {
 				_.bindAll(this, 'render');

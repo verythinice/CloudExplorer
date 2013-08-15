@@ -1,13 +1,16 @@
-define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/rightPane.html'],
-	function($, _, Backbone, PubSubEvents, rightPaneTemplate) {
+define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog', 'text!template/rightPane.html'],
+	function($, _, Backbone, PubSubEvents, UploadDialogView, rightPaneTemplate) {
 
 		var rightPaneView = Backbone.View.extend({
 			initialize: function() {
 				PubSubEvents.bind('refreshRightPane', this.render, this);
-				PubSubEvents.bind('copyObject', this.copyObject, this);
-				PubSubEvents.bind('pasteObject', this.pasteObject, this);
-				PubSubEvents.bind('renameObject', this.renameObjectStart, this);
-				PubSubEvents.bind('deleteObject', this.deleteObject, this);
+				PubSubEvents.bind('menuUpload', this.uploadObject, this);
+				PubSubEvents.bind('menuDownload', this.downloadObject, this);
+				PubSubEvents.bind('menuCopy', this.copyObject, this);
+				PubSubEvents.bind('menuPaste', this.pasteObject, this);
+				PubSubEvents.bind('menuMove', this.moveObject, this);
+				PubSubEvents.bind('menuRename', this.renameObjectStart, this);
+				PubSubEvents.bind('menuDelete', this.deleteObject, this);
 			},
 			
 			events: {
@@ -32,6 +35,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/right
 			    }
 				
 				var fetchError = function() {
+					// TODO Handle error.
 					console.log('rightPaneView fetchError');
 				}
 				
@@ -44,24 +48,47 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/right
 			},
 			
 			selectObject: function(event) {
-				// TODO Multiple select.
+				// TODO Multiple select, ctrl, shift.
 				$('#' + event.target.id).toggleClass('objectSelected');
 			},
 			
+			uploadObject: function() {
+				var uploadDialogView = new UploadDialogView();
+				uploadDialogView.render().showModal();
+			},
+			
+			downloadObject: function() {
+				// TODO Implement.
+				var name = $('.objectSelected').text();
+				var urlStr = 'cloud/object/download?type=' + localStorage.getItem('storageType') + '&storageName=' + sessionStorage.storageName + '&name=' + name;
+		    	
+				$.ajax({
+                	url: urlStr,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data, textStatus, xhr) {
+						console.log(textStatus);
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+						console.log(textStatus);
+                    }
+                });
+				
+			},
+			
 			copyObject: function() {
-				// TODO Multiple select.
-				$('.objectSelected').addClass('objectCopied');
-				// TODO: Need to remember the source of storage and object.
-				sessionStorage.source = sessionStorage.storageName;
+				// TODO Handle multiple select.
+				sessionStorage.sourceStorage = sessionStorage.storageName;
+				sessionStorage.sourceObject = $('.objectSelected').text();
 			},
 			
 			pasteObject: function() {
-				var name = $('.objectCopied').text();
-				var urlStr = 'cloud/object/copy?type=' + localStorage.getItem('storageType') + '&source=' + sessionStorage.source + '&destination=' + sessionStorage.storageName + '&name=' + name + '&newName=' + name;
-		    	
-		    	console.log('pasteObject: ' + urlStr);
-		    	var that = this;
+				var urlStr = 'cloud/object/copy?type=' + localStorage.getItem('storageType') +
+									'&source=' + sessionStorage.sourceStorage + '&destination=' + sessionStorage.storageName +
+									'&name=' + sessionStorage.sourceObject + '&newName=' + sessionStorage.sourceObject;
 
+				// TODO Use backbone sync?
+		    	var that = this;
 				$.ajax({
                 	url: urlStr,
                     type: 'GET',
@@ -71,10 +98,14 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/right
 						that.render();
                     },
                     error: function(xhr, textStatus, errorThrown) {
+						// TODO Handle error.
 						console.log(textStatus);
                     }
                 });
-				
+			},
+			
+			moveObject: function() {
+				// TODO Move.
 			},
 			
 			dragStart: function(event) {
@@ -82,8 +113,9 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/right
 			},
 			
 			renameObjectStart: function() {
-				// TODO Multiple select.
+				// TODO Handle multiple select.
 				this.originalName = $('.objectSelected').text();
+				// TODO Unbind click event, improve look.
 				$('.objectSelected').html('<input type="text" id="renameObj" name="renameObj" class="renameObj" value="' + this.originalName + '" />').toggleClass('objectSelected');
 			},
 			
@@ -103,15 +135,17 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/right
 						//PubSubEvents.trigger('refreshRightPane');
                     },
                     error: function(xhr, textStatus, errorThrown) {
+						// TODO Handle error.
 						console.log(textStatus);
                     }
                 });
-				
 			},
 			
 			deleteObject: function() {
 				var numObj = $('.objectSelected').length;
-				
+
+				// TODO Test single and multiple delete.
+				// TODO Use backbone sync?
 				if (numObj == 1) {
 					var name = $('.objectSelected').text();
 					var urlStr = 'cloud/object/delete?type=' + localStorage.getItem('storageType') + '&storageName=' + sessionStorage.storageName + '&name=' + name;
@@ -124,6 +158,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/right
 							PubSubEvents.trigger('refreshRightPane');
 	                    },
 	                    error: function(xhr, textStatus, errorThrown) {
+							// TODO Handle error.
 							console.log(textStatus);
 	                    }
 	                });
@@ -150,6 +185,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/right
 							PubSubEvents.trigger('refreshRightPane');
 	                    },
 	                    error: function(xhr, textStatus, errorThrown) {
+							// TODO Handle error.
 							console.log(textStatus);
 	                    }
 	                });

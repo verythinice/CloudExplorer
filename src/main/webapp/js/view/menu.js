@@ -26,47 +26,47 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 			menuUpload: function(event) {
 				event.stopPropagation();
 				$('.submenu').hide();
-				var uploadDialogView = new UploadDialogView();
-				uploadDialogView.render().showModal();
+				PubSubEvents.trigger('menuUpload');
 			},
 			
 			menuDownload: function(event) {
 				event.stopPropagation();
 				$('.submenu').hide();
-				PubSubEvents.trigger('downloadObject');
+				PubSubEvents.trigger('menuDownload');
 			},
 			
 			menuCopy: function(event) {
 				event.stopPropagation();
 				$('.submenu').hide();
-				PubSubEvents.trigger('copyObject');
+				PubSubEvents.trigger('menuCopy');
 			},
 			
 			menuPaste: function(event) {
 				event.stopPropagation();
 				$('.submenu').hide();
-				PubSubEvents.trigger('pasteObject');
+				PubSubEvents.trigger('menuPaste');
 			},
 			
 			menuMove: function(event) {
 				event.stopPropagation();
 				$('.submenu').hide();
+				PubSubEvents.trigger('menuMove');
 			},
 			
 			menuRename: function(event) {
 				event.stopPropagation();
 				$('.submenu').hide();
-				PubSubEvents.trigger('renameObject');
+				PubSubEvents.trigger('menuRename');
 			},
 			
 			menuDelete: function(event) {
 				event.stopPropagation();
 				$('.submenu').hide();
-				PubSubEvents.trigger('deleteObject');
+				PubSubEvents.trigger('menuDelete');
 			},
 			
 			menuOptions: function(event) {
-				// TODO Better looking menu, hide menu on click else where, right mouse click.
+				// TODO Better looking menu, hide menu when click else where, right mouse click.
 				event.stopPropagation();
 				$('.submenu').hide();
 				switch (event.target.id) {
@@ -83,14 +83,10 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 						$('.menuText').show();
 						break;
 				}
-				console.log('menuView click menuOptions');
 			},
 			
 			displayMenuOptions: function(event) {
-				console.log('menuView click event: ' + event.pageX + ' ' + event.pageY + ' ' + event.which);
-				
 				var offset = $('#menuOptions').offset();
-				console.log('menuView click offset before: ' + offset.top + ' ' + offset.left);
 				
 				// JQuery has issue setting offset for hidden element.
 				// So display it first before setting offset.
@@ -99,8 +95,6 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 				$('#menuOptions').offset({top: event.pageY, left: event.pageX});
 				
 				offset = $('#menuOptions').offset();
-				console.log('menuView click offset after: ' + offset.top + ' ' + offset.left);
-				
 			}
 		});
 

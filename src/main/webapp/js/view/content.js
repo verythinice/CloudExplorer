@@ -15,7 +15,7 @@ define(['jquery', 'underscore', 'backbone', 'collection/storageCollection', 'col
 			render: function() {
 				this.$el.html(contentTemplate);
 				
-				// TODO Store storage type, storage name in local or session storage. 
+				// TODO Should some or all of these be in initialize.
 				this.storageCollection = new StorageCollection([]);
 				this.leftPaneView = new LeftPaneView({el: $('#leftPane'), collection: this.storageCollection});
 				this.leftPaneView.render();
