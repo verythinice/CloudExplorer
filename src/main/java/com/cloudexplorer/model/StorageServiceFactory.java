@@ -1,7 +1,7 @@
 package com.cloudexplorer.model;
 
-public final class StorageTypeChecker {
-	private StorageTypeChecker(){}
+public final class StorageServiceFactory {
+	private StorageServiceFactory(){}
 	
 	public static CloudService returnCorrectStorageType(String storageType){
 		if (storageType.equals("aws")){
