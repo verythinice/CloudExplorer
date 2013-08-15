@@ -177,7 +177,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 					jsonObj.names = names;
 
 					$.ajax({
-	                	url: urlStr,
+	                	url: 'cloud/object/deleteMultiple',
 	                    type: 'POST',
 	                    dataType: 'json',
 						data: JSON.stringify(jsonObj),
