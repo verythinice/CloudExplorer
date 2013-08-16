@@ -2,6 +2,9 @@ package com.cloudexplorer.util;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class MultipleDeleteInput {
 	private String type;
 	private String storageName;

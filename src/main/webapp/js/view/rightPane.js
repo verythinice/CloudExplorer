@@ -58,22 +58,11 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 			},
 			
 			downloadObject: function() {
-				// TODO Implement.
+				// TODO Handle multiple select.
 				var name = $('.objectSelected').text();
 				var urlStr = 'cloud/object/download?type=' + localStorage.getItem('storageType') + '&storageName=' + sessionStorage.storageName + '&name=' + name;
-		    	
-				$.ajax({
-                	url: urlStr,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data, textStatus, xhr) {
-						console.log(textStatus);
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-						console.log(textStatus);
-                    }
-                });
-				
+				$('#downloadFile').attr('href', urlStr);
+				$('#downloadFile')[0].click();
 			},
 			
 			copyObject: function() {
@@ -179,8 +168,9 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 					$.ajax({
 	                	url: 'cloud/object/deleteMultiple',
 	                    type: 'POST',
-	                    dataType: 'json',
+						contentType: 'application/json;charset=utf-8',
 						data: JSON.stringify(jsonObj),
+	                    dataType: 'json',
 	                    success: function(data, textStatus, xhr) {
 							PubSubEvents.trigger('refreshRightPane');
 	                    },
