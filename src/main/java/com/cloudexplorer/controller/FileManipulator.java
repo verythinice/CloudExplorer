@@ -1,3 +1,7 @@
+/*
+ * The factory class that handles objects within the storage.
+ * Each public method responds to an http request, calls the class to choose the correct storage type, then calls the class for that storage type. 
+ */
 package com.cloudexplorer.controller;
 
 import java.io.File;
@@ -23,6 +27,12 @@ import com.sun.jersey.multipart.FormDataParam;
 @Path("/object")
 @Produces(MediaType.APPLICATION_JSON)
 public class FileManipulator {
+	/*
+	 * Lists the objects in storage.
+	 * Parameters: type = the type of cloud storage. Currently only supports AWS
+	 * name: the name of the storage to list the files from
+	 * Returns a JSON object of S3Object, which has object name, size, owner, etc. for each object
+	 */
 	@GET
 	@Path("/list")
 	public String listObjects(@QueryParam("type") String storageService, @QueryParam("name") String storageName) {
@@ -34,6 +44,15 @@ public class FileManipulator {
 		return output;
 	}
 	
+	/*
+	 * Copies objects. can copy objects between storage, or into the same storage.
+	 * Parameters: type = the type of cloud storage. Currently only supports AWS
+	 * source = the source storage
+	 * destination = the destination storage
+	 * name = the name of the object to be copied
+	 * newName = the new name the object is being copied to. Can be the same as name.
+	 * If the name already exists in that storage, it automatically renames the object.
+	 */
 	@GET
 	@Path("/copy")
 	public String copyObject(
@@ -50,6 +69,12 @@ public class FileManipulator {
 		return output;
 	}
 	
+	/*
+	 * Deletes objects.
+	 * Parameters: type = the type of cloud storage. Currently only supports AWS
+	 * storageName = the name of the storage the object to be deleted is in
+	 * name = the name of the object to be deleted
+	 */
 	@GET
 	@Path("/delete")
 	public String deleteObject(
@@ -64,6 +89,10 @@ public class FileManipulator {
 		return output;
 	}
 	
+	/*
+	 * Deletes multiple objects at once. The objects all need to be in the same bucket.
+	 * 
+	 */
 	@POST
 	@Path("/deleteMultiple")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -76,6 +105,12 @@ public class FileManipulator {
 		return output;
 	}
 	
+	/*
+	 * Uploads an object to the specified storage.
+	 * Parameters: storageService = the type of cloud storage. Currently only supports AWS
+	 * storageName = the storage to upload the file to
+	 * file = the file to upload
+	 */
 	@POST
 	@Path("/upload")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)

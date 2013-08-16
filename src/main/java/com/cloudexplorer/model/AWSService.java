@@ -32,6 +32,7 @@ import com.cloudexplorer.util.Status;
 public class AWSService implements CloudService {
 	private AmazonS3 s3;
 	
+	//TODO figure out how to do this in a properties file
 	public AWSService(){
 		s3 = new AmazonS3Client(new BasicAWSCredentials("AKIAIFLT6SG5RMGIYKZA","/EoEpToBa2EBQQd+NJgF0IFG0+OVE1z52ngJQnzu"));
 		s3.setRegion(Region.getRegion(Regions.US_WEST_1));
@@ -167,7 +168,12 @@ public class AWSService implements CloudService {
 		String output;
 		try{
 			if (checkKeyInBucket(destination, destinationKey)){
-				destinationKey = destinationKey+System.currentTimeMillis();
+				if (destinationKey.lastIndexOf('.')!=-1){
+					destinationKey = destinationKey.substring(0, destinationKey.lastIndexOf('.'))+"_copy_"+System.currentTimeMillis()+destinationKey.substring(destinationKey.lastIndexOf('.'));
+				}
+				else{
+					destinationKey = destinationKey+"_copy_"+System.currentTimeMillis();
+				}
 			}
 			s3.copyObject(new CopyObjectRequest(source, sourceKey, destination, destinationKey));
 			ObjectMapper mapper = new ObjectMapper();
