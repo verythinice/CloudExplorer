@@ -307,6 +307,10 @@ public class AWSService implements CloudService {
 		return output;
 	}
 	
+	/*
+	 * Checks if a specified key is in a bucket. 
+	 * Used for Copy, because aws won't let something be copied with the same name into the same bucket.
+	 */
 	private boolean checkKeyInBucket(String bucketName, String key){
 		ObjectListing objects = null;
 		boolean keyContained=false;

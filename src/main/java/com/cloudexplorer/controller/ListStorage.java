@@ -7,7 +7,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.cloudexplorer.model.CloudService;
-import com.cloudexplorer.model.StorageServiceFactory;
+import com.cloudexplorer.model.CloudServiceFactory;
 import com.cloudexplorer.util.Status;
 
 @Path("/storage")
@@ -18,7 +18,7 @@ public class ListStorage{
 	@Produces(MediaType.APPLICATION_JSON)
 	public String listBuckets(@QueryParam("type") String storageService) {
 		CloudService service;
-		service = StorageServiceFactory.returnCorrectStorageType(storageService);
+		service = CloudServiceFactory.returnCorrectStorageType(storageService);
 		if (service==null){
 			Status status = new Status();
 			return status.storageTypeError();

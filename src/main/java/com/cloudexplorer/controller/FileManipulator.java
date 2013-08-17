@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import com.cloudexplorer.model.CloudService;
-import com.cloudexplorer.model.StorageServiceFactory;
+import com.cloudexplorer.model.CloudServiceFactory;
 import com.cloudexplorer.util.MultipleDeleteInput;
 import com.cloudexplorer.util.Status;
 import com.sun.jersey.core.header.FormDataContentDisposition;
@@ -36,7 +36,7 @@ public class FileManipulator {
 	@GET
 	@Path("/list")
 	public String listObjects(@QueryParam("type") String storageService, @QueryParam("name") String storageName) {
-		CloudService service = StorageServiceFactory.returnCorrectStorageType(storageService);
+		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
 		String output = checkService(service);
 		if (output==null){
 			output = service.listFiles(storageName);
@@ -61,7 +61,7 @@ public class FileManipulator {
 			@QueryParam("destination") String destination,
 			@QueryParam("name") String fileName,
 			@QueryParam("newName") String newName){
-		CloudService service = StorageServiceFactory.returnCorrectStorageType(storageService);
+		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
 		String output = checkService(service);
 		if(output==null){
 			output = service.copyFile(source, destination, fileName, newName);
@@ -81,7 +81,7 @@ public class FileManipulator {
 			@QueryParam("type") String storageService,
 			@QueryParam("storageName") String storageName,
 			@QueryParam("name") String fileName){
-		CloudService service = StorageServiceFactory.returnCorrectStorageType(storageService);
+		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
 		String output = checkService(service);
 		if(output==null){
 			output = service.deleteFile(storageName, fileName);
@@ -97,7 +97,7 @@ public class FileManipulator {
 	@Path("/deleteMultiple")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public String deleteMultipleObjects(MultipleDeleteInput in){
-		CloudService service = StorageServiceFactory.returnCorrectStorageType(in.getType());
+		CloudService service = CloudServiceFactory.returnCorrectStorageType(in.getType());
 		String output = checkService(service);
 		if(output==null){
 			output = service.deleteMultipleFiles(in.getStorageName(), in.getNames());
@@ -120,7 +120,7 @@ public class FileManipulator {
 			@FormDataParam("file") InputStream uploadedInputStream,
 			@FormDataParam("file") FormDataContentDisposition fileDetail) {
 		String key = fileDetail.getFileName();
-		CloudService service = StorageServiceFactory.returnCorrectStorageType(storageService);
+		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
 		String output = checkService(service);
 		if(output==null){
 			output = service.uploadFile(storageName, key, uploadedInputStream);
@@ -134,7 +134,7 @@ public class FileManipulator {
 			@QueryParam("type") String storageService,
 			@QueryParam("storageName") String storageName,
 			@QueryParam("name") String fileName){
-		CloudService service = StorageServiceFactory.returnCorrectStorageType(storageService);
+		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
 		String output = checkService(service);
 		File file;
 		if(output==null){
@@ -156,7 +156,7 @@ public class FileManipulator {
 			@QueryParam("source") String source,
 			@QueryParam("destination") String destination,
 			@QueryParam("name") String fileName){
-		CloudService service = StorageServiceFactory.returnCorrectStorageType(storageService);
+		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
 		String output = checkService(service);
 		if(output==null){
 			output = service.moveFile(source, destination, fileName, fileName);
@@ -171,7 +171,7 @@ public class FileManipulator {
 			@QueryParam("storage") String storageName,
 			@QueryParam("name") String name,
 			@QueryParam("newName") String newName){
-		CloudService service = StorageServiceFactory.returnCorrectStorageType(storageService);
+		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
 		String output = checkService(service);
 		if(output==null){
 			output = service.renameFile(storageName, name, newName);
