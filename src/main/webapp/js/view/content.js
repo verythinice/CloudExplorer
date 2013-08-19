@@ -7,16 +7,17 @@ define(['jquery', 'underscore', 'backbone', 'collection/storageCollection', 'col
 		    initialize: function () {
 		    	// TODO UI for user to choose.
 		    	localStorage.setItem('storageType', 'aws');
+		    	$(window).on('resize', this.resizeWindow);
 		    },
 		    
 		    events: {
 		    	'mousedown #middlePane': 'startResizePane',
-		    	//'mousemove': 'resizePane',
 		    	'mouseup': 'stopResizePane',
 		    },
 
 			render: function() {
 				this.$el.html(contentTemplate);
+				this.resizeWindow();
 				
 				// TODO Should some or all of these be in initialize.
 				this.storageCollection = new StorageCollection([]);
@@ -31,45 +32,75 @@ define(['jquery', 'underscore', 'backbone', 'collection/storageCollection', 'col
 			},
 
 			startResizePane: function(event) {
-				event.preventDefault();
 				console.log('startResizePane: ' + event.type + ', ' + event.pageX + ', ' + this.resizeX);
-				//$(this.el).delegate('#middlePane', 'mousemove', this.resizePane);
-				$(this.$el).on("mousemove", {data: this}, this.resizePane);
+				event.preventDefault();
+				$(this.$el).on('mousemove', {data: this}, this.resizePane);
+				
+				// Remember starting x position.
 				this.resizeX = event.pageX;
-				this.windowWidth = $(window).width();
+				// Allow resize for a little bit before checking if the panes are within the allowed percentage.
+				// Otherwise once panes are within the limit, can't resize any more.
+				this.checkPercent = -5;
 		    },
 
 			resizePane: function(event) {
-				data = event.data.data;
 				event.preventDefault();
-				console.log('resizePane: ' + event.type + ', ' + event.pageX + ', ' + data.resizeX);
+				var data = event.data.data;
+				//console.log('resizePane: ' + event.type + ', ' + event.pageX + ', ' + data.resizeX);
+				
 				if (data.resizeX > 0) {
-					x = data.resizeX - event.pageX;
+					var x = data.resizeX - event.pageX;
 					if (x != 0) {
 						data.resizeX = event.pageX;
-						leftPaneWidth = $('#leftPane').width();
-						$('#leftPane').width(leftPaneWidth - x);
-						rightPaneWidth = $('#rightPane').width();
-						$('#rightPane').width(rightPaneWidth + x);
-						console.log('resizePane: ' + x + ', ' + leftPaneWidth + ', ' + rightPaneWidth);
+						
+						var parentWidth = $('#content').width();
+						var leftPaneWidth = $('#leftPane').width();
+						var percent = leftPaneWidth / parentWidth * 100;
+						//console.log('resizePane: ' + leftPaneWidth + ', ' + parentWidth + ', ' + percent, ', ', data.checkPercent);
+						
+						if (data.checkPercent < 0 || (percent > 10 && percent < 90)) {
+							data.checkPercent++;
+							
+							leftPaneWidth = leftPaneWidth - x;
+							$('#leftPane').width(leftPaneWidth);
+							
+							$('#middlePane').css({left: leftPaneWidth});
+							
+							var rightPaneWidth = $('#rightPane').width() + x;
+							$('#rightPane').width(rightPaneWidth);
+							$('#rightPane').css({left: leftPaneWidth + 6});
+							
+							//console.log('resizePane: ' + x + ', ' + leftPaneWidth + ', ' + rightPaneWidth);
+						}
 					}
 				}
-				/*
-		        ui.element.css({
-		            width: ui.element.width()/parent.width()*100+"%",
-		            height: ui.element.height()/parent.height()*100+"%"
-		        });
-		        */				
 		    },
 
 		    stopResizePane: function(event) {
-		    	event.preventDefault();
 				console.log('stopResizePane: ' + event.type + ', ' + event.pageX + ', ' + this.resizeX);
-				//$(this.el).undelegate('#middlePane', 'mousemove');
+		    	event.preventDefault();
 				$(this.$el).off("mousemove");
 				this.resizeX = -99;
 		    },
-			
+		    
+		    resizeWindow: function() {
+		    	var parentWidth = $('#content').width();
+		    	var leftPaneWidth = $('#leftPane').width();
+		    	var percent = .2;
+		    	if (leftPaneWidth > 0) {
+		    		percent = leftPaneWidth / parentWidth;
+		    	}
+		    	console.log('resizeWindow: ' + parentWidth, ', ' + leftPaneWidth, ', ' + percent);
+
+		    	leftPaneWidth = parentWidth * percent;
+				$('#leftPane').width(leftPaneWidth);
+				
+				$('#middlePane').css({left: leftPaneWidth});
+				
+				rightPaneWidth = parentWidth - 6 - leftPaneWidth;
+				$('#rightPane').width(rightPaneWidth);
+				$('#rightPane').css({left: leftPaneWidth + 6});
+		    }
 		});
 
 		return contentView;

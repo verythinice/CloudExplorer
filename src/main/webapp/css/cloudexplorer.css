@@ -16,7 +16,7 @@ body {
 }
 
 #menu {
-	margin: 8px 8px 4px 8px;
+	margin: 12px 12px 0 12px;
 	padding: 0;
 	overflow: hidden;
 	background-color: #F6F4F0;
@@ -27,6 +27,7 @@ body {
 	width: 64px;
 	text-align: center;
 	cursor: pointer;
+	overflow: hidden;
 }
 .menuItem img {
 	display: block;
@@ -39,34 +40,47 @@ body {
 	padding: 2px;
 }
 
-#leftPane {
-	float: left;
-	width: 20%;
+#content {
+	position: relative;
+	margin: 6px 12px 12px 12px;
 	min-height: 400px;
-	margin: 2px 0 8px 8px;
+padding: 0;
+}
+#leftPane {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	margin: 0;
 	background-color: #F6F4F0;
+	overflow: hidden;
 }
 #middlePane{
-	float: left;
-	width: .2%;
-	min-height: 400px;
+	position: absolute;
+	top: 0px;
+	left: 200px;
+	width: 6px;
+	height: 100%;
 	margin: 0;
 	cursor: e-resize;
 }
 #resizePane {
-	margin: 50px 0;
+	margin: 100px 2px 0 2px;
 }
 #rightPane {
-	float: right;
-	width: 78%;
-	min-height: 400px;
-	margin: 2px 8px 8px 0;
+	position: absolute;
+	top: 0px;
+	left: 206px;
+	height: 100%;
+	margin: 0;
 	background-color: #F6F4F0;
+	overflow: hidden;
 }
 ul {
 	list-style-type: none;
 	margin: 4px 0;
 	padding: 0;
+	font-size: 1.1em;
 }
 li {
 	margin: 0;
