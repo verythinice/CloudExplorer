@@ -1,5 +1,5 @@
-define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog', 'text!template/rightPane.html'],
-	function($, _, Backbone, PubSubEvents, UploadDialogView, rightPaneTemplate) {
+define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view/uploadDialog', 'text!template/rightPane.html'],
+	function($, _, Backbone, PubSubEvents, TableSorter, UploadDialogView, rightPaneTemplate) {
 
 		var rightPaneView = Backbone.View.extend({
 			initialize: function() {
@@ -14,7 +14,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 			},
 			
 			events: {
-				'click': 'selectObject',
+				'click .draggableObject': 'selectObject',
 				'dragstart .draggableObject': 'dragStart',
 				'keypress input[type=text]': 'renameObject',
 			},
@@ -31,7 +31,8 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 					};
 					var compiledTemplate = _.template(rightPaneTemplate, data);
 
-					that.$el.html(compiledTemplate); 
+					that.$el.html(compiledTemplate);
+			        $('#rightPaneTable').tablesorter({debug: true});
 			    }
 				
 				var fetchError = function() {

@@ -6,7 +6,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftP
 			},
 			
 		    events: {
-		    	'click li': 'selectStorage',
+		    	'click .droppableStorage': 'selectStorage',
 		    	'dragover .droppableStorage': 'dragOver',
 		    	'drop .droppableStorage': 'drop',
 		    },
@@ -22,6 +22,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftP
 					var compiledTemplate = _.template(leftPaneTemplate, data);
 
 					that.$el.html(compiledTemplate);
+					$('#leftPaneTable').tablesorter({debug: true});
 					
 					// Don't render the right pane until the left pane is done.
 					var model = that.collection.at(0);

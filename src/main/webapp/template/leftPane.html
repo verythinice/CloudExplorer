@@ -1,5 +1,23 @@
+<table id="leftPaneTable" class="tablesorter">
+<thead>
+	<tr>
+		<th>Name</th>
+	</tr>
+</thead>
+
+<tbody>
+	<% _.each(storages, function(storage){ %>
+	<tr>
+		<td><span id="<%= storage.get('name') %>" class="droppableStorage" ><%= storage.get('name') %></span></td>
+	</tr>
+	<% }); %>
+</tbody>
+</table>
+
+<!-- 
 <ul>
   <% _.each(storages, function(storage){ %>
    <li><span id="<%= storage.get('name') %>" class="droppableStorage" ><%= storage.get('name') %></span></li> 
   <% }); %>
 </ul>
+ -->

@@ -86,7 +86,7 @@ define(['jquery', 'underscore', 'backbone', 'collection/storageCollection', 'col
 		    resizeWindow: function() {
 		    	var parentWidth = $('#content').width();
 		    	var leftPaneWidth = $('#leftPane').width();
-		    	var percent = .2;
+		    	var percent = .25;
 		    	if (leftPaneWidth > 0) {
 		    		percent = leftPaneWidth / parentWidth;
 		    	}

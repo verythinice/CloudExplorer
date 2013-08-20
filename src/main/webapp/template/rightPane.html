@@ -1,8 +1,30 @@
-<!-- TODO Make this a table. -->
+<table id="rightPaneTable" class="tablesorter">
+<thead>
+	<tr>
+		<th>Key</th>
+		<th>Size</th>
+		<th>Last Modified</th>
+	</tr>
+
+	<% _.each(objs, function(obj, index){ %>
+</thead>
+
+<tbody>
+	<tr>
+		<td><span id="object_<%= index %>" class="draggableObject" draggable="true" ><%= obj.get('key') %></span></td>
+		<td><%= obj.get('size') %></td>
+		<td><%= obj.get('lastModified') %></td>
+	</tr>
+	<% }); %>
+</tbody>
+</table>
+
+<!-- 
 <ul>
   <% _.each(objs, function(obj, index){ %>
    <li><span id="object_<%= index %>" class="draggableObject" draggable="true" ><%= obj.get('key') %></span></li> 
   <% }); %>
 </ul>
+ -->
 
 <a id="downloadFile" style="display: none" href=""></a>

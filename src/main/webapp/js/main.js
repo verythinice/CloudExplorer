@@ -4,6 +4,8 @@ require.config({
 		// Libraries.
 		//jquery: '../lib/jquery-1.9.1.min',
 		jquery: '../lib/jquery-1.9.1',
+		//tablesorter: '../lib/jquery.tablesorter.min',
+		tablesorter: '../lib/jquery.tablesorter',
 		underscore: '../lib/underscore-min',
 		//backbone: '../lib/backbone-min',
 		backbone: '../lib/backbone',
@@ -12,19 +14,24 @@ require.config({
 		text: '../lib/text',
 
 		// A short cut to put html outside the js dir. This might make it easier for HTML/CSS designers.
-		template: '../template'
+		template: '../template',
 	},
+	
 	shim: {
 		underscore: {
-			exports: '_'
+			exports: '_',
 		},
-		'backbone': {
+		backbone: {
 			deps: ['underscore', 'jquery'],
-			exports: 'Backbone'
-		}
+			exports: 'Backbone',
+		},
+        tablesorter: {
+            deps: ['jquery'],
+            exports: 'TableSorter',
+        },
 	},
 
-	urlArgs: "bust=" + (new Date()).getTime()
+	//urlArgs: "bust=" + (new Date()).getTime()
 });
 
 // Start the application.
