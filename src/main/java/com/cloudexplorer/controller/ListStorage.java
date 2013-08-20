@@ -1,3 +1,6 @@
+/**
+ * A factory class that handles storage in a Cloud Service.
+ */
 package com.cloudexplorer.controller;
 
 import javax.ws.rs.GET;
@@ -13,6 +16,11 @@ import com.cloudexplorer.util.Status;
 @Path("/storage")
 public class ListStorage{
 	
+	/**
+	 * Lists all the storage in a service
+	 * @param storageService The type of cloud storage. Currently only supports AWS
+	 * @return A JSON object of a List of storages.
+	 */
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)

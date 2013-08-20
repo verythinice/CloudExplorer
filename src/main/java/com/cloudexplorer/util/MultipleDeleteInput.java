@@ -1,3 +1,6 @@
+/**
+ * A class to store the parameters for deleteMultipleObjects
+ */
 package com.cloudexplorer.util;
 
 import java.util.ArrayList;

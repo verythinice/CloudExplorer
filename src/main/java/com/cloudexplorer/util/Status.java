@@ -1,3 +1,6 @@
+/**
+ * A class that creates status messages to return to the client
+ */
 package com.cloudexplorer.util;
 
 import java.io.IOException;
@@ -18,6 +21,10 @@ public class Status {
 		message = m;
 	}
 	
+	/**
+	 * Creates a storageTypeError status and maps it to JSON
+	 * @return A JSON object of this object
+	 */
 	public String storageTypeError(){
 		status = 0;
 		message = "Storage type not found";

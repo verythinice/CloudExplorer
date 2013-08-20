@@ -1,4 +1,4 @@
-/*
+/**
  * The factory class that handles objects within the storage.
  * Each public method responds to an http request, calls the class to choose the correct storage type, then calls the class for that storage type. 
  */
@@ -26,32 +26,33 @@ import com.sun.jersey.multipart.FormDataParam;
 
 @Path("/object")
 @Produces(MediaType.APPLICATION_JSON)
-public class FileManipulator {
-	/*
+public class ObjectManipulator {
+	/**
 	 * Lists the objects in storage.
-	 * Parameters: type = the type of cloud storage. Currently only supports AWS
-	 * name: the name of the storage to list the files from
-	 * Returns a JSON object of S3Object, which has object name, size, owner, etc. for each object
+	 * @param type The type of cloud storage. Currently only supports AWS
+	 * @param name The name of the storage to list the files from
+	 * @return a JSON object of S3Object, which has object name, size, owner, etc. for each object
 	 */
 	@GET
 	@Path("/list")
-	public String listObjects(@QueryParam("type") String storageService, @QueryParam("name") String storageName) {
+	public String listObjects(@QueryParam("type") String storageService, @QueryParam("storageName") String storageName) {
 		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
 		String output = checkService(service);
 		if (output==null){
-			output = service.listFiles(storageName);
+			output = service.listObjects(storageName);
 		}
 		return output;
 	}
 	
-	/*
+	/**
 	 * Copies objects. can copy objects between storage, or into the same storage.
-	 * Parameters: type = the type of cloud storage. Currently only supports AWS
-	 * source = the source storage
-	 * destination = the destination storage
-	 * name = the name of the object to be copied
-	 * newName = the new name the object is being copied to. Can be the same as name.
+	 * @param type The type of cloud storage. Currently only supports AWS
+	 * @param source The source storage
+	 * @param destination The destination storage
+	 * @param name The name of the object to be copied
+	 * @param newName The new name the object is being copied to. Can be the same as name.
 	 * If the name already exists in that storage, it automatically renames the object.
+	 * @return A JSON object of a Status indicating success
 	 */
 	@GET
 	@Path("/copy")
@@ -59,21 +60,22 @@ public class FileManipulator {
 			@QueryParam("type") String storageService, 
 			@QueryParam("source") String source,
 			@QueryParam("destination") String destination,
-			@QueryParam("name") String fileName,
+			@QueryParam("name") String name,
 			@QueryParam("newName") String newName){
 		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
 		String output = checkService(service);
 		if(output==null){
-			output = service.copyFile(source, destination, fileName, newName);
+			output = service.copyObject(source, destination, name, newName);
 		}
 		return output;
 	}
 	
-	/*
+	/**
 	 * Deletes objects.
-	 * Parameters: type = the type of cloud storage. Currently only supports AWS
-	 * storageName = the name of the storage the object to be deleted is in
-	 * name = the name of the object to be deleted
+	 * @param type The type of cloud storage. Currently only supports AWS
+	 * @param storageName The name of the storage the object to be deleted is in
+	 * @param name The name of the object to be deleted
+	 * @return A JSON object of a Status indicating success
 	 */
 	@GET
 	@Path("/delete")
@@ -84,14 +86,15 @@ public class FileManipulator {
 		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
 		String output = checkService(service);
 		if(output==null){
-			output = service.deleteFile(storageName, fileName);
+			output = service.deleteObject(storageName, fileName);
 		}
 		return output;
 	}
 	
-	/*
+	/**
 	 * Deletes multiple objects at once. The objects all need to be in the same bucket.
-	 * 
+	 * @param in A MultipleDeleteInput which contains the parameters for multiple deletes
+	 * @return A JSON status message indicating success.
 	 */
 	@POST
 	@Path("/deleteMultiple")
@@ -100,85 +103,114 @@ public class FileManipulator {
 		CloudService service = CloudServiceFactory.returnCorrectStorageType(in.getType());
 		String output = checkService(service);
 		if(output==null){
-			output = service.deleteMultipleFiles(in.getStorageName(), in.getNames());
+			output = service.deleteMultipleObjects(in.getStorageName(), in.getNames());
 		}
 		return output;
 	}
 	
-	/*
+	/**
 	 * Uploads an object to the specified storage.
-	 * Parameters: storageService = the type of cloud storage. Currently only supports AWS
-	 * storageName = the storage to upload the file to
-	 * file = the file to upload
+	 * @param type The type of cloud storage. Currently only supports AWS
+	 * @param storageName The storage to upload the object to
+	 * @param file The object to upload
+	 * @return A JSON object of a Status indicating success
 	 */
 	@POST
 	@Path("/upload")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public String uploadObject(
-			@FormDataParam("storageService") String storageService,
+			@FormDataParam("type") String storageService,
 			@FormDataParam("storageName") String storageName,
 			@FormDataParam("file") InputStream uploadedInputStream,
 			@FormDataParam("file") FormDataContentDisposition fileDetail) {
-		String key = fileDetail.getFileName();
+		String name = fileDetail.getFileName();
 		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
 		String output = checkService(service);
 		if(output==null){
-			output = service.uploadFile(storageName, key, uploadedInputStream);
+			output = service.uploadObject(storageName, name, uploadedInputStream);
 		}
 		return output;
 	}
 	
+	/**
+	 * Downloads an object from a Cloud Storage
+	 * @param type The type of cloud storage. Currently only supports AWS
+	 * @param storageName The name of the storage to download the object from
+	 * @param name The name of the object to download
+	 * @return A response containing the object to download
+	 */
 	@GET
 	@Path("/download")
 	public Response downloadObject(
 			@QueryParam("type") String storageService,
 			@QueryParam("storageName") String storageName,
-			@QueryParam("name") String fileName){
+			@QueryParam("name") String name){
 		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
 		String output = checkService(service);
 		File file;
 		if(output==null){
-			file = service.downloadFile(storageName, fileName);
+			file = service.downloadObject(storageName, name);
 		}
 		else{
 			return null;
 		}
 		ResponseBuilder response = Response.ok((Object) file);
 		response.header("Content-Disposition",
-				"attachment; filename="+fileName);
+				"attachment; filename="+name);
 		return response.build();
 	}
 	
+	/**
+	 * Moves an object from one storage to another
+	 * @param type The type of cloud storage. Currently only supports AWS
+	 * @param source The source storage for the object to be moved
+	 * @param destination The destination storage for the object to be moved to
+	 * @param name The name of the object to be moved
+	 * @return A JSON object of a Status indicating success
+	 */
 	@GET
 	@Path("/move")
 	public String moveObject(
 			@QueryParam("type") String storageService, 
 			@QueryParam("source") String source,
 			@QueryParam("destination") String destination,
-			@QueryParam("name") String fileName){
+			@QueryParam("name") String name){
 		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
 		String output = checkService(service);
 		if(output==null){
-			output = service.moveFile(source, destination, fileName, fileName);
+			output = service.moveObject(source, destination, name, name);
 		}
 		return output;
 	}
 	
+	/**
+	 * Renames an object
+	 * @param type The type of cloud storage. Currently only supports AWS
+	 * @param storageName The name of the storage holding the object to be renamed
+	 * @param name The original name of the object to be renamed
+	 * @param newName The new name for the object
+	 * @return A JSON object of a Status indicating success
+	 */
 	@GET
 	@Path("/rename")
 	public String renameObject(
 			@QueryParam("type") String storageService,
-			@QueryParam("storage") String storageName,
+			@QueryParam("storageName") String storageName,
 			@QueryParam("name") String name,
 			@QueryParam("newName") String newName){
 		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
 		String output = checkService(service);
 		if(output==null){
-			output = service.renameFile(storageName, name, newName);
+			output = service.renameObject(storageName, name, newName);
 		}
 		return output;
 	}
 	
+	/**
+	 * Checks if the service is valid
+	 * @param service The service to be checked
+	 * @return If the service is valid, returns null. If not, returns a Status indicating an error.
+	 */
 	private String checkService(CloudService service){
 		if (service==null){
 			Status status = new Status();

@@ -64,7 +64,7 @@ public class AWSService implements CloudService {
 	}
 
 	@Override
-	public String listFiles(String storageName) {
+	public String listObjects(String storageName) {
 		String output;
 		try{
 			ObjectMapper mapper = new ObjectMapper();
@@ -89,10 +89,10 @@ public class AWSService implements CloudService {
 	}
 
 	@Override
-	public String uploadFile(String storageName, String fileName, InputStream uploadedInputStream) {
+	public String uploadObject(String storageName, String name, InputStream uploadedInputStream) {
 		String output;
 		try{
-			s3.putObject(new PutObjectRequest(storageName, fileName, uploadedInputStream, new ObjectMetadata()));
+			s3.putObject(new PutObjectRequest(storageName, name, uploadedInputStream, new ObjectMetadata()));
 			ObjectMapper mapper = new ObjectMapper();
 			output = mapper.writeValueAsString(new Status(1,"File uploaded successfully"));
 		} catch (AmazonServiceException ase) {
@@ -115,12 +115,12 @@ public class AWSService implements CloudService {
 	}
 
 	@Override
-	public File downloadFile(String storageName, String fileName) {
+	public File downloadObject(String storageName, String name) {
 		S3Object object = null;
 		S3ObjectInputStream in = null;
 		FileOutputStream out = null;
 		try{
-			object = s3.getObject(new GetObjectRequest(storageName, fileName));
+			object = s3.getObject(new GetObjectRequest(storageName, name));
 			in = object.getObjectContent();
 			File file = File.createTempFile("temp", ".tmp");
 			out = new FileOutputStream(file);
@@ -154,7 +154,6 @@ public class AWSService implements CloudService {
 			}
 			if (out != null) {
 				try {
-					// outputStream.flush();
 					out.close();
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -164,18 +163,18 @@ public class AWSService implements CloudService {
 		return null;
 	}
 	
-	public String copyFile(String source, String destination, String sourceKey, String destinationKey){
+	public String copyObject(String source, String destination, String name, String newName){
 		String output;
 		try{
-			if (checkKeyInBucket(destination, destinationKey)){
-				if (destinationKey.lastIndexOf('.')!=-1){
-					destinationKey = destinationKey.substring(0, destinationKey.lastIndexOf('.'))+"_copy_"+System.currentTimeMillis()+destinationKey.substring(destinationKey.lastIndexOf('.'));
+			if (checkKeyInBucket(destination, newName)){
+				if (newName.lastIndexOf('.')!=-1){
+					newName = newName.substring(0, newName.lastIndexOf('.'))+"_copy_"+System.currentTimeMillis()+newName.substring(newName.lastIndexOf('.'));
 				}
 				else{
-					destinationKey = destinationKey+"_copy_"+System.currentTimeMillis();
+					newName = newName+"_copy_"+System.currentTimeMillis();
 				}
 			}
-			s3.copyObject(new CopyObjectRequest(source, sourceKey, destination, destinationKey));
+			s3.copyObject(new CopyObjectRequest(source, name, destination, newName));
 			ObjectMapper mapper = new ObjectMapper();
 			output = mapper.writeValueAsString(new Status(1,"File copied successfully"));
 		} catch (AmazonServiceException ase) {
@@ -197,10 +196,10 @@ public class AWSService implements CloudService {
 		return output;
 	}
 	
-	public String deleteFile(String storageName, String fileName){
+	public String deleteObject(String storageName, String name){
 		String output;
 		try{
-			s3.deleteObject(storageName, fileName);
+			s3.deleteObject(storageName, name);
 			ObjectMapper mapper = new ObjectMapper();
 			output = mapper.writeValueAsString(new Status(1,"File deleted successfully"));
 		} catch (AmazonServiceException ase) {
@@ -222,9 +221,9 @@ public class AWSService implements CloudService {
 		return output;
 	}
 	
-	public String moveFile(String source, String destination, String sourceKey, String destinationKey){
-		String copyOutput = copyFile(source, destination, sourceKey, destinationKey);
-		String deleteOutput = deleteFile(source, sourceKey);
+	public String moveObject(String source, String destination, String name, String newName){
+		String copyOutput = copyObject(source, destination, name, newName);
+		String deleteOutput = deleteObject(source, name);
 		String output;
 		try{
 			ObjectMapper mapper = new ObjectMapper();
@@ -249,9 +248,9 @@ public class AWSService implements CloudService {
 		return output;
 	}
 	
-	public String renameFile(String storageName, String name, String newName){
-		String copyOutput = copyFile(storageName, storageName, name, newName);
-		String deleteOutput = deleteFile(storageName, name);
+	public String renameObject(String storageName, String name, String newName){
+		String copyOutput = copyObject(storageName, storageName, name, newName);
+		String deleteOutput = deleteObject(storageName, name);
 		String output;
 		try{
 			ObjectMapper mapper = new ObjectMapper();
@@ -276,7 +275,7 @@ public class AWSService implements CloudService {
 		return output;
 	}
 	
-	public String deleteMultipleFiles(String storageName, List<String> fileNames){
+	public String deleteMultipleObjects(String storageName, List<String> fileNames){
 		String output;
 		ArrayList<DeleteObjectsRequest.KeyVersion> keyList = new ArrayList<DeleteObjectsRequest.KeyVersion>();
 		for (String name : fileNames){
