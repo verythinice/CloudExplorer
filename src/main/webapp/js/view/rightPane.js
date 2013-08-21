@@ -43,7 +43,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 				// TODO Error check name, i.e. no name.
 				var params = {
 					type: localStorage.getItem('storageType'),
-					name: sessionStorage.storageName
+					storageName : sessionStorage.storageName
 				};
 		        this.collection.fetch({success: fetchSuccess, error: fetchError, data: $.param(params)});
 			},
@@ -113,7 +113,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 				if (event.keyCode != 13) return;
 		    	event.preventDefault();
 				var value = $('#' + event.target.id).val();
-				var urlStr = 'cloud/object/rename?type=' + localStorage.getItem('storageType') + '&storage=' + sessionStorage.storageName + '&name=' + this.originalName + '&newName=' + value;
+				var urlStr = 'cloud/object/rename?type=' + localStorage.getItem('storageType') + '&storageName=' + sessionStorage.storageName + '&name=' + this.originalName + '&newName=' + value;
 
 				$.ajax({
                 	url: urlStr,

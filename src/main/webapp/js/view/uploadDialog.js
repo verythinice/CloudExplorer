@@ -5,7 +5,6 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 
 		var uploadDialogView = ModalDialogView.extend({
 			initialize: function() {
 				_.bindAll(this, 'render');
-				this.pubSubEvents = PubSubEvents;
 				this.template = _.template(uploadDialogTemplate);
 				this.fileList = [];
 
@@ -62,7 +61,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 
 						var j = i;
 					}
 					*/
-		        	that.pubSubEvents.trigger('refreshRightPane');
+		        	PubSubEvents.trigger('refreshRightPane');
 		            /* This event is raised when the server send back a response */
 		            console.log('uploadComplete: ' + event.target.responseText);
 		        }

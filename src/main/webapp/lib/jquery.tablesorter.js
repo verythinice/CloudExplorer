@@ -251,6 +251,7 @@
                     var cacheTime = new Date();
                 }
 
+            	// TODO Bug?
                 //var totalRows = (table.tBodies[0] && table.tBodies[0].rows.length) || 0,
                 var totalRows = (table.tBodies[0] && table.tBodies.length) || 0,
                     totalCells = (table.tBodies[0].rows[0] && table.tBodies[0].rows[0].cells.length) || 0,
@@ -263,6 +264,7 @@
                 for (var i = 0; i < totalRows; ++i) {
 
                     /** Add the table data to main data array */
+                	// TODO Bug?
                     //var c = $(table.tBodies[0].rows[i]),
                     var c = $(table.tBodies[i].rows[0]),
                         cols = [];
