@@ -12,7 +12,7 @@ define(['jquery', 'underscore', 'backbone', 'collection/storageCollection', 'col
 		    
 		    events: {
 		    	'mousedown #middlePane': 'startResizePane',
-		    	'mouseup': 'stopResizePane',
+		    	//'mouseup': 'stopResizePane',
 		    },
 
 			render: function() {
@@ -35,6 +35,7 @@ define(['jquery', 'underscore', 'backbone', 'collection/storageCollection', 'col
 				console.log('startResizePane: ' + event.type + ', ' + event.pageX + ', ' + this.resizeX);
 				event.preventDefault();
 				$(this.$el).on('mousemove', {data: this}, this.resizePane);
+				$(this.$el).on('mouseup', {data: this}, this.stopResizePane);
 				
 				// Remember starting x position.
 				this.resizeX = event.pageX;
@@ -79,8 +80,10 @@ define(['jquery', 'underscore', 'backbone', 'collection/storageCollection', 'col
 		    stopResizePane: function(event) {
 				console.log('stopResizePane: ' + event.type + ', ' + event.pageX + ', ' + this.resizeX);
 		    	event.preventDefault();
-				$(this.$el).off("mousemove");
-				this.resizeX = -99;
+		    	var data = event.data.data;
+				$(data.$el).off('mousemove');
+				$(data.$el).off('mouseup');
+				data.resizeX = -99;
 		    },
 		    
 		    resizeWindow: function() {
@@ -90,7 +93,7 @@ define(['jquery', 'underscore', 'backbone', 'collection/storageCollection', 'col
 		    	if (leftPaneWidth > 0) {
 		    		percent = leftPaneWidth / parentWidth;
 		    	}
-		    	console.log('resizeWindow: ' + parentWidth, ', ' + leftPaneWidth, ', ' + percent);
+		    	//console.log('resizeWindow: ' + parentWidth, ', ' + leftPaneWidth, ', ' + percent);
 
 		    	leftPaneWidth = parentWidth * percent;
 				$('#leftPane').width(leftPaneWidth);

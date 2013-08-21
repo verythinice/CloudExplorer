@@ -32,7 +32,8 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 					var compiledTemplate = _.template(rightPaneTemplate, data);
 
 					that.$el.html(compiledTemplate);
-			        $('#rightPaneTable').tablesorter({debug: true});
+			        //$('#rightPaneTable').tablesorter({debug: true});
+			        $('#rightPaneTable').tablesorter();
 			    }
 				
 				var fetchError = function() {

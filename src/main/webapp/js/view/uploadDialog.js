@@ -78,7 +78,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 
 				
 				for (var i = 0; i < this.fileList.length; i ++) {
 					var formData = new FormData();
-					formData.append('storageService', 'aws');
+					formData.append('type', 'aws');
 					formData.append('storageName', 'bstestbucket');
 					formData.append('file', this.fileList[i]);
 				    

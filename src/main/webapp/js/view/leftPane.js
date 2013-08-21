@@ -22,7 +22,8 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftP
 					var compiledTemplate = _.template(leftPaneTemplate, data);
 
 					that.$el.html(compiledTemplate);
-					$('#leftPaneTable').tablesorter({debug: true});
+					//$('#leftPaneTable').tablesorter({debug: true});
+					$('#leftPaneTable').tablesorter();
 					
 					// Don't render the right pane until the left pane is done.
 					var model = that.collection.at(0);
