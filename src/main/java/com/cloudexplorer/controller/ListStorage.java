@@ -25,8 +25,8 @@ public class ListStorage{
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String listBuckets(@QueryParam("type") String storageService) {
-		CloudService service;
-		service = CloudServiceFactory.returnCorrectStorageType(storageService);
+		CloudService service = null;
+		service = CloudServiceFactory.checkStorage(storageService, service);
 		if (service==null){
 			Status status = new Status();
 			return status.storageTypeError();

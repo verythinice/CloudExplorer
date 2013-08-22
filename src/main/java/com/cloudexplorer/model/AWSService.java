@@ -31,9 +31,11 @@ import com.cloudexplorer.util.Status;
 
 public class AWSService implements CloudService {
 	private AmazonS3 s3;
+	private static AWSService instance;
+	
 	
 	//TODO figure out how to do this in a properties file
-	public AWSService(){
+	private AWSService(){
 		s3 = new AmazonS3Client(new BasicAWSCredentials("AKIAIFLT6SG5RMGIYKZA","/EoEpToBa2EBQQd+NJgF0IFG0+OVE1z52ngJQnzu"));
 		s3.setRegion(Region.getRegion(Regions.US_WEST_1));
 	}
@@ -304,6 +306,17 @@ public class AWSService implements CloudService {
 			output = e.toString();
 		}
 		return output;
+	}
+	
+	/**
+	 * The method that instantiates and returns the singleton.
+	 * @return The singleton instance of AWSService
+	 */
+	public static AWSService getInstance(){
+		if (instance == null){
+			instance = new AWSService();
+		}
+		return instance;
 	}
 	
 	/*

@@ -27,16 +27,17 @@ import com.sun.jersey.multipart.FormDataParam;
 @Path("/object")
 @Produces(MediaType.APPLICATION_JSON)
 public class ObjectManipulator {
+	private CloudService service = null;
 	/**
 	 * Lists the objects in storage.
 	 * @param type The type of cloud storage. Currently only supports AWS
-	 * @param name The name of the storage to list the files from
+	 * @param storageName The name of the storage to list the files from
 	 * @return a JSON object of S3Object, which has object name, size, owner, etc. for each object
 	 */
 	@GET
 	@Path("/list")
 	public String listObjects(@QueryParam("type") String storageService, @QueryParam("storageName") String storageName) {
-		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
+		service = CloudServiceFactory.checkStorage(storageService, service);
 		String output = checkService(service);
 		if (output==null){
 			output = service.listObjects(storageName);
@@ -62,7 +63,7 @@ public class ObjectManipulator {
 			@QueryParam("destination") String destination,
 			@QueryParam("name") String name,
 			@QueryParam("newName") String newName){
-		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
+		service = CloudServiceFactory.checkStorage(storageService, service);
 		String output = checkService(service);
 		if(output==null){
 			output = service.copyObject(source, destination, name, newName);
@@ -83,7 +84,7 @@ public class ObjectManipulator {
 			@QueryParam("type") String storageService,
 			@QueryParam("storageName") String storageName,
 			@QueryParam("name") String fileName){
-		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
+		service = CloudServiceFactory.checkStorage(storageService, service);
 		String output = checkService(service);
 		if(output==null){
 			output = service.deleteObject(storageName, fileName);
@@ -100,7 +101,7 @@ public class ObjectManipulator {
 	@Path("/deleteMultiple")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public String deleteMultipleObjects(MultipleDeleteInput in){
-		CloudService service = CloudServiceFactory.returnCorrectStorageType(in.getType());
+		service = CloudServiceFactory.checkStorage(in.getType(), service);
 		String output = checkService(service);
 		if(output==null){
 			output = service.deleteMultipleObjects(in.getStorageName(), in.getNames());
@@ -124,7 +125,7 @@ public class ObjectManipulator {
 			@FormDataParam("file") InputStream uploadedInputStream,
 			@FormDataParam("file") FormDataContentDisposition fileDetail) {
 		String name = fileDetail.getFileName();
-		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
+		service = CloudServiceFactory.checkStorage(storageService, service);
 		String output = checkService(service);
 		if(output==null){
 			output = service.uploadObject(storageName, name, uploadedInputStream);
@@ -145,7 +146,7 @@ public class ObjectManipulator {
 			@QueryParam("type") String storageService,
 			@QueryParam("storageName") String storageName,
 			@QueryParam("name") String name){
-		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
+		service = CloudServiceFactory.checkStorage(storageService, service);
 		String output = checkService(service);
 		File file;
 		if(output==null){
@@ -175,7 +176,7 @@ public class ObjectManipulator {
 			@QueryParam("source") String source,
 			@QueryParam("destination") String destination,
 			@QueryParam("name") String name){
-		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
+		service = CloudServiceFactory.checkStorage(storageService, service);
 		String output = checkService(service);
 		if(output==null){
 			output = service.moveObject(source, destination, name, name);
@@ -198,7 +199,7 @@ public class ObjectManipulator {
 			@QueryParam("storageName") String storageName,
 			@QueryParam("name") String name,
 			@QueryParam("newName") String newName){
-		CloudService service = CloudServiceFactory.returnCorrectStorageType(storageService);
+		service = CloudServiceFactory.checkStorage(storageService, service);
 		String output = checkService(service);
 		if(output==null){
 			output = service.renameObject(storageName, name, newName);
