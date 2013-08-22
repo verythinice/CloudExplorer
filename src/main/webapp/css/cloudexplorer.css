@@ -268,8 +268,6 @@ table.tablesorter tbody tr.objectSelected td {
 table.tablesorter tbody tr.objectHover td {
 	background-color: #F8F8FA;
 }
-/*
-table.tablesorter tbody td:hover {
-	background-color: #F0F0F6;
+table.tablesorter tbody tr.hover:hover {
+	font-weight: bold;;
 }
-*/

@@ -28,9 +28,8 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftP
 					// Don't render the right pane until the left pane is done.
 					var model = that.collection.at(0);
 					if (model) {
-						// TODO Make el not droppable.
 						sessionStorage.storageName = model.get('name');
-						$('#' + sessionStorage.storageName).parents('tr').addClass('objectSelected');
+						$('#' + sessionStorage.storageName).parents('tr').addClass('objectSelected').removeClass('droppableStorage');
 					}
 					PubSubEvents.trigger('refreshRightPane');
 			    }
@@ -47,11 +46,14 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftP
 			},
 
 		    selectStorage: function(event) {
-		    	// TODO Highlight current storage.
-		    	// TODO Make el not droppable.
-		    	$('#leftPaneTable .objectSelected').removeClass('objectSelected');
-				$('#' + event.target.id).parents('tr').removeClass('objectHover').addClass('objectSelected');
-		    	sessionStorage.storageName = event.target.id;
+		    	$('#leftPaneTable .objectSelected').addClass('droppableStorage').removeClass('objectSelected');
+				$('#' + event.target.id).parents('tr').addClass('objectSelected').removeClass('droppableStorage');
+				if ($('#' + event.target.id).is('td')) {
+					sessionStorage.storageName = $('#' + event.target.id).children().attr('id');
+				}
+				else {
+			    	sessionStorage.storageName = event.target.id;
+				}
 		    	PubSubEvents.trigger('refreshRightPane');
 		    },
 		    
@@ -65,7 +67,11 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftP
 		    	// TODO Multiple select.
 		    	var data = event.originalEvent.dataTransfer.getData('dragObject');
 				var value = $('#' + data).text();
-				var urlStr = 'cloud/object/move?type=' + localStorage.getItem('storageType') + '&source=' + sessionStorage.storageName + '&destination=' + event.target.id + '&name=' + value;
+				var destination = event.target.id;
+				if ($('#' + event.target.id).is('td')) {
+					destination = $('#' + event.target.id).children().attr('id');
+				}
+				var urlStr = 'cloud/object/move?type=' + localStorage.getItem('storageType') + '&source=' + sessionStorage.storageName + '&destination=' + destination + '&name=' + value;
 
 				$.ajax({
                 	url: urlStr,

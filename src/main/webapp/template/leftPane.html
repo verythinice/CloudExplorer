@@ -6,9 +6,9 @@
 </thead>
 
 <tbody>
-	<% _.each(storages, function(storage){ %>
-	<tr>
-		<td><span id="<%= storage.get('name') %>" class="droppableStorage hover" ><%= storage.get('name') %></span></td>
+	<% _.each(storages, function(storage, index){ %>
+	<tr id="leftPaneTable_tr_<%= index %>" class="droppableStorage hover">
+		<td id="leftPaneTable_td_<%= index %>"><span id="<%= storage.get('name') %>"><%= storage.get('name') %></span></td>
 	</tr>
 	<% }); %>
 </tbody>
