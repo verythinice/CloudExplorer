@@ -68,7 +68,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			    	}
 				}
 				else {
-					$('.objectSelected').removeClass('objectSelected');
+					$('#rightPaneTable .objectSelected').removeClass('objectSelected');
 					$('#' + event.target.id).parents('tr').removeClass('objectHover').addClass('objectSelected');
 				}
 			},

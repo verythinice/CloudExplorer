@@ -49,7 +49,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftP
 		    selectStorage: function(event) {
 		    	// TODO Highlight current storage.
 		    	// TODO Make el not droppable.
-		    	$('.objectSelected').removeClass('objectSelected');
+		    	$('#leftPaneTable .objectSelected').removeClass('objectSelected');
 				$('#' + event.target.id).parents('tr').removeClass('objectHover').addClass('objectSelected');
 		    	sessionStorage.storageName = event.target.id;
 		    	PubSubEvents.trigger('refreshRightPane');
