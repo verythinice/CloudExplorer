@@ -64,9 +64,11 @@ body {
 	margin: 0;
 	cursor: e-resize;
 }
+/*
 #resizePane {
 	margin: 100px 2px 0 2px;
 }
+*/
 #rightPane {
 	position: absolute;
 	top: 0px;
@@ -92,12 +94,14 @@ span {
 	padding: 0;
 	color: 	#4D4D94;
 }
-span:hover {
+span.hover:hover {
 	font-weight: bold;;
 }
+/*
 .objectSelected {
 	background-color: #b0c4de;
 }
+*/
 
 div.modal-header {
 	text-align:left; padding:8px 16px; background-color:#D6EBFF;
@@ -244,6 +248,7 @@ table.tablesorter tbody td {
 	padding: 4px;
 	background-color: #FFF;
 	vertical-align: top;
+	cursor: pointer;
 }
 table.tablesorter tbody tr.odd td {
 	background-color:#F0F0F6;
@@ -257,3 +262,14 @@ table.tablesorter thead tr .headerSortDown {
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
 background-color: #8dbdd8;
 }
+table.tablesorter tbody tr.objectSelected td {
+	background-color: #ECFFC8;
+}
+table.tablesorter tbody tr.objectHover td {
+	background-color: #F8F8FA;
+}
+/*
+table.tablesorter tbody td:hover {
+	background-color: #F0F0F6;
+}
+*/

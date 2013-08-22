@@ -14,7 +14,10 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			},
 			
 			events: {
-				'click .draggableObject': 'selectObject',
+				//'click .draggableObject': 'selectObject',
+				'click td': 'selectObject',
+				'mouseover td': 'startHoverObject',
+				'mouseout td': 'stopHoverObject',
 				'dragstart .draggableObject': 'dragStart',
 				'keypress input[type=text]': 'renameObject',
 			},
@@ -50,8 +53,38 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			},
 			
 			selectObject: function(event) {
+		    	event.preventDefault();
+		    	event.stopPropagation();
+		    	
 				// TODO Multiple select, ctrl, shift.
-				$('#' + event.target.id).toggleClass('objectSelected');
+				if (event.shiftKey == 1) {
+				}
+				else if (event.ctrlKey==1) {
+			    	if ($('#' + event.target.id).parents('tr').hasClass('objectSelected')) {
+			    		$('#' + event.target.id).parents('tr').removeClass('objectSelected').addClass('objectHover');
+			    	}
+			    	else {
+			    		$('#' + event.target.id).parents('tr').removeClass('objectHover').addClass('objectSelected');
+			    	}
+				}
+				else {
+					$('.objectSelected').removeClass('objectSelected');
+					$('#' + event.target.id).parents('tr').removeClass('objectHover').addClass('objectSelected');
+				}
+			},
+			
+			startHoverObject: function(event) {
+		    	event.preventDefault();
+		    	event.stopPropagation();
+		    	if (!$('#' + event.target.id).parents('tr').hasClass('objectSelected')) {
+					$('#' + event.target.id).parents('tr').addClass('objectHover');
+		    	}
+			},
+			
+			stopHoverObject: function(event) {
+		    	event.preventDefault();
+		    	event.stopPropagation();
+				$('#' + event.target.id).parents('tr').removeClass('objectHover');
 			},
 			
 			uploadObject: function() {
@@ -61,7 +94,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			
 			downloadObject: function() {
 				// TODO Handle multiple select.
-				var name = $('.objectSelected').text();
+				var name = $('.objectSelected').find('span').text();
 				var urlStr = 'cloud/object/download?type=' + localStorage.getItem('storageType') + '&storageName=' + sessionStorage.storageName + '&name=' + name;
 				$('#downloadFile').attr('href', urlStr);
 				$('#downloadFile')[0].click();
@@ -70,7 +103,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			copyObject: function() {
 				// TODO Handle multiple select.
 				sessionStorage.sourceStorage = sessionStorage.storageName;
-				sessionStorage.sourceObject = $('.objectSelected').text();
+				sessionStorage.sourceObject = $('.objectSelected').find('span').text();
 			},
 			
 			pasteObject: function() {
@@ -105,14 +138,15 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			
 			renameObjectStart: function() {
 				// TODO Handle multiple select.
-				this.originalName = $('.objectSelected').text();
+				this.originalName = $('.objectSelected').find('span').text();
+				console.log('renameObjectStart: ' + this.originalName);
 				// TODO Unbind click event, improve look.
-				$('.objectSelected').html('<input type="text" id="renameObj" name="renameObj" class="renameObj" value="' + this.originalName + '" />').toggleClass('objectSelected');
+				$('.objectSelected').find('span').html('<input type="text" id="renameObj" name="renameObj" class="renameObj" value="' + this.originalName + '" />').toggleClass('objectSelected');
 			},
 			
 			renameObject: function(event) {
+		    	event.stopPropagation();
 				if (event.keyCode != 13) return;
-		    	event.preventDefault();
 				var value = $('#' + event.target.id).val();
 				var urlStr = 'cloud/object/rename?type=' + localStorage.getItem('storageType') + '&storageName=' + sessionStorage.storageName + '&name=' + this.originalName + '&newName=' + value;
 
@@ -138,7 +172,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 				// TODO Test single and multiple delete.
 				// TODO Use backbone sync?
 				if (numObj == 1) {
-					var name = $('.objectSelected').text();
+					var name = $('.objectSelected').find('span').text();
 					var urlStr = 'cloud/object/delete?type=' + localStorage.getItem('storageType') + '&storageName=' + sessionStorage.storageName + '&name=' + name;
 
 					$.ajax({
@@ -158,7 +192,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 					var names = [];
 					var name;
 					$('.objectSelected').each(function() {
-						name = $(this).text();
+						name = $(this).find('span').text();
 						names.push(name);
 					});
 					

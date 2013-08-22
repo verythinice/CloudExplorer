@@ -11,9 +11,9 @@
 
 <tbody>
 	<tr>
-		<td><span id="object_<%= index %>" class="draggableObject" draggable="true" ><%= obj.get('key') %></span></td>
-		<td><%= obj.get('size') %></td>
-		<td><%= obj.get('lastModified') %></td>
+		<td id="td0_<%= index %>"><span id="object_<%= index %>" class="draggableObject" draggable="true" ><%= obj.get('key') %></span></td>
+		<td id="td1_<%= index %>"><%= obj.get('size') %></td>
+		<td id="td2_<%= index %>"><%= obj.get('lastModified') %></td>
 	</tr>
 	<% }); %>
 </tbody>

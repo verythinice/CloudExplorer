@@ -24,42 +24,49 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 			},
 
 			menuUpload: function(event) {
+				event.preventDefault();
 				event.stopPropagation();
 				$('.submenu').hide();
 				PubSubEvents.trigger('menuUpload');
 			},
 			
 			menuDownload: function(event) {
+				event.preventDefault();
 				event.stopPropagation();
 				$('.submenu').hide();
 				PubSubEvents.trigger('menuDownload');
 			},
 			
 			menuCopy: function(event) {
+				event.preventDefault();
 				event.stopPropagation();
 				$('.submenu').hide();
 				PubSubEvents.trigger('menuCopy');
 			},
 			
 			menuPaste: function(event) {
+				event.preventDefault();
 				event.stopPropagation();
 				$('.submenu').hide();
 				PubSubEvents.trigger('menuPaste');
 			},
 			
 			menuMove: function(event) {
+				event.preventDefault();
 				event.stopPropagation();
 				$('.submenu').hide();
 				PubSubEvents.trigger('menuMove');
 			},
 			
 			menuRename: function(event) {
+				event.preventDefault();
 				event.stopPropagation();
 				$('.submenu').hide();
 				PubSubEvents.trigger('menuRename');
 			},
 			
 			menuDelete: function(event) {
+				event.preventDefault();
 				event.stopPropagation();
 				$('.submenu').hide();
 				PubSubEvents.trigger('menuDelete');
@@ -67,6 +74,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog',
 			
 			menuOptions: function(event) {
 				// TODO Better looking menu, hide menu when click else where, right mouse click.
+				event.preventDefault();
 				event.stopPropagation();
 				$('.submenu').hide();
 				switch (event.target.id) {
