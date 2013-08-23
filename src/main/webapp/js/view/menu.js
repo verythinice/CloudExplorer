@@ -1,8 +1,8 @@
-define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/uploadDialog', 'text!template/menu.html'],
-	function($, _, Backbone, PubSubEvents, UploadDialogView, menuTemplate) {
+define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/menu.html'],
+	function($, _, Backbone, PubSubEvents, menuTemplate) {
 
 		var menuView = Backbone.View.extend({
-			el: $('#menu'),
+			//el: $('#menu'),
 			
 			initialize: function() {
 			},

@@ -1,5 +1,5 @@
-define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view/uploadDialog', 'text!template/rightPane.html'],
-	function($, _, Backbone, PubSubEvents, TableSorter, UploadDialogView, rightPaneTemplate) {
+define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view/menu', 'view/uploadDialog', 'text!template/rightPane.html'],
+	function($, _, Backbone, PubSubEvents, TableSorter, MenuView, UploadDialogView, rightPaneTemplate) {
 
 		var rightPaneView = Backbone.View.extend({
 			initialize: function() {
@@ -36,6 +36,9 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 					that.$el.html(compiledTemplate);
 			        //$('#rightPaneTable').tablesorter({debug: true});
 			        $('#rightPaneTable').tablesorter();
+
+			        var menuView = new MenuView({el: $('#menu')});
+					menuView.render();
 			    }
 				
 				var fetchError = function() {

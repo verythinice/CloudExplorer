@@ -1,5 +1,5 @@
-define(['jquery', 'underscore', 'backbone', 'view/menu', 'view/content', 'view/uploadDialog'],
-	function($, _, Backbone, MenuView, ContentView, UploadDialogView) {
+define(['jquery', 'underscore', 'backbone', 'view/content', 'view/uploadDialog'],
+	function($, _, Backbone, ContentView, UploadDialogView) {
 	
 		var AppRouter = Backbone.Router.extend({
 			routes: {
@@ -25,9 +25,6 @@ define(['jquery', 'underscore', 'backbone', 'view/menu', 'view/content', 'view/u
 			*/
 	
 			appRouter.on('route:defaultAction', function(actions) {
-				var menuView = new MenuView();
-				menuView.render();
-				
 				var contentView = new ContentView();
 				contentView.render();
 			});
