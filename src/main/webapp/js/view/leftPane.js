@@ -9,6 +9,8 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftP
 		    	'click .droppableStorage': 'selectStorage',
 		    	'dragover .droppableStorage': 'dragOver',
 		    	'drop .droppableStorage': 'drop',
+				'mousemove tr': 'startHoverStorage',
+				'mouseout tr': 'stopHoverStorage',
 		    },
 			
 			render: function() {
@@ -85,6 +87,39 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftP
 						console.log(textStatus);
                     }
                 });
+		    },
+		    
+		    startHoverStorage: function(event) {
+		    	event.preventDefault();
+		    	event.stopPropagation();
+
+		    	clearTimeout(this.timerId);
+		    	
+			    var displayTooltip = function() {
+			    	var left = event.pageX + 5;
+			    	
+					// JQuery has issue setting offset for hidden element. So display it first before setting offset.
+			    	if ($('#' + event.target.id).is('span')) {
+				    	$('#' + event.target.id).next().offset({top: -99, left: -99}).show().offset({top: event.pageY, left: left});
+			    	}
+			    	else {
+				    	$('#' + event.target.id).find('div').offset({top: -99, left: -99}).show().offset({top: event.pageY, left: left});
+			    	}
+			    }
+			    
+		    	this.timerId = setTimeout(displayTooltip, 500)
+			},
+		    
+		    stopHoverStorage: function(event) {
+		    	event.preventDefault();
+		    	event.stopPropagation();
+		    	clearTimeout(this.timerId);
+		    	if ($('#' + event.target.id).is('span')) {
+			    	$('#' + event.target.id).next().hide();
+		    	}
+		    	else {
+			    	$('#' + event.target.id).find('div').hide();
+		    	}
 		    },
 		});
 

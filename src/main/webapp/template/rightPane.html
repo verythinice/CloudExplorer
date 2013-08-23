@@ -15,18 +15,10 @@
 	<tr id="rightPaneTable_tr_<%= index %>">
 		<td id="rightPaneTable_td0_<%= index %>"><span id="object_<%= index %>" class="draggableObject" draggable="true" ><%= obj.get('key') %></span></td>
 		<td id="rightPaneTable_td1_<%= index %>"><%= obj.get('size') %></td>
-		<td id="rightPaneTable_td2_<%= index %>"><%= obj.get('lastModified') %></td>
+		<td id="rightPaneTable_td2_<%= index %>"><%= obj.getDate('lastModified') %></td>
 	</tr>
 	<% }); %>
 </tbody>
 </table>
-
-<!-- 
-<ul>
-  <% _.each(objs, function(obj, index){ %>
-   <li><span id="object_<%= index %>" class="draggableObject" draggable="true" ><%= obj.get('key') %></span></li> 
-  <% }); %>
-</ul>
- -->
 
 <a id="downloadFile" style="display: none" href=""></a>
