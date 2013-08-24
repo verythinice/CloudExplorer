@@ -23,6 +23,18 @@ public interface CloudService {
 	public String listObjects(String storageName);
 	
 	/**
+	 * Lists the next page of objects
+	 * @return a JSON object of the next list of objects
+	 */
+	public String listNext();
+	
+	/**
+	 * Lists the previous page of objects.
+	 * @return a JSON object of the previous list of objects.
+	 */
+	public String listPrevious();
+	
+	/**
 	 * uploads an object to the specified storage.
 	 * @param  storageName  The name of the storage the object is being uploaded to
 	 * @param  name  The name of the object to be uploaded

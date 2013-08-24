@@ -46,6 +46,38 @@ public class ObjectManipulator {
 	}
 	
 	/**
+	 * Returns the next list of objects
+	 * @param type The type of cloud storage. Currently only supports AWS
+	 * @return a JSON object of S3Object, which has object name, size, owner, etc. for each object
+	 */
+	@GET
+	@Path("/next")
+	public String nextList(@QueryParam("type") String storageService){
+		service = CloudServiceFactory.checkStorage(storageService, service);
+		String output = checkService(service);
+		if (output == null){
+			output = service.listNext();
+		}
+		return output;
+	}
+	
+	/**
+	 * Returns the previous list of objects
+	 * @param type The type of cloud storage. Currently only supports AWS
+	 * @return a JSON object of S3Object, which has object name, size, owner, etc. for each object
+	 */
+	@GET
+	@Path("/previous")
+	public String previousList(@QueryParam("type") String storageService){
+		service = CloudServiceFactory.checkStorage(storageService, service);
+		String output = checkService(service);
+		if (output == null){
+			output = service.listPrevious();
+		}
+		return output;
+	}
+	
+	/**
 	 * Copies objects. can copy objects between storage, or into the same storage.
 	 * @param type The type of cloud storage. Currently only supports AWS
 	 * @param source The source storage

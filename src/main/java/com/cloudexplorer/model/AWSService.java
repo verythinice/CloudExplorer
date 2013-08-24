@@ -21,6 +21,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CopyObjectRequest;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -31,7 +32,10 @@ import com.cloudexplorer.util.Status;
 
 public class AWSService implements CloudService {
 	private AmazonS3 s3;
+	private ObjectListing currentList = null;
+	private ArrayList<String> markers = null;
 	private static AWSService instance;
+	private static final int DEFAULT_MAX_OBJECTS = 2;
 	
 	
 	//TODO figure out how to do this in a properties file
@@ -70,7 +74,85 @@ public class AWSService implements CloudService {
 		String output;
 		try{
 			ObjectMapper mapper = new ObjectMapper();
-			output = mapper.writeValueAsString(s3.listObjects(storageName));
+			ListObjectsRequest request = generateRequest(storageName, null);
+			currentList = s3.listObjects(request);
+			output = mapper.writeValueAsString(currentList);
+			if (markers != null && !markers.isEmpty()){
+				markers.clear();
+			}
+		} catch (AmazonServiceException ase) {
+            ase.printStackTrace();
+            output = ase.toString();
+        } catch (AmazonClientException ace) {
+            ace.printStackTrace();
+            output = ace.toString();
+        } catch (JsonGenerationException e) {
+			e.printStackTrace();
+			output = e.toString();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+			output = e.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+			output = e.toString();
+		}
+		return output;
+	}
+	
+	public String listNext(){
+		String output;
+		try{
+			ObjectMapper mapper = new ObjectMapper();
+			if (currentList.isTruncated()){
+				currentList = s3.listNextBatchOfObjects(currentList);
+				output = mapper.writeValueAsString(currentList);
+				if (markers == null){
+					markers = new ArrayList<String>();
+				}
+				markers.add(currentList.getMarker());
+			}
+			else{
+				output = mapper.writeValueAsString(new Status(0,"next list does not exist"));
+			}
+		} catch (AmazonServiceException ase) {
+            ase.printStackTrace();
+            output = ase.toString();
+        } catch (AmazonClientException ace) {
+            ace.printStackTrace();
+            output = ace.toString();
+        } catch (JsonGenerationException e) {
+			e.printStackTrace();
+			output = e.toString();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+			output = e.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+			output = e.toString();
+		}
+		return output;
+	}
+	
+	public String listPrevious(){
+		String output;
+		try{
+			ObjectMapper mapper = new ObjectMapper();
+			if(markers == null || markers.isEmpty()){
+				Status status = new Status(0,"no previous list");
+				output = mapper.writeValueAsString(status);
+				return output;
+			}
+			else if(markers.size()==1){
+				output = listObjects(currentList.getBucketName());
+				markers.clear();
+				return output;
+			}
+			else{
+				int index = markers.indexOf(currentList.getMarker())-1;
+				currentList = s3.listObjects(generateRequest(currentList.getBucketName(), markers.get(index)));
+				output = mapper.writeValueAsString(currentList);
+				markers.remove(markers.size()-1);
+			}
 		} catch (AmazonServiceException ase) {
             ase.printStackTrace();
             output = ase.toString();
@@ -317,6 +399,14 @@ public class AWSService implements CloudService {
 			instance = new AWSService();
 		}
 		return instance;
+	}
+	
+	private ListObjectsRequest generateRequest(String storageName, String marker){
+		ListObjectsRequest request = new ListObjectsRequest();
+		request.setBucketName(storageName);
+		request.setMarker(marker);
+		request.setMaxKeys(DEFAULT_MAX_OBJECTS);
+		return request;
 	}
 	
 	/*
