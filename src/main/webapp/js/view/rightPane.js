@@ -14,6 +14,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			},
 			
 			events: {
+				'mousedown': 'mousedown',
 				'click tr': 'selectObject',
 				'mouseover tr': 'startHoverObject',
 				'mouseout tr': 'stopHoverObject',
@@ -54,12 +55,55 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 		        this.collection.fetch({success: fetchSuccess, error: fetchError, data: $.param(params)});
 			},
 			
+			mousedown: function() {
+				return false;
+			},
+			
 			selectObject: function(event) {
 		    	event.preventDefault();
 		    	event.stopPropagation();
 		    	
 				// TODO Multiple select, ctrl, shift.
 				if (event.shiftKey == 1) {
+					var test = $('#rightPaneTable .objectSelected');
+					if (!$('#rightPaneTable .objectSelected').length) {
+						$('#' + event.target.id).parents('tr').removeClass('objectHover').addClass('objectSelected');
+						return;
+					}
+					
+					var startSelection = false, stopSelection = false, clearSelection = false;;
+					var id = $('#' + event.target.id).parents('tr').attr('id');
+					
+					$('#rightPaneTable tbody tr').each(function() {
+						if (clearSelection) {
+							$(this).removeClass('objectSelected');
+							return;
+						}
+						
+						if ($(this).hasClass('objectSelected')) {
+							if (stopSelection) {
+								clearSelection = true;
+							}
+							else if (!startSelection) {
+								startSelection = true;
+							}
+						}
+						
+						if ($(this).attr('id') == id) {
+							if (startSelection) {
+								$(this).removeClass('objectHover').addClass('objectSelected');
+								clearSelection = true;
+							}
+							else {
+								startSelection = true;
+								stopSelection = true;
+							}
+						}
+						
+						if (startSelection) {
+							$(this).removeClass('objectHover').addClass('objectSelected');
+						}
+					});
 				}
 				else if (event.ctrlKey==1) {
 			    	if ($('#' + event.target.id).parents('tr').hasClass('objectSelected')) {
