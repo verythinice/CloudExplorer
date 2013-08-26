@@ -166,6 +166,11 @@ table.tablesorter tbody tr.hover:hover {
 	border-radius: 10px;
 }
 
+.renameObj {
+	display: none;
+	width: 200px;
+}
+
 div.modal-header {
 	text-align:left; padding:8px 16px; background-color:#D6EBFF;
 	-moz-box-shadow: inset 0 0 2px 1px #8AB8E6;
@@ -198,19 +203,6 @@ td {
 	border: solid 1px;
 	overflow: auto;
 }
-
-
-
-
-.error-message {
-	color:red; font-size:75%; font-weight:bold; margin:0 0 .5em;
-}
-.error {
-	border:1px solid red;
-}
-
-
-
 
 .dropdown 
 {
@@ -246,7 +238,6 @@ cursor: pointer;
 text-decoration:none;
 cursor: pointer;
 }
-
 .submenu li:hover
 {
 background:#155FB0;
@@ -280,6 +271,12 @@ border-top:1px solid #dedede;
 }
 
 
+.error-message {
+	color:red; font-size:75%; font-weight:bold; margin:0 0 .5em;
+}
+.error {
+	border:1px solid red;
+}
 
 
 /*

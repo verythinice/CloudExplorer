@@ -13,7 +13,10 @@
 
 <tbody>
 	<tr id="rightPaneTable_tr_<%= index %>">
-		<td id="rightPaneTable_td0_<%= index %>"><span id="object_<%= index %>" class="draggableObject" draggable="true" ><%= obj.get('key') %></span></td>
+		<td id="rightPaneTable_td0_<%= index %>">
+			<span id="object_<%= index %>" class="draggableObject" draggable="true" ><%= obj.get('key') %></span>
+			<input type="text" id="renameObj_<%= index %>"" name="renameObj_<%= index %>" class="renameObj" value="" />
+		</td>
 		<td id="rightPaneTable_td1_<%= index %>"><%= obj.get('size') %></td>
 		<td id="rightPaneTable_td2_<%= index %>"><%= obj.getDate('lastModified') %></td>
 	</tr>

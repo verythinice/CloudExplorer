@@ -14,12 +14,12 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			},
 			
 			events: {
-				'mousedown': 'mousedown',
 				'click tr': 'selectObject',
 				'mouseover tr': 'startHoverObject',
 				'mouseout tr': 'stopHoverObject',
 				'dragstart .draggableObject': 'dragStart',
 				'keypress input[type=text]': 'renameObject',
+				'mousedown': 'mousedown',
 			},
 
 			render: function() {
@@ -55,15 +55,22 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 		        this.collection.fetch({success: fetchSuccess, error: fetchError, data: $.param(params)});
 			},
 			
-			mousedown: function() {
-				return false;
+			mousedown: function(event) {
+				// Prevent default selection for shift and control.
+				if (event.shiftKey == 1 || event.ctrlKey==1) {
+					return false;
+				}
 			},
 			
 			selectObject: function(event) {
+				console.log('selectObject');
+				if (event.target.id == 'renameObj') {
+					return;
+				}
+				
 		    	event.preventDefault();
 		    	event.stopPropagation();
 		    	
-				// TODO Multiple select, ctrl, shift.
 				if (event.shiftKey == 1) {
 					var test = $('#rightPaneTable .objectSelected');
 					if (!$('#rightPaneTable .objectSelected').length) {
@@ -186,14 +193,20 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 				// TODO Handle multiple select.
 				this.originalName = $('#rightPaneTable .objectSelected').find('span').text();
 				console.log('renameObjectStart: ' + this.originalName);
-				// TODO Unbind click event, improve look.
-				$('#rightPaneTable .objectSelected').find('span').html('<input type="text" id="renameObj" name="renameObj" class="renameObj" value="' + this.originalName + '" />').toggleClass('objectSelected');
+				// TODO Improve look.
+				$('#rightPaneTable .objectSelected').find('span').hide();
+				$('#rightPaneTable .objectSelected').find('input').val(this.originalName).show().focus();
 			},
 			
 			renameObject: function(event) {
+				console.log('renameObject');
 		    	event.stopPropagation();
 				if (event.keyCode != 13) return;
 				var value = $('#' + event.target.id).val();
+				if (this.originalName == value) {
+					$('#' + event.target.id).hide().prev().show();
+					return;
+				}
 				var urlStr = 'cloud/object/rename?type=' + localStorage.getItem('storageType') + '&storageName=' + sessionStorage.storageName + '&name=' + this.originalName + '&newName=' + value;
 
 				$.ajax({
@@ -202,8 +215,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
                     dataType: 'json',
                     success: function(data, textStatus, xhr) {
 						console.log(textStatus);
-						$('#' + event.target.id).parent().html(value);
-						//PubSubEvents.trigger('refreshRightPane');
+						PubSubEvents.trigger('refreshRightPane');
                     },
                     error: function(xhr, textStatus, errorThrown) {
 						// TODO Handle error.
