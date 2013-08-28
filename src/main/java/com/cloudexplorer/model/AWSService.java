@@ -28,6 +28,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.cloudexplorer.util.AWSCredentials;
 import com.cloudexplorer.util.Status;
 
 public class AWSService implements CloudService {
@@ -38,9 +39,8 @@ public class AWSService implements CloudService {
 	private static final int DEFAULT_MAX_OBJECTS = 2;
 	
 	
-	//TODO figure out how to do this in a properties file
 	private AWSService(){
-		s3 = new AmazonS3Client(new BasicAWSCredentials("AKIAIFLT6SG5RMGIYKZA","/EoEpToBa2EBQQd+NJgF0IFG0+OVE1z52ngJQnzu"));
+		s3 = new AmazonS3Client(new BasicAWSCredentials(AWSCredentials.getAccessKey(), AWSCredentials.getSecretKey()));
 		s3.setRegion(Region.getRegion(Regions.US_WEST_1));
 	}
 
@@ -51,20 +51,20 @@ public class AWSService implements CloudService {
 			ObjectMapper mapper = new ObjectMapper();
 			output = mapper.writeValueAsString(s3.listBuckets());
 		} catch (AmazonServiceException ase) {
-            ase.printStackTrace();
-            output = ase.toString();
+            Status status = new Status(0, ase.toString());
+            output = status.toString();
         } catch (AmazonClientException ace) {
-            ace.printStackTrace();
-            output = ace.toString();
+        	Status status = new Status(0, ace.toString());
+            output = status.toString();
         } catch (JsonGenerationException e) {
-			e.printStackTrace();
-			output = e.toString();
+        	Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (JsonMappingException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		}
 		return output;
 	}
@@ -81,20 +81,20 @@ public class AWSService implements CloudService {
 				markers.clear();
 			}
 		} catch (AmazonServiceException ase) {
-            ase.printStackTrace();
-            output = ase.toString();
+            Status status = new Status(0, ase.toString());
+            output = status.toString();
         } catch (AmazonClientException ace) {
-            ace.printStackTrace();
-            output = ace.toString();
+        	Status status = new Status(0, ace.toString());
+            output = status.toString();
         } catch (JsonGenerationException e) {
-			e.printStackTrace();
-			output = e.toString();
+        	Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (JsonMappingException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		}
 		return output;
 	}
@@ -115,20 +115,20 @@ public class AWSService implements CloudService {
 				output = mapper.writeValueAsString(new Status(0,"next list does not exist"));
 			}
 		} catch (AmazonServiceException ase) {
-            ase.printStackTrace();
-            output = ase.toString();
+            Status status = new Status(0, ase.toString());
+            output = status.toString();
         } catch (AmazonClientException ace) {
-            ace.printStackTrace();
-            output = ace.toString();
+        	Status status = new Status(0, ace.toString());
+            output = status.toString();
         } catch (JsonGenerationException e) {
-			e.printStackTrace();
-			output = e.toString();
+        	Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (JsonMappingException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		}
 		return output;
 	}
@@ -154,20 +154,20 @@ public class AWSService implements CloudService {
 				markers.remove(markers.size()-1);
 			}
 		} catch (AmazonServiceException ase) {
-            ase.printStackTrace();
-            output = ase.toString();
+            Status status = new Status(0, ase.toString());
+            output = status.toString();
         } catch (AmazonClientException ace) {
-            ace.printStackTrace();
-            output = ace.toString();
+        	Status status = new Status(0, ace.toString());
+            output = status.toString();
         } catch (JsonGenerationException e) {
-			e.printStackTrace();
-			output = e.toString();
+        	Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (JsonMappingException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		}
 		return output;
 	}
@@ -180,20 +180,20 @@ public class AWSService implements CloudService {
 			ObjectMapper mapper = new ObjectMapper();
 			output = mapper.writeValueAsString(new Status(1,"File uploaded successfully"));
 		} catch (AmazonServiceException ase) {
-            ase.printStackTrace();
-            output = ase.toString();
+            Status status = new Status(0, ase.toString());
+            output = status.toString();
         } catch (AmazonClientException ace) {
-            ace.printStackTrace();
-            output = ace.toString();
+        	Status status = new Status(0, ace.toString());
+            output = status.toString();
         } catch (JsonGenerationException e) {
-			e.printStackTrace();
-			output = e.toString();
+        	Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (JsonMappingException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		}
 		return output;
 	}
@@ -262,20 +262,20 @@ public class AWSService implements CloudService {
 			ObjectMapper mapper = new ObjectMapper();
 			output = mapper.writeValueAsString(new Status(1,"File copied successfully"));
 		} catch (AmazonServiceException ase) {
-            ase.printStackTrace();
-            output = ase.toString();
+            Status status = new Status(0, ase.toString());
+            output = status.toString();
         } catch (AmazonClientException ace) {
-            ace.printStackTrace();
-            output = ace.toString();
+        	Status status = new Status(0, ace.toString());
+            output = status.toString();
         } catch (JsonGenerationException e) {
-			e.printStackTrace();
-			output = e.toString();
+        	Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (JsonMappingException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		}
 		return output;
 	}
@@ -287,20 +287,20 @@ public class AWSService implements CloudService {
 			ObjectMapper mapper = new ObjectMapper();
 			output = mapper.writeValueAsString(new Status(1,"File deleted successfully"));
 		} catch (AmazonServiceException ase) {
-            ase.printStackTrace();
-            output = ase.toString();
+            Status status = new Status(0, ase.toString());
+            output = status.toString();
         } catch (AmazonClientException ace) {
-            ace.printStackTrace();
-            output = ace.toString();
+        	Status status = new Status(0, ace.toString());
+            output = status.toString();
         } catch (JsonGenerationException e) {
-			e.printStackTrace();
-			output = e.toString();
+        	Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (JsonMappingException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		}
 		return output;
 	}
@@ -316,18 +316,24 @@ public class AWSService implements CloudService {
 			if (copyStatus.getStatus()==1&&deleteStatus.getStatus()==1){
 				output = mapper.writeValueAsString(new Status(1, "File moved successfuly"));
 			}
-			else{
-				output = mapper.writeValueAsString(new Status(0, "Error moving file"));
+			else if (copyStatus.getStatus()==0){
+				return copyStatus.toString();
 			}
+			else if(deleteStatus.getStatus()==0){
+				return deleteStatus.toString();
+			}
+ 			else{
+ 				output = mapper.writeValueAsString(new Status(0, "Error moving file"));				
+ 			}
 		} catch (JsonGenerationException e) {
-			e.printStackTrace();
-			output = e.toString();
+        	Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (JsonMappingException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		}
 		return output;
 	}
@@ -343,18 +349,25 @@ public class AWSService implements CloudService {
 			if (copyStatus.getStatus()==1&&deleteStatus.getStatus()==1){
 				output = mapper.writeValueAsString(new Status(1, "File renamed successfuly"));
 			}
-			else{
-				output = mapper.writeValueAsString(new Status(0, "Error renaming file"));
+			else if (copyStatus.getStatus()==0){
+				return copyStatus.toString();
 			}
+			else if(deleteStatus.getStatus()==0){
+				return deleteStatus.toString();
+			}
+ 			else{
+ 				output = mapper.writeValueAsString(new Status(0, "Error renaming file"));				
+ 			}
+
 		} catch (JsonGenerationException e) {
-			e.printStackTrace();
-			output = e.toString();
+        	Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (JsonMappingException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		}
 		return output;
 	}
@@ -372,20 +385,20 @@ public class AWSService implements CloudService {
 			ObjectMapper mapper = new ObjectMapper();
 			output = mapper.writeValueAsString(new Status(1,"Files deleted successfully"));
 		} catch (AmazonServiceException ase) {
-            ase.printStackTrace();
-            output = ase.toString();
+            Status status = new Status(0, ase.toString());
+            output = status.toString();
         } catch (AmazonClientException ace) {
-            ace.printStackTrace();
-            output = ace.toString();
+        	Status status = new Status(0, ace.toString());
+            output = status.toString();
         } catch (JsonGenerationException e) {
-			e.printStackTrace();
-			output = e.toString();
+        	Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (JsonMappingException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
-			output = e.toString();
+			Status status = new Status(0, e.toString());
+            output = status.toString();
 		}
 		return output;
 	}

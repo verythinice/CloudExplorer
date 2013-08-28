@@ -14,7 +14,7 @@ import com.cloudexplorer.model.CloudServiceFactory;
 import com.cloudexplorer.util.Status;
 
 @Path("/storage")
-public class ListStorage{
+public class StorageManipulator{
 	
 	/**
 	 * Lists all the storage in a service

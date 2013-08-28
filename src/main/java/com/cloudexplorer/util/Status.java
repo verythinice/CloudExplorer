@@ -57,4 +57,19 @@ public class Status {
 	public void setMessage(String s){
 		message = s;
 	}
+	
+	public String toString(){
+		try{
+			ObjectMapper mapper = new ObjectMapper();
+			String output = mapper.writeValueAsString(this);
+			return output;
+        } catch (JsonGenerationException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return ("Error converting message to JSON");
+	}
 }
