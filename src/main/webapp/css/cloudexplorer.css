@@ -67,7 +67,7 @@ h1 {
 	font-size: 2em;
 	font-family: Comic Sans MS;
 	font-style: italic;
-	color: #8AC007;
+	color: #5CB85C;
 }
 #menu {
 }
@@ -136,7 +136,7 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 background-color: #8dbdd8;
 }
 table.tablesorter tbody tr.objectSelected td {
-	background-color: #ECFFC8;
+	background-color: #ECFFEC;
 }
 table.tablesorter tbody tr.objectHover td {
 	background-color: #F8F8FA;
@@ -144,6 +144,7 @@ table.tablesorter tbody tr.objectHover td {
 table.tablesorter tbody tr.hover:hover {
 	font-weight: bold;;
 }
+
 .tooltip {
 	position: absolute;
 	display: none;
@@ -172,7 +173,9 @@ table.tablesorter tbody tr.hover:hover {
 }
 
 div.modal-header {
-	text-align:left; padding:8px 16px; background-color:#D6EBFF;
+	text-align: center;
+	padding: 8px 16px;
+	background-color: #D6EBFF;
 	-moz-box-shadow: inset 0 0 2px 1px #8AB8E6;
 	-webkit-box-shadow: inset 0 0 2px 1px #8AB8E6;
 	box-shadow: inset 0 0 2px 1px #8AB8E6;
@@ -181,27 +184,78 @@ div.modal-header {
 	border-top-left-radius: 10px; border-top-right-radius: 10px;
 }
 form {
-	padding:8px;
+	padding: 8px;
 }
 label {
-	padding-right:4px;
+	padding-right: 4px;
 }
-input[type=text] {
-	margin-right:4px;
-}
-form table {
-	margin-top:10px;
-}
-td {
-	padding: 4px 12px; vertical-align:middle;
+.right {
+	float: right;
 }
 
-#selectedFiles {
+.button {
+    border: 2px outset buttonface;
+    cursor: pointer;
+    display: inline-block;
+    font-size: .9em;
+    padding: 4px 8px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    background-color: #5CB85C;
+    border-color: #4CAE4C;
+    color: #FFFFFF;
+}
+.button:hover {
+    background-color: #47A447;
+    border-color: #398439;
+    color: #FFFFFF;
+}
+.buttonFileinput {
+    overflow: hidden;
+    position: relative;
+}
+.buttonFileinput input {
+	-webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+	cursor: pointer;
+    direction: ltr;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+#browseFiles label {
+	padding: 12px 0 0 0;
+}
+
+#selectedFilesDiv {
+	margin: 6px 0;
 	width: 400px;
 	min-height: 200px;
 	max-height: 400px;
 	border: solid 1px;
 	overflow: auto;
+}
+table.upload {
+	width: 100%;
+	min-hight: 200px;
+}
+table.upload .bar {
+	width: 0;
+	height: 3px;
+	background-color: #33CC33;
+	border: 1px solid #000;
+	display: none;
+}
+table.upload tr td {
+	margin: 0;
+	padding: 2px;
+}
+#cancelButton {
+	display: none;
 }
 
 .dropdown 

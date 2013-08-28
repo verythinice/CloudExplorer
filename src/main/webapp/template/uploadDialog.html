@@ -1,11 +1,19 @@
 <div class="modal-header">Upload File</div>
 <form id="uploadForm" name="uploadForm" action="cloud/object/upload" method="post" enctype="multipart/form-data">
-	<input type="file" id="fileList" name="fileList" multiple="multiple" value="Choose File" />
+	<div id="browseFiles">
+		<span class="button buttonFileinput">
+        	<span>Select files...</span>
+			<input type="file" id="fileList" name="fileList" multiple="multiple" />
+        </span>	
+		<label class="right"><span id="numFileSelected">0</span> file(s) selected</label>
+	</div>
+	
 
-	<div id="selectedFiles">
-		<table class="compact">
+	<div id="selectedFilesDiv">
+		<table id="selectedFiles" class="upload">
 		</table>
 	</div>
 	
-	<input id="uploadButton" name="uploadButton" type="submit" value="Upload" />
+	<input type="submit" id="uploadButton" name="uploadButton" class="right button" value="Upload" />
+	<div style="clear: both"></div>
 </form>
