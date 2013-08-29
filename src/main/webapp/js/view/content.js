@@ -16,6 +16,13 @@ define(['jquery', 'underscore', 'backbone', 'collection/storageCollection', 'col
 		    },
 
 			render: function() {
+				var delay = setTimeout(
+                		function() {
+            				$('#message').html('<p>Loading ...</p>').show();
+                		},
+                		1000
+                );				
+
 				this.$el.html(contentTemplate);
 				this.resizeWindow();
 				
@@ -29,6 +36,9 @@ define(['jquery', 'underscore', 'backbone', 'collection/storageCollection', 'col
 				
 				this.objectCollection = new ObjectCollection([]);
 				this.rightPaneView = new RightPaneView({el: $('#rightPane'), collection: this.objectCollection});
+				
+				clearTimeout(delay);
+				$('#message').hide();
 			},
 
 			startResizePane: function(event) {

@@ -1,7 +1,7 @@
 define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 'text!template/uploadDialog.html'],
 	function($, _, Backbone, PubSubEvents, ModalDialogView, uploadDialogTemplate) {
 
-		// TODO Better dialog, handle multiple files, drag and drop, hover close icon.
+		// TODO Remove selected files/cancel upload, drag and drop, hover close icon.
 		var uploadDialogView = ModalDialogView.extend({
 			initialize: function() {
 				_.bindAll(this, 'render');
@@ -9,10 +9,8 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 
 				this.fileList = [];
 				this.fileNum = 0;
 
-				// TODO No validation yet
-				// Backbone.Validation.bind( this, {valid:this.hideError,
-				// invalid:this.showError});
-				// TODO Check for duplicate files.
+				// TODO No validation yet, check for duplicate files.
+				// Backbone.Validation.bind( this, {valid:this.hideError, invalid:this.showError});
 			},
 			
 			events: {
@@ -42,8 +40,6 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 
 				var that = this;
 				event.preventDefault();
 
-	            // TODO Close dialog, show progress bar.
-				
 		        var uploadProgress = function(event) {
 		        	var name = event.target.myParam;
 		        	
@@ -64,18 +60,20 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 
 
 	                $('#bar_' + name).width('100%');
 	                $('#percent_' + name).html('100%');
+	                that.fileNum--;
 
-	                // TODO Need to track all files uploaded.
-					//that.hideModal();
-					// TODO Need to wait a little before refreshing screen.
-					/*
-					for (var i = 1; i < 10000; i++) {
-						var j = i;
-					}
-					*/
-		        	//PubSubEvents.trigger('refreshRightPane');
-		            /* This event is raised when the server send back a response */
-		            console.log('uploadComplete: ' + name);
+					console.log('uploadComplete: ' + name + ', ' + that.fileNum);
+
+	                if (that.fileNum == 0) {
+	                	console.log('uploadComplete delay: ' + name + ', ' + that.fileNum);
+	                	var delay = setTimeout(
+	                		function() {
+	                			that.hideModal();
+	                			PubSubEvents.trigger('refreshRightPane');
+	                		},
+	                		1000
+	                	);
+	                }
 		        }
 
 		        var uploadFailed = function(event) {

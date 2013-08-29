@@ -23,7 +23,12 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			},
 
 			render: function() {
-				// TODO Loading message.
+				var delay = setTimeout(
+                		function() {
+            				$('#message:hidden').html('<p>Refreshing ...</p>').show();
+                		},
+                		1000
+                );				
 				
 				var that = this;
 				
@@ -40,6 +45,9 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 
 			        var menuView = new MenuView({el: $('#menu')});
 					menuView.render();
+
+					clearTimeout(delay);
+					$('#message').hide();
 			    }
 				
 				var fetchError = function() {
@@ -63,7 +71,6 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			},
 			
 			selectObject: function(event) {
-				console.log('selectObject');
 				if (event.target.id == 'renameObj') {
 					return;
 				}
@@ -146,7 +153,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			},
 			
 			downloadObject: function() {
-				// TODO Handle multiple select.
+				// TODO Handle multiple select, no select.
 				var name = $('#rightPaneTable .objectSelected').find('span').text();
 				var urlStr = 'cloud/object/download?type=' + localStorage.getItem('storageType') + '&storageName=' + sessionStorage.storageName + '&name=' + name;
 				$('#downloadFile').attr('href', urlStr);
@@ -154,12 +161,23 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			},
 			
 			copyObject: function() {
-				// TODO Handle multiple select.
+				// TODO Handle multiple select, no select.
 				sessionStorage.sourceStorage = sessionStorage.storageName;
 				sessionStorage.sourceObject = $('#rightPaneTable .objectSelected').find('span').text();
+				
+				$('#message').html('<p>' + sessionStorage.sourceObject + ' copied </p>').show();
+				var delay = setTimeout(
+                		function() {
+            				$('#message').hide();
+                		},
+                		3000
+                );				
 			},
 			
 			pasteObject: function() {
+				// TODO Handle no copy.
+				$('#message').html('<p>Pasting ...</p>').show();				
+				
 				var urlStr = 'cloud/object/copy?type=' + localStorage.getItem('storageType') +
 									'&source=' + sessionStorage.sourceStorage + '&destination=' + sessionStorage.storageName +
 									'&name=' + sessionStorage.sourceObject + '&newName=' + sessionStorage.sourceObject;
@@ -183,6 +201,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			
 			moveObject: function() {
 				// TODO Move.
+				alert('Drag the file into the destination bucket.');
 			},
 			
 			dragStart: function(event) {
@@ -190,7 +209,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			},
 			
 			renameObjectStart: function() {
-				// TODO Handle multiple select.
+				// TODO Handle multiple select, no select.
 				this.originalName = $('#rightPaneTable .objectSelected').find('span').text();
 				console.log('renameObjectStart: ' + this.originalName);
 				// TODO Improve look.
