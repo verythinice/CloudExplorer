@@ -8,12 +8,24 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'collection/storageC
 		    	// TODO UI for user to choose.
 		    	localStorage.setItem('storageType', 'aws');
 		    	$(window).on('resize', this.resizeWindow);
+
+		    	/*
+		    	window.addEventListener("dragover",function(e){
+		    		  e = e || event;
+		    		  e.preventDefault();
+		    	},false);
+		    	window.addEventListener("drop",function(e){
+		    		  e = e || event;
+		    		  e.preventDefault();
+	    		},false);
+	    		*/
 		    },
 		    
 		    events: {
 		    	'mousedown #middlePane': 'startResizePane',
 		    	'dragover .droppableObject': 'dragOver',
 		    	'drop .droppableObject': 'drop',
+		    	'dragover': 'dropPreventDefault',
 		    	'drop': 'dropPreventDefault'
 		    },
 
@@ -145,6 +157,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'collection/storageC
 		    },
 		    
 		    dropPreventDefault: function(event) {
+		    	console.log('dropPreventDefault');
 		    	event.preventDefault();
 		    },
 		});

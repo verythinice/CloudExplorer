@@ -64,29 +64,45 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/leftP
 		    },
 		    
 		    drop: function(event) {
+		    	console.log('drop');
+		    	$('#message').html('<p>Moving ...</p>').show();
 		    	event.preventDefault();
 
-		    	// TODO Multiple select.
+		    	// OLD Single select, keep for reference for now.
+		    	/*
 		    	var data = event.originalEvent.dataTransfer.getData('dragObject');
 				var value = $('#' + data).text();
+				*/
+				
 				var destination = event.target.id;
 				if ($('#' + event.target.id).is('td')) {
 					destination = $('#' + event.target.id).children().attr('id');
 				}
-				var urlStr = 'cloud/object/move?type=' + localStorage.getItem('storageType') + '&source=' + sessionStorage.storageName + '&destination=' + destination + '&name=' + value;
+				
+				var $selected = $('#rightPaneTable .objectSelected');
+				var num = $selected.length;
+				
+				$selected.each(function() {
+					var value = $(this).find('span').text();
+					var urlStr = 'cloud/object/move?type=' + localStorage.getItem('storageType') + '&source=' + sessionStorage.storageName + '&destination=' + destination + '&name=' + value;
+					console.log('drop: ' + value);
 
-				$.ajax({
-                	url: urlStr,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data, textStatus, xhr) {
-						PubSubEvents.trigger('refreshRightPane');
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-						// TODO Handle error.
-						console.log(textStatus);
-                    }
-                });
+					$.ajax({
+	                	url: urlStr,
+	                    type: 'GET',
+	                    dataType: 'json',
+	                    success: function(data, textStatus, xhr) {
+							num--;
+							if (num == 0) {
+								PubSubEvents.trigger('refreshRightPane');
+							}
+	                    },
+	                    error: function(xhr, textStatus, errorThrown) {
+							// TODO Handle error.
+							console.log(textStatus);
+	                    }
+	                });
+				});
 		    },
 		    
 		    startHoverStorage: function(event) {

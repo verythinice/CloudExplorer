@@ -11,6 +11,8 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 				PubSubEvents.bind('menuMove', this.moveObject, this);
 				PubSubEvents.bind('menuRename', this.renameObjectStart, this);
 				PubSubEvents.bind('menuDelete', this.deleteObject, this);
+				
+				this.renameObj = false;
 			},
 			
 			events: {
@@ -72,7 +74,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			},
 			
 			selectObject: function(event) {
-				if (event.target.id == 'renameObj') {
+				if (this.renameObj) {
 					return;
 				}
 				
@@ -154,8 +156,20 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			},
 			
 			downloadObject: function() {
-				// TODO Handle multiple select, no select.
-				var name = $('#rightPaneTable .objectSelected').find('span').text();
+				$selected = $('#rightPaneTable .objectSelected');
+				if ($selected.length == 0) {
+					$('#message').html('<p>Select a file to download.</p>').show();
+					var delay = setTimeout(
+	                		function() {
+	            				$('#message').hide();
+	                		},
+	                		3000
+	                );				
+					return;
+				}
+				
+				// TODO Handle multiple select.
+				var name = $selected.find('span').text();
 				var urlStr = 'cloud/object/download?type=' + localStorage.getItem('storageType') + '&storageName=' + sessionStorage.storageName + '&name=' + name;
 				$('#downloadFile').attr('href', urlStr);
 				$('#downloadFile')[0].click();
@@ -201,7 +215,8 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			},
 			
 			moveObject: function() {
-				$('#message').html('<p>Drag the file and drop it into the destination bucket</p>').show();
+				// TODO Move dialog.
+				$('#message').html('<p>Select file(s), drag the file(s) and drop it into the destination bucket</p>').show();
 				var delay = setTimeout(
                 		function() {
             				$('#message').hide();
@@ -211,8 +226,21 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			},
 			
 			dragStart: function(event) {
+				console.log('dragStart: ' + event.target.id);
 				$('#rightPane').removeClass('droppableObject');
 				event.originalEvent.dataTransfer.setData('dragObject', event.target.id);
+				
+				var $target = $('#' + event.target.id);
+				if (!$target.is('tr')) {
+					$target = $('#' + event.target.id).parents('tr');
+				}
+				
+				
+				if (!$target.hasClass('objectSelected')) {
+					console.log('dragStart: no selection');
+					$('#rightPaneTable .objectSelected').removeClass('objectSelected');
+					$target.removeClass('objectHover').addClass('objectSelected');
+				}
 			},
 		    
 		    dragstop: function(event) {
@@ -221,6 +249,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 		    },
 			
 			renameObjectStart: function() {
+				this.renameObj = true;
 				// TODO Handle multiple select, no select.
 				this.originalName = $('#rightPaneTable .objectSelected').find('span').text();
 				console.log('renameObjectStart: ' + this.originalName);
@@ -233,6 +262,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 				console.log('renameObject');
 		    	event.stopPropagation();
 				if (event.keyCode != 13) return;
+				this.renameObj = false;
 				var value = $('#' + event.target.id).val();
 				if (this.originalName == value) {
 					$('#' + event.target.id).hide().prev().show();
@@ -258,7 +288,6 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			deleteObject: function() {
 				var numObj = $('#rightPaneTable .objectSelected').length;
 
-				// TODO Test single and multiple delete.
 				// TODO Use backbone sync?
 				if (numObj == 1) {
 					var name = $('#rightPaneTable .objectSelected').find('span').text();
