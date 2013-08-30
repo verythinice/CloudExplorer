@@ -14,6 +14,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'collection/storageC
 		    	'mousedown #middlePane': 'startResizePane',
 		    	'dragover .droppableObject': 'dragOver',
 		    	'drop .droppableObject': 'drop',
+		    	'drop': 'dropPreventDefault'
 		    },
 
 			render: function() {
@@ -141,7 +142,11 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'collection/storageC
 			        console.log("Type: " + files[i].type);
 			        console.log("Size: " + files[i].size + " bytes");
 			    }
-		    },			
+		    },
+		    
+		    dropPreventDefault: function(event) {
+		    	event.preventDefault();
+		    },
 		});
 
 		return contentView;

@@ -18,6 +18,7 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 				'mouseover tr': 'startHoverObject',
 				'mouseout tr': 'stopHoverObject',
 				'dragstart .draggableObject': 'dragStart',
+		    	'dragend .draggableObject': 'dragstop',
 				'keypress input[type=text]': 'renameObject',
 				'mousedown': 'mousedown',
 			},
@@ -210,8 +211,14 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			},
 			
 			dragStart: function(event) {
+				$('#rightPane').removeClass('droppableObject');
 				event.originalEvent.dataTransfer.setData('dragObject', event.target.id);
 			},
+		    
+		    dragstop: function(event) {
+		    	console.log('dragstop');
+		    	$('#rightPane').addClass('droppableObject');
+		    },
 			
 			renameObjectStart: function() {
 				// TODO Handle multiple select, no select.
