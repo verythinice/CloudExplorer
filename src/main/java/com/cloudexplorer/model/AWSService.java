@@ -33,8 +33,8 @@ import com.cloudexplorer.util.Status;
 
 public class AWSService implements CloudService {
 	private AmazonS3 s3;
-	private ObjectListing currentList = null;
-	private ArrayList<String> markers = null;
+	//private ObjectListing currentList = null;
+	//private ArrayList<String> markers = null;
 	private static AWSService instance;
 	private static final int DEFAULT_MAX_OBJECTS = 20;
 	
@@ -70,16 +70,11 @@ public class AWSService implements CloudService {
 	}
 
 	@Override
-	public String listObjects(String storageName) {
+	public String listObjects(String storageName, String marker) {
 		String output;
 		try{
 			ObjectMapper mapper = new ObjectMapper();
-			ListObjectsRequest request = generateRequest(storageName, null);
-			currentList = s3.listObjects(request);
-			output = mapper.writeValueAsString(currentList);
-			if (markers != null && !markers.isEmpty()){
-				markers.clear();
-			}
+			output = mapper.writeValueAsString(s3.listObjects(generateRequest(storageName, marker)));
 		} catch (AmazonServiceException ase) {
             Status status = new Status(0, ase.toString());
             output = status.toString();
@@ -99,6 +94,7 @@ public class AWSService implements CloudService {
 		return output;
 	}
 	
+	/*
 	public String listNext(){
 		String output;
 		try{
@@ -171,6 +167,7 @@ public class AWSService implements CloudService {
 		}
 		return output;
 	}
+	*/
 
 	@Override
 	public String uploadObject(String storageName, String name, InputStream uploadedInputStream) {
@@ -216,11 +213,11 @@ public class AWSService implements CloudService {
 			}
 			return file;
 		} catch (AmazonServiceException ase) {
-            ase.printStackTrace();
+            return null;
         } catch (AmazonClientException ace) {
-            ace.printStackTrace();
+        	return null;
         } catch (IOException e) {
-			e.printStackTrace();
+        	return null;
 		} finally{
 			if (object != null){
 				try{
@@ -244,7 +241,6 @@ public class AWSService implements CloudService {
 				}	
 			}
 		}
-		return null;
 	}
 	
 	public String copyObject(String source, String destination, String name, String newName){

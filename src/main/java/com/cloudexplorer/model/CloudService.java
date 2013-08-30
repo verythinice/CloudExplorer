@@ -18,22 +18,25 @@ public interface CloudService {
 	/**
 	 * Lists the objects in a specified storage. 
 	 * @param  storageName  the name of the storage.
+	 * @param  marker  A marker that denotes where in the list to start listing
 	 * @return a JSON object of the list of objects.
 	 */
-	public String listObjects(String storageName);
+	public String listObjects(String storageName, String marker);
 	
+	/*
 	/**
 	 * Lists the next page of objects
 	 * @return a JSON object of the next list of objects
-	 */
+	 * Forward slash goes here
 	public String listNext();
-	
+
 	/**
 	 * Lists the previous page of objects.
 	 * @return a JSON object of the previous list of objects.
-	 */
+	 * Forward slash goes here
 	public String listPrevious();
-	
+	*/
+
 	/**
 	 * uploads an object to the specified storage.
 	 * @param  storageName  The name of the storage the object is being uploaded to
