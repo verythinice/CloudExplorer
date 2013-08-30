@@ -79,16 +79,16 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'text!template/menu.
 				$('.submenu').hide();
 				switch (event.target.id) {
 					case 'iconOnly':
-						$('.menuImg').show();
 						$('.menuText').hide();
+						$('.menuImg').addClass('menuImgSpace').show();
 						break;
 					case 'textOnly':
 						$('.menuImg').hide();
-						$('.menuText').show();
+						$('.menuText').addClass('menuTextSpace').show();
 						break;
 					default:
-						$('.menuImg').show();
-						$('.menuText').show();
+						$('.menuImg').removeClass('menuImgSpace').show();
+						$('.menuText').removeClass('menuTextSpace').show();
 						break;
 				}
 			},

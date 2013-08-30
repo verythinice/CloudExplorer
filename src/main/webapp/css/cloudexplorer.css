@@ -81,15 +81,21 @@ h1 {
 	overflow: hidden;
 	border: solid 1px #D3D3D3;
 }
-.menuItem img {
+.menuImg {
 	display: block;
 	margin: auto;
 	padding: 2px;
 }
-.menuItem span {
+.menuText {
 	display: block;
 	margin: auto;
 	padding: 2px;
+}
+.menuImgSpace {
+	padding: 12px 2px;
+}
+.menuTextSpace {
+	padding: 16px 2px;
 }
 
 table.tablesorter {
@@ -289,80 +295,43 @@ table.upload tr td {
 	background-color: #FF5F5F;
 }
 
-.dropdown 
-{
-color: #555;
-margin: 3px -22px 0 0;
-width: 143px;
-position: relative;
-height: 17px;
-text-align:left;
+.submenu {
+	background: #fff;
+	position: fixed;
+	top: -99;
+	left: -99;
+	z-index: 100;
+	display: none;
+	margin: 0;
+	padding: 4px;
+	border-radius: 6px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
 }
-.submenu
-{
-background: #fff;
-position: fixed;
-top: -99;
-left: -99;
-z-index: 100;
-width: 135px;
-display: none;
-margin-left: 10px;
-padding: 0 5px;
-border-radius: 6px;
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+.submenu ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	font-size: 11px;
 }
-.submenu li
-{
-color: #555555;
-display: block;
-font-family: arial;
-font-weight: bold;
-padding: 6px 15px;
-cursor: pointer;
-text-decoration:none;
-cursor: pointer;
+.submenu li {
+	color: #555555;
+	display: block;
+	font-family: arial;
+	font-weight: bold;
+	padding: 6px 24px 6px 12px;
+	cursor: pointer;
+	text-decoration:none;
+	cursor: pointer;
+	border-top: 1px solid #dedede;
 }
-.submenu li:hover
-{
-background:#155FB0;
-color: #FFFFFF;
-text-decoration: none;
+.submenu li:hover {
+	background:#155FB0;
+	color: #FFFFFF;
+	text-decoration: none;
 }
-a.account 
-{
-font-size: 11px;
-line-height: 16px;
-color: #555;
-position: absolute;
-z-index: 110;
-display: block;
-padding: 11px 0 0 20px;
-height: 28px;
-width: 121px;
-margin: -11px 0 0 -10px;
-text-decoration: none;
-background: url(icons/arrow.png) 116px 17px no-repeat;
-cursor:pointer;
+.submenu li:last-child {
+	border-bottom: 1px solid #dedede;
 }
-.root
-{
-list-style:none;
-margin:0px;
-padding:0px;
-font-size: 11px;
-padding: 11px 0 0 0px;
-border-top:1px solid #dedede;
-}
-
-
-.error-message {
-	color:red; font-size:75%; font-weight:bold; margin:0 0 .5em;
-}
-.error {
-	border:1px solid red;
-}
-
 
 /*
 #resizePane {
