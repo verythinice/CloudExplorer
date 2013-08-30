@@ -1,21 +1,15 @@
-define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 'text!template/uploadDialog.html'],
-	function($, _, Backbone, PubSubEvents, ModalDialogView, uploadDialogTemplate) {
+define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 'text!template/uploadStatus.html'],
+	function($, _, Backbone, PubSubEvents, ModalDialogView, uploadStatusTemplate) {
 
 		// TODO Remove selected files/cancel upload, drag and drop, hover close icon.
-		var uploadDialogView = ModalDialogView.extend({
+		var uploadStatusView = ModalDialogView.extend({
 			initialize: function() {
 				_.bindAll(this, 'render');
-				this.template = _.template(uploadDialogTemplate);
-				this.fileList = [];
-				this.fileNum = 0;
-
-				// TODO No validation yet, check for duplicate files.
-				// Backbone.Validation.bind( this, {valid:this.hideError, invalid:this.showError});
+				PubSubEvents.bind('dropUploadFile', this.uploadFile, this);
+				this.template = _.template(uploadStatusTemplate);
 			},
 			
 			events: {
-				'submit form': 'uploadFile',
-				'change #fileList': 'selectFile'
 			},
 			
 			render: function() {
@@ -23,30 +17,28 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 
 				return this;
 			},
 			
-			selectFile: function(event) {
-				var fileList = document.getElementById('fileList');
-				for (var i = 0; i < fileList.files.length; i ++) {
-					$('#selectedFiles').append('<tr><td id="file_' + this.fileNum + '">' + fileList.files[i].name + '</td><td>' + fileList.files[i].size + 
-							'</td></tr><tr><td id="progress_' + this.fileNum + 
-							'"><div id="bar_' + this.fileNum + 
-							'" class="bar"></div></td><td id="percent_' + this.fileNum + '"></td></tr>');
-					this.fileList.push(fileList.files[i]);
-					this.fileNum++;
+			addFile: function(files) {
+				this.files = files;
+				this.fileNum = this.files.length;
+				for (var i = 0; i < this.files.length; i ++) {
+					$('#droppedFiles').append('<tr><td id="fileDrop_' + i + '">' + this.files[i].name + '</td><td>' + this.files[i].size + 
+							'</td></tr><tr><td id="progressDrop_' + i + 
+							'"><div id="barDrop_' + i + 
+							'" class="bar"></div></td><td id="percentDrop_' + i + '"></td></tr>');
 				}
-				$('#numFileSelected').html(this.fileNum);
+				$('#numFileDropped').html(this.files.length);
 			},
 			
-			uploadFile: function(event) {
+			uploadFile: function() {
 				var that = this;
-				event.preventDefault();
 
 		        var uploadProgress = function(event) {
 		        	var name = event.target.myParam;
 		        	
 		            if (event.lengthComputable) {
 		                var percentComplete = Math.round(event.loaded * 100 / event.total);
-		                $('#bar_' + name).width(percentComplete + '%');
-		                $('#percent_' + name).html(percentComplete.toString() + '%');
+		                $('#barDrop_' + name).width(percentComplete + '%');
+		                $('#percentDrop_' + name).html(percentComplete.toString() + '%');
 		                
 		            	console.log('uploadProgress: ' + percentComplete.toString() + '%' + ', ' + name);
 		            }
@@ -58,8 +50,8 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 
 		        var uploadComplete = function(event) {
 		        	var name = event.target.myParam;
 
-	                $('#bar_' + name).width('100%');
-	                $('#percent_' + name).html('100%');
+	                $('#barDrop_' + name).width('100%');
+	                $('#percentDrop_' + name).html('100%');
 	                that.fileNum--;
 
 					console.log('uploadComplete: ' + name + ', ' + that.fileNum);
@@ -86,15 +78,13 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 
 		            alert("The upload has been canceled by the user or the browser dropped the connection.");
 		        }
 		        
-		        $('#browseFiles').hide();
-		        $('#uploadButton').hide();
 		        $('.bar').show();
 				
-				for (var i = 0; i < this.fileList.length; i ++) {
+				for (var i = 0; i < this.files.length; i ++) {
 		            var formData = new FormData();
 					formData.append('type', 'aws');
 					formData.append('storageName', sessionStorage.storageName);
-					formData.append('file', this.fileList[i]);
+					formData.append('file', this.files[i]);
 				    
 		            var xhr = new XMLHttpRequest();
 		            xhr.upload.myParam = i;
@@ -108,6 +98,6 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'view/modalDialog', 
 	        },
 		});
 	
-		return uploadDialogView;
+		return uploadStatusView;
 	}
 );

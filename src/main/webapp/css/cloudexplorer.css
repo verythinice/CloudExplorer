@@ -226,7 +226,7 @@ label {
 	padding: 12px 0 0 0;
 }
 
-#selectedFilesDiv {
+#selectedFilesDiv, #droppedFilesDiv {
 	margin: 6px 0;
 	width: 400px;
 	min-height: 200px;
@@ -257,10 +257,12 @@ table.upload tr td {
 	display: none;
 }
 #message {
+	/*
 	display: none;
+	*/
 	position: absolute;
 	z-index: 99;
-	top: 0;
+	top: 100px;
 	left: 0;
 	margin: 0;
 	padding: 0;
@@ -269,17 +271,22 @@ table.upload tr td {
 #message p {
 	position: relative;
 	margin: auto;
-	padding: 2px 4px;
-	width: 300px;
-	text-align: center;
-	background-color: #D6EBFF;
-	-moz-box-shadow: inset 0 0 2px 1px #8AB8E6;
-	-webkit-box-shadow: inset 0 0 2px 1px #8AB8E6;
-	box-shadow: inset 0 0 2px 1px #8AB8E6;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-	opacity: 0.7;
+	padding: 10px;
+	width: 30%;
+	min-height: 15px;
+	text-align: left;
+	color: #eee;
+	background-color: #29A35C;
+	-moz-box-shadow: inset 0 0 2px 1px #B2B2B2;
+	-webkit-box-shadow: inset 0 0 2px 1px #B2B2B2;
+	box-shadow: inset 0 0 2px 1px #B2B2B2;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	opacity: 0.8;
+}
+#message p.error {
+	background-color: #FF5F5F;
 }
 
 .dropdown 

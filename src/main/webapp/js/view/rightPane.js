@@ -200,8 +200,13 @@ define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'tablesorter', 'view
 			},
 			
 			moveObject: function() {
-				// TODO Move.
-				alert('Drag the file into the destination bucket.');
+				$('#message').html('<p>Drag the file and drop it into the destination bucket</p>').show();
+				var delay = setTimeout(
+                		function() {
+            				$('#message').hide();
+                		},
+                		3000
+                );				
 			},
 			
 			dragStart: function(event) {

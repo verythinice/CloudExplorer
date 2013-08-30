@@ -1,5 +1,5 @@
-define(['jquery', 'underscore', 'backbone', 'collection/storageCollection', 'collection/objectCollection', 'view/leftPane', 'view/middlePane', 'view/rightPane', 'text!template/content.html'],
-	function($, _, Backbone, StorageCollection, ObjectCollection, LeftPaneView, MiddlePaneView, RightPaneView, contentTemplate) {
+define(['jquery', 'underscore', 'backbone', 'pubSubEvents', 'collection/storageCollection', 'collection/objectCollection', 'view/leftPane', 'view/middlePane', 'view/rightPane', 'view/uploadStatus', 'text!template/content.html'],
+	function($, _, Backbone, PubSubEvents, StorageCollection, ObjectCollection, LeftPaneView, MiddlePaneView, RightPaneView, UploadStatusView, contentTemplate) {
 
 		var contentView = Backbone.View.extend({
 			el: $('#content'),
@@ -12,7 +12,8 @@ define(['jquery', 'underscore', 'backbone', 'collection/storageCollection', 'col
 		    
 		    events: {
 		    	'mousedown #middlePane': 'startResizePane',
-		    	//'mouseup': 'stopResizePane',
+		    	'dragover .droppableObject': 'dragOver',
+		    	'drop .droppableObject': 'drop',
 		    },
 
 			render: function() {
@@ -113,7 +114,34 @@ define(['jquery', 'underscore', 'backbone', 'collection/storageCollection', 'col
 				rightPaneWidth = parentWidth - 6 - leftPaneWidth;
 				$('#rightPane').width(rightPaneWidth);
 				$('#rightPane').css({left: leftPaneWidth + 6});
-		    }
+		    },
+		    
+		    dragOver: function(event) {
+		    	event.preventDefault();
+		    },
+		    
+		    drop: function(event) {
+		    	event.preventDefault();
+
+		    	var files = event.originalEvent.dataTransfer.files;
+				var uploadStatusView = new UploadStatusView();
+				uploadStatusView.render().showModal();
+				uploadStatusView.addFile(files);
+				// Give time for the dialog to render.
+				var delay = setTimeout(
+                		function() {
+                			PubSubEvents.trigger('dropUploadFile');
+                		},
+                		1000
+                );	
+
+		    	var len = files.length;
+			    for (var i = 0; i < len; i++) {
+			        console.log("Filename: " + files[i].name);
+			        console.log("Type: " + files[i].type);
+			        console.log("Size: " + files[i].size + " bytes");
+			    }
+		    },			
 		});
 
 		return contentView;

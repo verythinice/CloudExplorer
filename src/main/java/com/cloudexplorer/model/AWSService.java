@@ -36,7 +36,7 @@ public class AWSService implements CloudService {
 	private ObjectListing currentList = null;
 	private ArrayList<String> markers = null;
 	private static AWSService instance;
-	private static final int DEFAULT_MAX_OBJECTS = 2;
+	private static final int DEFAULT_MAX_OBJECTS = 20;
 	
 	
 	private AWSService(){
